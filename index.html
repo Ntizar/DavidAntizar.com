@@ -534,7 +534,7 @@ const vistas={
   },
   correo:()=>`<div class="lista-ios">
     <div class="fila-app" style="cursor:default"><span class="ic" style="background:linear-gradient(160deg,#35a8ff,#0a60ff)">✉</span><span><b>Bandeja de entrada</b><small>42 sin leer · 0 de spam</small></span><span class="chevron">42</span></div>
-    <a class="fila-app" href="mailto:hola@davidantizar.com"><span class="ic" style="background:var(--ios-blue)">＋</span><span>Redactar a David<small>hola@davidantizar.com</small></span><span class="chevron">›</span></a>
+    <a class="fila-app" href="mailto:dantizar@gmail.com"><span class="ic" style="background:var(--ios-blue)">＋</span><span>Redactar a David<small>dantiZAR@gmail.com</small></span><span class="chevron">›</span></a>
     ${filaLink("substack")}
   </div>
   <button class="boton-ios" data-mailto>Escribir un correo a David</button>`,
@@ -671,7 +671,7 @@ function abrirVisor(id){
       else if(d.c==="%"){act=String((parseFloat(act)||0)/100);p.textContent=fmt(act);}
     });
   }
-  cuerpo.querySelectorAll("[data-mailto]").forEach(b=>b.addEventListener("click",()=>{location.href="mailto:hola@davidantizar.com";}));
+  cuerpo.querySelectorAll("[data-mailto]").forEach(b=>b.addEventListener("click",()=>{location.href="mailto:dantizar@gmail.com";}));
 }
 function cerrarVisor(){elVisor.classList.remove("abierta");}
 document.getElementById("visor-volver").addEventListener("click",cerrarVisor);
