@@ -4,40 +4,40 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
 <title>David Antizar — otra manera de mirar al mundo</title>
-<meta name="description" content="La web de David Antizar: un iPhone. Desliza hacia arriba, te reconoce la cara y entra a su escritorio. LinkedIn, X, Substack, el libro, GitHub, correo y calendario de vacaciones.">
+<meta name="description" content="La web de David Antizar: un iPhone. Desliza hacia arriba, Face ID de mentira y su escritorio. LinkedIn, X, Substack, el libro, GitHub, correo y calendario de vacaciones.">
 <meta property="og:title" content="David Antizar — otra manera de mirar al mundo">
 <meta property="og:description" content="Abre esta web como si fuera tu iPhone: scroll hacia arriba, Face ID falso, escritorio con apps.">
-<meta property="og:image" content="assets/img/wallpaper-morado.jpg">
+<meta property="og:image" content="assets/img/wallpaper-grafito.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230a84ff'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'%3ED%3C/text%3E%3C/svg%3E">
 <style>
 /* ============================================================
-   davidantizar.com — clon de iPhone (iOS 26), no Aurora (a propósito).
-   Fases: BLOQUEO → FACE ID → ESCRITORIO → VISOR/CARPETA.
-   Widget calendario arriba, carpetas glass, píldora Búsqueda,
-   dock de 3, batería con %, campana silenciada — calcado del original.
-   Sin JS: escritorio con enlaces reales.
+   davidantizar.com — clon de iPhone (iOS 26). NO Aurora, a propósito.
+   Iconos: dibujados a mano estilo Apple. Las marcas de terceros
+   NO salen en el escritorio: viven dentro de las carpetas.
+   Sin JS: escritorio con enlaces reales. Cámara: cero, jamás.
    ============================================================ */
 :root{
   --iphone-w:390px; --iphone-h:844px; --radius:54px; --bezel:12px;
-  --ios-blue:#0a84ff; --ios-orange:#ff9f0a; --ios-red:#ff453a; --ios-green:#30d158; --texto:#fff;
+  --ios-blue:#0a84ff; --ios-orange:#ff9f0a; --ios-red:#ff453a; --ios-green:#30d158;
+  --texto:#fff;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  background:#000;color:var(--texto);overflow:hidden;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:#0a0a0c;color:var(--texto);overflow:hidden;
   display:flex;align-items:center;justify-content:center;-webkit-font-smoothing:antialiased;
   transition:filter .3s ease;
 }
-/* El wallpaper desenfocado rodea al teléfono en PC */
 .escenario{position:fixed;inset:0;z-index:0}
-.escenario img{width:100%;height:100%;object-fit:cover;filter:blur(60px) brightness(.45) saturate(1.4);transform:scale(1.2)}
+.escenario img{width:100%;height:100%;object-fit:cover;filter:blur(70px) brightness(.4) saturate(1.2);transform:scale(1.2)}
 .telefono{
   position:relative;z-index:2;width:min(var(--iphone-w),100vw);height:min(var(--iphone-h),100dvh);
   background:#000;border-radius:var(--radius);
-  box-shadow:0 0 0 2px #3a3a3c,0 0 0 var(--bezel) #1c1c1e,0 40px 120px rgba(0,0,0,.8);
+  box-shadow:0 0 0 2px #414143,0 0 0 var(--bezel) #17171a,0 50px 140px rgba(0,0,0,.85);
   overflow:hidden;flex-shrink:0;
 }
 @media (max-width:430px){.telefono{--radius:0;box-shadow:none;border-radius:0}.escenario{display:none}}
@@ -45,8 +45,9 @@ body{
 .fase{position:absolute;inset:0;transition:transform .6s cubic-bezier(.32,.72,0,1),opacity .5s ease}
 html.js .fase-oculta{opacity:0;pointer-events:none;transform:scale(1.08)}
 html:not(.js) #bloqueo,html:not(.js) #cara{display:none}
-/* ─── Barra de estado: izq hora+campana, der señal+wifi+batería con % ─── */
-.statusbar{position:absolute;top:0;left:0;right:0;height:54px;display:flex;align-items:center;justify-content:space-between;padding:16px 30px 0;font-size:15px;font-weight:600;z-index:40;pointer-events:none}
+
+/* ─── Barra de estado ─── */
+.statusbar{position:absolute;top:0;left:0;right:0;height:54px;display:flex;align-items:center;justify-content:space-between;padding:16px 30px 0;font-size:15px;font-weight:600;z-index:40;pointer-events:none;letter-spacing:.2px}
 .notch{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:120px;height:34px;background:#000;border-radius:20px;z-index:41}
 .sb-iz{display:flex;align-items:center;gap:7px}
 .sb-der{display:flex;align-items:center;gap:7px}
@@ -57,26 +58,26 @@ html:not(.js) #bloqueo,html:not(.js) #cara{display:none}
 .sb-bateria::after{content:"";position:absolute;right:-4px;top:3.5px;width:2px;height:4px;background:rgba(255,255,255,.5);border-radius:0 2px 2px 0}
 .sb-bateria i{display:block;height:100%;width:31%;background:#fff;border-radius:2px}
 .sb-bateria b{position:absolute;left:2px;top:0;bottom:0;right:0;display:flex;align-items:center;font-size:7.5px;font-weight:700;color:#fff}
-/* ─── FASE 1 · Bloqueo ─── */
-#bloqueo{display:flex;flex-direction:column;align-items:center;background-size:cover;background-position:center}
-#bloqueo .wall{position:absolute;inset:0;background-size:cover;background-position:center;transition:opacity 1.2s ease}
-#bloqueo .contenido{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;padding-top:78px;text-shadow:0 1px 12px rgba(0,0,0,.35)}
-.hora{font-size:78px;font-weight:700;letter-spacing:-2px;line-height:1;font-variant-numeric:tabular-nums}
-.fecha{font-size:19px;font-weight:600;margin-top:6px;opacity:.95}
-.notif{margin-top:30px;width:calc(100% - 44px);background:rgba(120,120,128,.32);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-radius:19px;padding:13px 16px;display:flex;gap:12px;align-items:flex-start;text-align:left}
+
+/* ─── Bloqueo ─── */
+#bloqueo{display:flex;flex-direction:column;align-items:center}
+#bloqueo .wall{position:absolute;inset:0;background-size:cover;background-position:center}
+#bloqueo .contenido{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;padding-top:76px;text-shadow:0 1px 14px rgba(0,0,0,.4)}
+.hora{font-size:80px;font-weight:700;letter-spacing:-3px;line-height:1;font-variant-numeric:tabular-nums}
+.fecha{font-size:19px;font-weight:600;margin-top:8px}
+.notif{margin-top:28px;width:calc(100% - 44px);background:rgba(30,30,34,.5);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-radius:20px;padding:13px 15px;display:flex;gap:12px;align-items:flex-start;text-align:left}
 .notif .ic{width:36px;height:36px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.notif .t{font-size:15px;font-weight:600}.notif .p{font-size:14px;opacity:.85;margin-top:2px;line-height:1.3}.notif .h{font-size:13px;opacity:.6;float:right}
-.aviso-vac{margin-top:12px;width:calc(100% - 44px);background:rgba(255,159,10,.22);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:14px;padding:9px 14px;font-size:13.5px;text-align:center}
-.deshaz{position:absolute;bottom:32px;left:0;right:0;text-align:center;font-size:15px;font-weight:600;z-index:3;animation:latido 2.4s ease-in-out infinite}
-.deshaz .linea{width:130px;height:5px;background:rgba(255,255,255,.9);border-radius:3px;margin:12px auto 0}
-@keyframes latido{0%,100%{opacity:.55;transform:translateY(0)}50%{opacity:1;transform:translateY(-6px)}}
-.antorchas{position:absolute;bottom:76px;left:0;right:0;display:flex;justify-content:space-between;padding:0 46px;z-index:3}
-.antorcha{width:54px;height:54px;border-radius:50%;background:rgba(120,120,128,.3);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;border:none;color:#fff}
-/* ─── FASE 2 · Face ID ─── */
+.notif .t{font-size:15px;font-weight:600}.notif .p{font-size:14px;opacity:.8;margin-top:2px;line-height:1.3}.notif .h{font-size:13px;opacity:.55;float:right}
+.aviso-vac{margin-top:12px;width:calc(100% - 44px);background:rgba(10,132,255,.28);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:14px;padding:9px 14px;font-size:13.5px;text-align:center}
+.deshaz{position:absolute;bottom:32px;left:0;right:0;text-align:center;font-size:15px;font-weight:500;z-index:3;animation:latido 2.6s ease-in-out infinite}
+.deshaz .linea{width:134px;height:5px;background:rgba(255,255,255,.9);border-radius:3px;margin:12px auto 0}
+@keyframes latido{0%,100%{opacity:.5}50%{opacity:1}}
+.antorchas{position:absolute;bottom:74px;left:0;right:0;display:flex;justify-content:space-between;padding:0 46px;z-index:3}
+.antorcha{width:52px;height:52px;border-radius:50%;background:rgba(40,40,44,.45);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;border:none;color:#fff}
+
+/* ─── Face ID ─── */
 #cara{background:rgba(0,0,0,.55);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;z-index:30}
 .escaner{position:relative;width:150px;height:190px}
-.escaner video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;transform:scaleX(-1);opacity:0;transition:opacity .5s}
-.escaner video{display:none}
 .cara-svg{position:absolute;inset:0;width:100%;height:100%}
 .cara-svg .contorno{stroke:rgba(255,255,255,.35);stroke-width:2;fill:none;stroke-dasharray:6 8;animation:girar 6s linear infinite}
 .cara-svg .rasgo{stroke:rgba(255,255,255,.5);stroke-width:2;fill:none;stroke-linecap:round}
@@ -84,99 +85,130 @@ html:not(.js) #bloqueo,html:not(.js) #cara{display:none}
 .anillo{position:absolute;inset:-16px;border-radius:60px;border:3px solid var(--ios-blue);opacity:0;transform:scale(.9);transition:all .6s cubic-bezier(.32,.72,0,1)}
 #cara.escaneando .anillo{opacity:1;transform:scale(1);border-color:rgba(255,255,255,.7)}
 #cara.ok .anillo{opacity:1;transform:scale(1);border-color:var(--ios-green)}
-.candado{position:absolute;bottom:-46px;left:50%;transform:translateX(-50%);width:34px;height:34px;transition:transform .4s}
+.candado{position:absolute;bottom:-46px;left:50%;transform:translateX(-50%);width:34px;height:34px}
 #cara.ok .candado{color:var(--ios-green)}
-.texto-cara{font-size:17px;font-weight:600;letter-spacing:.2px}
-.texto-cara small{display:block;text-align:center;font-weight:400;opacity:.6;font-size:14px;margin-top:6px}
+.texto-cara{font-size:17px;font-weight:600}
+.texto-cara small{display:block;text-align:center;font-weight:400;opacity:.55;font-size:14px;margin-top:6px}
 .punto-carga{display:flex;gap:8px}
 .punto-carga b{width:8px;height:8px;border-radius:50%;background:#fff;opacity:.25;animation:pulso 1.2s infinite}
 .punto-carga b:nth-child(2){animation-delay:.2s}.punto-carga b:nth-child(3){animation-delay:.4s}
 @keyframes pulso{0%,100%{opacity:.25}50%{opacity:1}}
-/* ─── FASE 3 · Escritorio ─── */
-#escritorio{background-size:cover;background-position:center;display:flex;flex-direction:column}
+
+/* ─── Escritorio ─── */
+#escritorio{display:flex;flex-direction:column}
 #escritorio .wall{position:absolute;inset:0;background-size:cover;background-position:center}
-.velos{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(0,0,0,.28),transparent 55%)}
-.rejilla{position:relative;z-index:2;flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:19px 8px;padding:78px 20px 6px;align-content:start;overflow:hidden}
+.velos{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),transparent 22%)}
+.rejilla{position:relative;z-index:2;flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:20px 6px;padding:76px 18px 4px;align-content:start;overflow:hidden}
 .app{display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;color:#fff;background:none;border:none;font-family:inherit;cursor:pointer;padding:0}
-.app__icono{width:62px;height:62px;border-radius:15px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.3);transition:transform .18s cubic-bezier(.32,.72,0,1);position:relative;overflow:visible}
-.app__icono::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,0) 44%);pointer-events:none}
+.app__icono{width:62px;height:62px;border-radius:15.5px;display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 5px 14px rgba(0,0,0,.4);overflow:visible;transition:transform .18s cubic-bezier(.32,.72,0,1)}
+.app__icono>svg.icono{width:100%;height:100%;display:block;border-radius:15.5px}
 .app:active .app__icono{transform:scale(.88)}
-.app__icono svg{width:34px;height:34px}
-.app__nombre{font-size:12px;font-weight:500;text-shadow:0 1px 6px rgba(0,0,0,.75);max-width:76px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.insignia{position:absolute;top:-5px;right:-6px;min-width:20px;height:20px;border-radius:10px;background:var(--ios-red);color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;padding:0 5px;z-index:2}
-/* Widget de calendario (blanco, columnas, chips crema) */
-.widget{grid-column:1/-1;display:flex;gap:13px;background:#fff;color:#1c1c1e;border-radius:26px;padding:14px 15px;height:180px;box-shadow:0 6px 18px rgba(0,0,0,.3);overflow:hidden;border:none;font-family:inherit;cursor:pointer;text-align:left}
+.app__nombre{font-size:12px;font-weight:500;text-shadow:0 1px 8px rgba(0,0,0,.8);max-width:78px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.insignia{position:absolute;top:-5px;right:-6px;min-width:20px;height:20px;border-radius:10px;background:#ff3b30;color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;padding:0 5px;z-index:2}
+.reloj-ag{transform-origin:31px 31px}
+/* Widget calendario */
+.widget{grid-column:1/-1;display:flex;gap:13px;background:#fff;color:#1c1c1e;border-radius:26px;padding:14px 15px;height:172px;box-shadow:0 8px 22px rgba(0,0,0,.35);overflow:hidden;border:none;font-family:inherit;cursor:pointer;text-align:left}
 .widget__col{flex:1;min-width:0}
-.widget__dow{font-size:12px;font-weight:700;letter-spacing:.4px;color:var(--ios-red);text-transform:uppercase}
-.widget__day{font-size:42px;font-weight:600;line-height:.95;margin:4px 0 2px;font-variant-numeric:tabular-nums}
-.widget__otro{font-size:11px;font-weight:600;color:#8e8e93;text-transform:uppercase;margin-top:14px}
-.widget__ev{display:flex;align-items:center;gap:6;background:#f6e7d4;color:#7c4a1d;border-radius:9px;padding:6px 7px;font-size:12.5px;margin-top:7px;white-space:nowrap;overflow:hidden}
-.widget__ev .pt{width:3px;height:16px;border-radius:3px;background:#f59f0a;flex-shrink:0}
+.widget__dow{font-size:12px;font-weight:700;letter-spacing:.3px;color:var(--ios-red);text-transform:uppercase}
+.widget__day{font-size:40px;font-weight:600;line-height:1;margin:3px 0 2px;font-variant-numeric:tabular-nums}
+.widget__otro{font-size:10.5px;font-weight:600;color:#8e8e93;text-transform:uppercase;margin-top:12px}
+.widget__ev{display:flex;align-items:center;gap:6;background:#f6ece0;color:#7c4a1d;border-radius:8px;padding:5px 7px;font-size:12px;margin-top:6px;white-space:nowrap;overflow:hidden}
+.widget__ev .pt{width:3px;height:14px;border-radius:3px;background:#f59f0a;flex-shrink:0}
 .widget__ev span{overflow:hidden;text-overflow:ellipsis}
-.widget__ev small{opacity:.65;font-size:10.5px;flex-shrink:0}
-.widget__mas{color:#8e8e93;background:transparent;padding-left:2px}
-/* Píldora Búsqueda */
-.pildora{display:flex;margin:4px auto 8px;width:47%;justify-content:center;align-items:center;gap:7px;background:rgba(255,255,255,.22);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:999px;padding:8px;font-size:14px;color:#fff;border:none;font-family:inherit;cursor:pointer;position:relative;z-index:3}
+.widget__ev small{opacity:.6;font-size:10px;flex-shrink:0}
+.widget__mas{color:#8e8e93;background:transparent;padding-left:9px}
+/* Píldora Búsqueda, motas, dock */
+.pildora{display:flex;margin:6px auto 8px;width:46%;justify-content:center;align-items:center;gap:7px;background:rgba(60,60,66,.55);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:999px;padding:8px;font-size:14px;color:rgba(255,255,255,.92);border:none;font-family:inherit;cursor:pointer;position:relative;z-index:3}
 .mota{position:relative;z-index:3;display:flex;justify-content:center;gap:8px;margin-bottom:10px}
-.mota b{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55)}.mota b.on{background:#fff}
-.dock{position:relative;z-index:2;margin:0 14px 24px;background:rgba(255,255,255,.16);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-radius:30px;padding:13px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mota b{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.5)}.mota b.on{background:#fff}
+.dock{position:relative;z-index:2;margin:0 14px 24px;background:rgba(50,50,56,.5);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-radius:32px;padding:13px 14px;display:grid;grid-template-columns:repeat(3,1fr)}
 .dock .app__nombre{display:none}
-/* Carpetas glass */
-.app__icono--carpeta{background:rgba(40,32,56,.55)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:grid!important;grid-template-columns:repeat(3,1fr);gap:5px;padding:10px!important}
-.mini{width:100%;aspect-ratio:1;border-radius:5px;box-shadow:0 1px 2px rgba(0,0,0,.35)}
-/* ─── Visor ─── */
+/* Carpetas: rejilla 2x2 con fichas de letra (sin logotipos sueltos en el cajón) */
+.carpeta-mini{display:grid!important;grid-template-columns:repeat(2,1fr);gap:5px;padding:9px!important;background:rgba(70,70,76,.6)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.carpeta-mini svg{border-radius:6px;width:100%;height:100%;display:block}
+/* Visor */
 #visor{background:#000;z-index:50;display:flex;flex-direction:column;transform:scale(.3);opacity:0;pointer-events:none;transition:transform .4s cubic-bezier(.32,.72,0,1),opacity .3s}
 #visor.abierta{transform:scale(1);opacity:1;pointer-events:auto}
-.visor__barra{padding:62px 20px 12px;display:flex;align-items:center;justify-content:space-between;background:rgba(28,28,30,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:sticky;top:0;z-index:2}
+.visor__barra{padding:60px 20px 12px;display:flex;align-items:center;justify-content:space-between;background:rgba(28,28,30,.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:sticky;top:0;z-index:2}
 .visor__volver{background:none;border:none;color:var(--ios-blue);font-size:17px;display:flex;align-items:center;gap:4px;cursor:pointer;font-family:inherit}
 .visor__titulo{font-size:17px;font-weight:600}
 .visor__y{width:86px}
 .visor__cuerpo{flex:1;overflow-y:auto;padding:20px;-webkit-overflow-scrolling:touch}
-.cal{width:100%;border-collapse:collapse;font-size:14px}
-.cal th{color:var(--ios-red);font-weight:600;padding:8px 2px;font-size:12px}
-.cal td{text-align:center;padding:9px 2px}
-.cal .vaci td{background:rgba(255,69,58,.16);border-radius:8px}
-.cal-leyenda{margin-top:18px;background:rgba(120,120,128,.16);border-radius:14px;padding:14px 16px;font-size:15px;line-height:1.45}
-.cal-leyenda b{color:var(--ios-blue)}
-.fila-app{display:flex;align-items:center;gap:14px;padding:15px 6px;border-bottom:.5px solid rgba(255,255,255,.12);color:#fff;text-decoration:none;font-size:16px}
-.fila-app .ic{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.fila-app small{display:block;opacity:.55;font-size:13px;margin-top:2px}
-.fila-app .chevron{margin-left:auto;opacity:.35}
+.lista-ios{background:rgba(28,28,30,.9);border-radius:16px;overflow:hidden}
+.lista-ios .fila-app{padding:13px 16px;border-bottom:.5px solid rgba(255,255,255,.08);font-size:16px}
+.lista-ios .fila-app:last-child{border-bottom:none}
+.fila-app{display:flex;align-items:center;gap:13px;padding:15px 6px;color:#fff;text-decoration:none;font-size:16px}
+.fila-app .ic{width:42px;height:42px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;color:#fff;font-size:18px}
+.fila-app small{display:block;opacity:.5;font-size:13px;margin-top:2px;font-weight:400}
+.fila-app .chevron{margin-left:auto;opacity:.3}
 .boton-ios{display:block;background:var(--ios-blue);color:#fff;text-align:center;border-radius:14px;padding:15px;font-size:17px;font-weight:600;text-decoration:none;margin-top:22px;border:none;width:100%;font-family:inherit;cursor:pointer}
-/* Fotos (galería), carpeta abierta, cámara, spotlight */
+.seccion-titulo{font-size:13px;text-transform:uppercase;letter-spacing:.6px;color:#8e8e93;font-weight:600;margin:22px 4px 8px}
+/* Calendario */
+.cal{width:100%;border-collapse:separate;border-spacing:2px;font-size:14px}
+.cal th{color:var(--ios-red);font-weight:600;padding:6px 2px;font-size:12px}
+.cal td{text-align:center;padding:8px 2px;background:rgba(255,69,58,.16);border-radius:8px}
+.cal-leyenda{margin-top:16px;background:rgba(28,28,30,.9);border-radius:14px;padding:14px 16px;font-size:15px;line-height:1.45}
+.cal-leyenda b{color:var(--ios-blue)}
+/* Calc */
+.calc{display:flex;flex-direction:column}
+.calc__pantalla{display:flex;align-items:flex-end;justify-content:flex-end;padding:10px 14px;font-size:56px;font-weight:300;min-height:96px;overflow:hidden;font-variant-numeric:tabular-nums}
+.calc__rejilla{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding-bottom:10px}
+.calc__b{border:none;border-radius:50%;aspect-ratio:1;font-size:26px;font-weight:500;background:#333;color:#fff;cursor:pointer;font-family:inherit}
+.calc__b:active{filter:brightness(1.6)}
+.calc__b--op{background:#ff9f0a}
+.calc__b--gris{background:#a5a5a5;color:#000}
+/* Tiempo / Salud / Recordatorios / Notas */
+.tiempo{text-align:center;padding-top:10px}
+.tiempo__g{font-size:74px;font-weight:200;font-variant-numeric:tabular-nums;margin-top:6px}
+.tiempo__c{font-size:19px;opacity:.75}
+.chk{display:flex;align-items:center;gap:13px;padding:15px 16px;background:rgba(28,28,30,.9);border-radius:14px;margin-bottom:10px;font-size:16px}
+.chk i{width:22px;height:22px;border-radius:50%;border:2px solid #5a5a5f;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:13px;color:transparent}
+.chk.hecho i{background:var(--ios-blue);border-color:var(--ios-blue);color:#fff}
+.chk.hecho span{text-decoration:line-through;opacity:.5}
+.anillos{display:flex;justify-content:center;padding:14px 0}
+.anillos svg{width:200px;height:200px}
+.anillos circle{fill:none;stroke-linecap:round;transform:rotate(-90deg);transform-origin:center}
+.nota{background:rgba(28,28,30,.9);border-radius:16px;padding:16px 18px;margin-bottom:12px;text-decoration:none;color:#fff;display:block}
+.nota b{display:block;font-size:16px}
+.nota small{opacity:.5}
+/* Fotos / ajustes */
 .galeria{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .galeria__item{aspect-ratio:9/16;border-radius:14px;background-size:cover;background-position:center;border:2.5px solid transparent;cursor:pointer;padding:0}
 .galeria__item.on{border-color:var(--ios-blue)}
-.carpita{display:grid;grid-template-columns:repeat(2,1fr);gap:22px 12px;padding-top:10px}
-.carpita .app__nombre{max-width:none;white-space:normal}
-.spot-input{width:100%;background:rgba(120,120,128,.28);border:none;border-radius:12px;padding:12px 14px;color:#fff;font-size:16px;font-family:inherit;margin-bottom:14px}
-.spot-input::placeholder{color:rgba(255,255,255,.5)}
+.fondo-op{aspect-ratio:9/16;border-radius:12px;background-size:cover;background-position:center;border:2.5px solid transparent;cursor:pointer;padding:0}
+.fondo-op.on{border-color:var(--ios-blue)}
+/* Cámara utilería */
 .cam-visor{position:relative;aspect-ratio:3/4;border-radius:22px;overflow:hidden;background:rgba(120,120,128,.25);background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center}
-.cam-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.22) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.22) 1px,transparent 1px);background-size:33.4% 33.4%}
+.cam-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.2) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.2) 1px,transparent 1px);background-size:33.4% 33.4%}
 .cam-focus{width:72px;height:72px;border:2px solid #ffd60a;border-radius:8px;animation:enfoca 4s ease-in-out infinite}
 @keyframes enfoca{0%,100%{transform:translate(-14px,8px)}50%{transform:translate(14px,-12px)}}
 .cam-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
 .cam-flash.on{animation:flashazo .5s ease}
 @keyframes flashazo{0%{opacity:0}12%{opacity:.95}100%{opacity:0}}
-.cam-zoom{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.5);color:#ffd60a;font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px}
 .cam-pie{display:flex;align-items:center;justify-content:space-between;margin-top:18px}
-.cam-mini{width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;opacity:.7}
-.cam-mini.con-foto{background:#ffd60a;color:#000;font-weight:700;opacity:1}
-.cam-disparo{width:64px;height:64px;border-radius:50%;background:#fff;border:4px solid rgba(255,255,255,.45);cursor:pointer;transition:transform .15s}
+.cam-mini{width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:15px;color:rgba(255,255,255,.7)}
+.cam-mini.con-foto{background:#ffd60a;color:#000;font-weight:700}
+.cam-disparo{width:64px;height:64px;border-radius:50%;background:#fff;border:4px solid rgba(255,255,255,.45);cursor:pointer}
 .cam-disparo:active{transform:scale(.88)}
-.cam-nota{margin-top:16px;font-size:13px;opacity:.55;text-align:center;line-height:1.5}
-.credito{position:fixed;bottom:8px;left:0;right:0;text-align:center;font-size:12px;color:rgba(255,255,255,.4);z-index:1;letter-spacing:.3px}
+.cam-nota{margin-top:16px;font-size:13px;opacity:.5;text-align:center;line-height:1.5}
+/* Spotlight y carpeta abierta */
+.spot-input{width:100%;background:rgba(120,120,128,.28);border:none;border-radius:12px;padding:12px 14px;color:#fff;font-size:16px;font-family:inherit;margin-bottom:14px}
+.spot-input::placeholder{color:rgba(255,255,255,.5)}
+.carpita{display:grid;grid-template-columns:repeat(2,1fr);gap:24px 12px;padding-top:10px}
+.carpita .app__nombre{max-width:none;white-space:normal}
+.carpita .app__icono{width:72px;height:72px}
+.credito{position:fixed;bottom:8px;left:0;right:0;text-align:center;font-size:12px;color:rgba(255,255,255,.35);z-index:1;letter-spacing:.3px}
 @media (max-width:430px){.credito{bottom:max(8px,env(safe-area-inset-bottom))}}
 @keyframes zoom-app{from{transform:scale(1);opacity:1}to{transform:scale(1.4);opacity:0}}
 .app.abriendo .app__icono{animation:zoom-app .3s forwards cubic-bezier(.32,.72,0,1)}
-html:not(.js) .rejilla{padding-top:56px}
+html:not(.js) .rejilla{padding-top:52px}
 html:not(.js) .deshaz,html:not(.js) .antorchas,html:not(.js) .mota,html:not(.js) .pildora,html:not(.js) .widget{display:none}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
 
-<div class="escenario" aria-hidden="true"><img id="wall-gorda" src="assets/img/wallpaper-morado.jpg" alt="" onerror="this.src='assets/img/wallpaper-noche.jpg'"></div>
+<div class="escenario" aria-hidden="true"><img id="wall-gorda" src="assets/img/wallpaper-grafito.svg" alt=""></div>
 
 <main class="telefono" id="telefono" aria-label="Web de David Antizar en formato iPhone">
  <div class="pantalla">
@@ -184,9 +216,9 @@ html:not(.js) .deshaz,html:not(.js) .antorchas,html:not(.js) .mota,html:not(.js)
 
   <!-- ═══ BLOQUEO ═══ -->
   <section class="fase" id="bloqueo" aria-label="Pantalla de bloqueo">
-    <div class="wall" id="wall-bloqueo" style="background-image:url('assets/img/wallpaper-morado.jpg')"></div>
+    <div class="wall" id="wall-bloqueo"></div>
     <div class="statusbar">
-      <span class="sb-iz"><span id="hora-sb">14:06</span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 2 8 2 8H4s2-1 2-8"/><path d="M10 20a2 2 0 0 0 4 0"/><path d="M3 3l18 18"/></svg></span>
+      <span class="sb-iz"><span id="hora-sb">14:06</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 2 8 2 8H4s2-1 2-8"/><path d="M10 20a2 2 0 0 0 4 0"/><path d="m3 3 18 18"/></svg></span>
       <span class="sb-der">
         <span class="sb-senal" aria-hidden="true"><b></b><b></b><b></b><b></b></span>
         <svg width="15" height="11" viewBox="0 0 16 12" fill="#fff" aria-hidden="true"><path d="M8 11.2 6 8.8a2.9 2.9 0 0 1 4 0zM4.5 7.2a5.4 5.4 0 0 1 7 0l1.3-1.6a7.2 7.2 0 0 0-9.6 0zM2.2 4.5a8.7 8.7 0 0 1 11.6 0L15 2.8a10.5 10.5 0 0 0-14 0z"/></svg>
@@ -196,26 +228,25 @@ html:not(.js) .deshaz,html:not(.js) .antorchas,html:not(.js) .mota,html:not(.js)
       <div class="hora" id="hora-grande">14:06</div>
       <div class="fecha" id="fecha-bloqueo">lunes, 26 de octubre</div>
       <div class="notif">
-        <span class="ic" style="background:#0a66c2"><svg viewBox="0 0 24 24" width="20" height="20" fill="#fff"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13M7.12 20.45H3.56V9h3.56zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.97 0 1.77-.77 1.77-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></span>
+        <span class="ic" style="background:#0a66c2;font-weight:800;color:#fff">in</span>
         <div><span class="h">ahora</span><div class="t">LinkedIn</div><div class="p">Ingeniero de Caminos · AI Builder. Aquí tienes mi perfil →</div></div>
       </div>
       <div class="notif">
-        <span class="ic" style="background:#232f3e"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#ff9900" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V4H6.5A2.5 2.5 0 0 0 4 6.5z"/><path d="M9 8h7M9 12h5"/></svg></span>
+        <span class="ic" style="background:#232f3e;color:#ff9900;font-weight:700">P</span>
         <div><span class="h">ayer</span><div class="t">El poni de Von der Leyen</div><div class="p">Ya a la venta en Amazon. Los hipersónicos también cuentan.</div></div>
       </div>
       <div class="aviso-vac">🏖️ <b>Agosto</b>: de vacaciones. Face ID no atiende llamadas.</div>
     </div>
     <div class="antorchas">
-      <button class="antorcha" id="btn-linterna" aria-label="Linterna"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6.5 2h4a1.5 1.5 0 0 1 1.5 1.5v2.2l.9 1.4a1.6 1.6 0 0 1 .3.9V21a1.5 1.5 0 0 1-1.5 1.5h-6A1.5 1.5 0 0 1 4.2 21V8.9a1.6 1.6 0 0 1 .3-.9l.9-1.4V3.5A1.5 1.5 0 0 1 6.9 2z"/><path d="M6.8 12.2h3.4"/></svg></button>
-      <button class="antorcha" id="btn-cam-antorcha" aria-label="Abrir cámara"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13" r="3.5"/></svg></button>
+      <button class="antorcha" id="btn-linterna" aria-label="Linterna"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6.5 2h4a1.5 1.5 0 0 1 1.5 1.5v2.2l.9 1.4a1.6 1.6 0 0 1 .3.9V21a1.5 1.5 0 0 1-1.5 1.5h-6A1.5 1.5 0 0 1 4.2 21V8.9a1.6 1.6 0 0 1 .3-.9l.9-1.4V3.5A1.5 1.5 0 0 1 6.9 2z"/><path d="M6.8 12.2h3.4"/></svg></button>
+      <button class="antorcha" id="btn-cam-antorcha" aria-label="Abrir la app Cámara"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13" r="3.5"/></svg></button>
     </div>
     <div class="deshaz">Desliza hacia arriba para desbloquear<div class="linea"></div></div>
   </section>
 
-  <!-- ═══ FACE ID ═══ -->
+  <!-- ═══ FACE ID (animación pura, sin cámara) ═══ -->
   <section class="fase fase-oculta" id="cara" aria-label="Reconocimiento facial">
-    <div class="escaner" id="escaner">
-      
+    <div class="escaner">
       <svg class="cara-svg" viewBox="0 0 150 190" aria-hidden="true">
         <path class="contorno" d="M30 55 Q30 18 75 18 Q120 18 120 55 L120 115 Q120 172 75 172 Q30 172 30 115 Z"/>
         <g class="rasgo">
@@ -233,85 +264,73 @@ html:not(.js) .deshaz,html:not(.js) .antorchas,html:not(.js) .mota,html:not(.js)
 
   <!-- ═══ ESCRITORIO ═══ -->
   <section class="fase fase-oculta" id="escritorio" aria-label="Escritorio con aplicaciones">
-    <div class="wall" id="wall-escritorio" style="background-image:url('assets/img/wallpaper-morado.jpg')"></div>
+    <div class="wall" id="wall-escritorio"></div>
     <div class="velos"></div>
     <div class="statusbar">
-      <span class="sb-iz"><span id="hora-sb2">14:06</span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 2 8 2 8H4s2-1 2-8"/><path d="M10 20a2 2 0 0 0 4 0"/><path d="M3 3l18 18"/></svg></span>
+      <span class="sb-iz"><span id="hora-sb2">14:06</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 2 8 2 8H4s2-1 2-8"/><path d="M10 20a2 2 0 0 0 4 0"/><path d="m3 3 18 18"/></svg></span>
       <span class="sb-der">
         <span class="sb-senal" aria-hidden="true"><b></b><b></b><b></b><b></b></span>
         <svg width="15" height="11" viewBox="0 0 16 12" fill="#fff" aria-hidden="true"><path d="M8 11.2 6 8.8a2.9 2.9 0 0 1 4 0zM4.5 7.2a5.4 5.4 0 0 1 7 0l1.3-1.6a7.2 7.2 0 0 0-9.6 0zM2.2 4.5a8.7 8.7 0 0 1 11.6 0L15 2.8a10.5 10.5 0 0 0-14 0z"/></svg>
         <span class="sb-bateria" aria-hidden="true"><i></i><b>31</b></span></span>
     </div>
     <div class="rejilla">
-      <!-- Widget calendario (abre Calendario) -->
+      <!-- Widget -->
       <button class="widget" data-app="calendario" aria-label="Widget de calendario">
-        <div class="widget__col" style="flex:0 0 72px">
+        <div class="widget__col" style="flex:0 0 68px">
           <div class="widget__dow" id="w-dow">LUNES</div>
           <div class="widget__day" id="w-day">26</div>
-          <div class="widget__ev"><span class="pt"></span><span>Limpiar baño</span></div>
+          <div class="widget__ev"><span class="pt" style="background:#0a84ff"></span><span>Entrenamiento</span></div>
         </div>
         <div class="widget__col">
-          <div class="widget__ev"><span class="pt"></span><span>Entrenamiento</span><small>19:30</small></div>
-          <div class="widget__ev"><span class="pt"></span><span>Avenida Marqués…</span></div>
+          <div class="widget__ev"><span class="pt"></span><span>Avenida Marqués</span><small>19:30</small></div>
+          <div class="widget__ev"><span class="pt" style="background:#30d158"></span><span>Datos abiertos</span></div>
           <div class="widget__otro">Mañana</div>
-          <div class="widget__ev"><span class="pt"></span><span>Cumpleaños Bruno</span></div>
+          <div class="widget__ev"><span class="pt" style="background:#ff453a"></span><span>Cumpleaños Bruno</span></div>
         </div>
         <div class="widget__col">
           <div class="widget__otro">Jueves, 29 oct</div>
-          <div class="widget__ev"><span class="pt"></span><span>Limpiar baño</span></div>
+          <div class="widget__ev"><span class="pt" style="background:#bf5af2"></span><span>NeTEx · SIRI</span></div>
           <div class="widget__ev widget__mas"><span class="pt"></span>1 evento más</div>
         </div>
       </button>
-      <!-- Fila 1 -->
-      <button class="app" data-app="fotos">
-        <span class="app__icono" style="background:#fff"><svg viewBox="0 0 24 24"><circle cx="12" cy="6" r="4" fill="#f9d024"/><circle cx="6.5" cy="9.5" r="4" fill="#e8503f"/><circle cx="17.5" cy="9.5" r="4" fill="#f7a53b"/><circle cx="8" cy="15.5" r="4" fill="#4a90d9"/><circle cx="16" cy="15.5" r="4" fill="#7ab648"/><circle cx="12" cy="12" r="3.2" fill="#fff"/><circle cx="12" cy="12" r="1.5" fill="#3a3a3c"/></svg></span>
-        <span class="app__nombre">Fotos</span></button>
-      <button class="app" data-app="correo">
-        <span class="app__icono" style="background:linear-gradient(160deg,#5ac8fa,#0a60ff)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7.5 8.5 6 8.5-6"/></svg><span class="insignia">42</span></span>
-        <span class="app__nombre">Correo</span></button>
-      <button class="app" data-app="carpeta-dinero">
-        <span class="app__icono app__icono--carpeta">
-          <i class="mini" style="background:#ff9900"></i><i class="mini" style="background:#2ecc71"></i><i class="mini" style="background:#0a84ff"></i>
-          <i class="mini" style="background:#ff453a"></i><i class="mini" style="background:#5e5ce6"></i><i class="mini" style="background:#ff9f0a"></i>
-          <i class="mini" style="background:#64d2ff"></i><i class="mini" style="background:#30d158"></i><i class="mini" style="background:#bf5af2"></i>
-          <span class="insignia">4</span></span>
-        <span class="app__nombre">¥€$</span></button>
-      <a class="app" href="https://nap-dashboard-plum.vercel.app/" target="_blank" rel="noopener">
-        <span class="app__icono" style="background:#fff"><svg viewBox="0 0 24 24"><path fill="#34a853" d="M3 17.5V6.8c0-1 .7-1.6 1.6-1.4l5.4 1.1v12.5l-5.9-1.2a1.5 1.5 0 0 1-1.1-1.3z"/><path fill="#4285f4" d="M10 6.5l5.4 1.1v12.5l-5.4-1z"/><path fill="#fbbc04" d="M15.4 7.6 20.8 6.5c.8.2 1.2.6 1.2 1.4v9.6l-6.6 1.1z"/><path fill="#ea4335" d="M12 2.5 9 9l-5 2 8-8.5z" opacity=".75"/></svg></span>
-        <span class="app__nombre">Mapas</span></a>
-      <!-- Fila 2 -->
+      <!-- Fila 1: Tiempo · Reloj · Notas · Salud -->
+      <button class="app" data-app="tiempo">
+        <span class="app__icono"><svg class="icono" viewBox="0 0 62 62"><defs><linearGradient id="g-t" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#48a6ff"/><stop offset="1" stop-color="#0b5fe0"/></linearGradient></defs><rect width="62" height="62" rx="15.5" fill="url(#g-t)"/><circle cx="22" cy="20" r="7.5" fill="#ffd85e"/><path d="M20 40a8.5 8.5 0 0 1 .5-17 11 11 0 0 1 21 3.5 6.8 6.8 0 0 1-1.5 13.5z" fill="#fff"/></svg><span id="t-temp" style="position:absolute;bottom:2px;left:0;right:0;text-align:center;font-size:11px;font-weight:600;text-shadow:0 1px 3px rgba(0,0,0,.7)"></span></span>
+        <span class="app__nombre">Tiempo</span></button>
+      <button class="app" data-app="reloj">
+        <span class="app__icono"><svg class="icono" viewBox="0 0 62 62"><rect width="62" height="62" rx="15.5" fill="#fff"/><circle cx="31" cy="31" r="26" fill="#0b0b0c"/><g stroke="#fff" stroke-width="1.4"><line x1="31" y1="7.5" x2="31" y2="11.5"/><line x1="31" y1="50.5" x2="31" y2="54.5"/><line x1="7.5" y1="31" x2="11.5" y2="31"/><line x1="50.5" y1="31" x2="54.5" y2="31"/></g><line class="reloj-ag" id="ag-h" x1="31" y1="31" x2="31" y2="19" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><line class="reloj-ag" id="ag-m" x1="31" y1="31" x2="31" y2="12.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><line class="reloj-ag" id="ag-s" x1="31" y1="35" x2="31" y2="11" stroke="#ff9f0a" stroke-width="1.1" stroke-linecap="round"/><circle cx="31" cy="31" r="1.7" fill="#ff9f0a"/></svg></span>
+        <span class="app__nombre">Reloj</span></button>
+      <button class="app" data-app="notas">
+        <span class="app__icono"><svg class="icono" viewBox="0 0 62 62"><rect width="62" height="62" rx="15.5" fill="#fff"/><path d="M0 24h62V15.5A15.5 15.5 0 0 0 46.5 0h-31A15.5 15.5 0 0 0 0 15.5z" fill="#ffd85e"/><g stroke="#c9c9ce" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="33" x2="50" y2="33"/><line x1="12" y1="41.5" x2="50" y2="41.5"/><line x1="12" y1="50" x2="34" y2="50"/></g></svg></span>
+        <span class="app__nombre">Notas</span></button>
+      <button class="app" data-app="salud">
+        <span class="app__icono"><svg class="icono" viewBox="0 0 62 62"><rect width="62" height="62" rx="15.5" fill="#fff"/><path d="M31 50C19 40.5 13 34 13 26a9 9 0 0 1 18-3 9 9 0 0 1 18 3c0 8-6 14.5-18 24z" fill="#ff4c75"/><path d="M16 31h7l3-7 6 14 3.5-7H46" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="app__nombre">Salud</span></button>
+      <!-- Fila 2: Calc · Recordatorios · Bolsa · Cámara -->
+      <button class="app" data-app="calc">
+        <span class="app__icono"><svg class="icono" viewBox="0 0 62 62"><rect width="62" height="62" rx="15.5" fill="#1c1c1e"/><rect x="25" y="6" width="31" height="15" rx="3.5" fill="#000"/><g fill="#333"><rect x="6" y="26" width="12" height="12" rx="2.5"/><rect x="21" y="26" width="12" height="12" rx="2.5"/><rect x="36" y="26" width="12" height="12" rx="2.5"/><rect x="6" y="42" width="12" height="12" rx="2.5"/><rect x="21" y="42" width="12" height="12" rx="2.5"/><rect x="36" y="42" width="12" height="12" rx="2.5"/></g><rect x="51" y="26" width="5" height="28" rx="2.5" fill="#ff9f0a"/><rect x="51" y="6" width="5" height="15" rx="2.5" fill="#636366"/></svg></span>
+        <span class="app__nombre">Calc</span></button>
+      <button class="app" data-app="recordatorios">
+        <span class="app__icono"><svg class="icono" viewBox="0 0 62 62"><rect width="62" height="62" rx="15.5" fill="#fff"/><circle cx="15" cy="18" r="3.4" fill="#ff9f0a"/><circle cx="15" cy="31" r="3.4" fill="#0a84ff"/><circle cx="15" cy="44" r="3.4" fill="#30d158"/><g stroke="#d1d1d6" stroke-width="2.8" stroke-linecap="round"><line x1="25" y1="18" x2="50" y2="18"/><line x1="25" y1="31" x2="50" y2="31"/><line x1="25" y1="44" x2="42" y2="44"/></g></svg></span>
+        <span class="app__nombre">Recordatorios</span></button>
+      <button class="app" data-app="bolsa">
+        <span class="app__icono"><svg class="icono" viewBox="0 0 62 62"><rect width="62" height="62" rx="15.5" fill="#0b0b0c"/><g stroke="#3a3a3c" stroke-width="1.4" stroke-dasharray="2 4"><line x1="8" y1="14" x2="54" y2="14"/><line x1="8" y1="48" x2="54" y2="48"/></g><path d="M9 44 19 34l8 5 14-18 12 7" stroke="#30d158" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M45 19h8v8" stroke="#30d158" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="app__nombre">Bolsa</span></button>
       <button class="app" data-app="camara">
-        <span class="app__icono" style="background:linear-gradient(160deg,#e8e8ed,#9d9da6)"><svg viewBox="0 0 24 24" fill="none" stroke="#48484a" stroke-width="2" stroke-linecap="round"><path d="M4 8h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13" r="3.5"/><circle cx="12" cy="13" r="1.3" fill="#48484a"/></svg></span>
+        <span class="app__icono"><svg class="icono" viewBox="0 0 62 62"><defs><linearGradient id="g-c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dcdce1"/><stop offset="1" stop-color="#8f8f96"/></linearGradient></defs><rect width="62" height="62" rx="15.5" fill="url(#g-c)"/><path d="M13 22h8l4-6h12l4 6h8a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H13a4 4 0 0 1-4-4V26a4 4 0 0 1 4-4z" fill="#f2f2f5"/><circle cx="31" cy="35" r="10.5" fill="#3a3a3c"/><circle cx="31" cy="35" r="7" fill="#64d2ff"/><circle cx="28.3" cy="32.3" r="2.2" fill="#fff" opacity=".85"/></svg></span>
         <span class="app__nombre">Cámara</span></button>
-      <button class="app" data-app="carpeta-swag">
-        <span class="app__icono app__icono--carpeta">
-          <i class="mini" style="background:#232f3e"></i><i class="mini" style="background:#ff6719"></i><i class="mini" style="background:#ffd60a"></i>
-          <i class="mini" style="background:#0a66c2"></i><i class="mini" style="background:#34c759"></i><i class="mini" style="background:#ff453a"></i>
-          <i class="mini" style="background:#5e5ce6"></i><i class="mini" style="background:#64d2ff"></i><i class="mini" style="background:#ff9f0a"></i>
-          <span class="insignia">4</span></span>
-        <span class="app__nombre">Swag</span></button>
-      <button class="app" data-app="carpeta-inmortal">
-        <span class="app__icono app__icono--carpeta">
-          <i class="mini" style="background:#bf5af2"></i><i class="mini" style="background:#0a84ff"></i><i class="mini" style="background:#ff9f0a"></i>
-          <i class="mini" style="background:#30d158"></i><i class="mini" style="background:#1c1c1e"></i><i class="mini" style="background:#ff453a"></i>
-          <i class="mini" style="background:#ffd60a"></i><i class="mini" style="background:#5ac8fa"></i><i class="mini" style="background:#a2845e"></i>
-          <span class="insignia">4</span></span>
-        <span class="app__nombre">Inmortal</span></button>
-      <a class="app" href="https://lichess.org/" target="_blank" rel="noopener">
-        <span class="app__icono" style="background:#5a3046"><svg viewBox="0 0 24 24" fill="#fff"><path d="M18.9 6.1C18.9 9 17.7 11.6 15.5 13.3c.2 1.4 1 2.4 1.9 3.4 1 1.2 1.6 2.3 1.6 4.3H5c0-2 .6-3.1 1.6-4.3.9-1 1.7-2 1.9-3.4-2.2-1.7-3.4-4.3-3.4-7.2 0 0 1.5 1.6 3.2 2.2 1.2-1.5 2.9-2.4 4.7-2.4s3.5.9 4.7 2.4c1.7-.6 1.5-2.6 1.5-2.6z"/></svg></span>
-        <span class="app__nombre">lichess</span></button>
-      <!-- Fila 3 -->
-      <a class="app" href="https://moviendokilowatios.substack.com/" target="_blank" rel="noopener">
-        <span class="app__icono" style="background:#ff6719"><svg viewBox="0 0 24 24" fill="#fff"><path d="M22.54 8.24H1.46V5.41h21.08zM1.46 10.81V24L12 18.11 22.54 24V10.81zM22.54 0H1.46v2.84h21.08z"/></svg></span>
-        <span class="app__nombre">Substack</span></button>
-      <a class="app" href="https://www.linkedin.com/in/davidantizar/" target="_blank" rel="noopener">
-        <span class="app__icono" style="background:#0a66c2"><svg viewBox="0 0 24 24" fill="#fff"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13M7.12 20.45H3.56V9h3.56zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.97 0 1.77-.77 1.77-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></span>
-        <span class="app__nombre">LinkedIn</span></button>
-      <a class="app" href="https://x.com/DNtizar" target="_blank" rel="noopener">
-        <span class="app__icono" style="background:#000"><svg viewBox="0 0 24 24" fill="#fff"><path d="M18.9 1.15h3.68l-8.05 9.19L24 22.85h-7.4l-5.8-7.59-6.64 7.59H.48l8.6-9.83L0 1.15h7.6l5.24 6.93zm-1.3 19.7h2.04L6.49 3.24H4.3z"/></svg></span>
-        <span class="app__nombre">X</span></button>
+      <!-- Fila 3: carpetas con las marcas dentro -->
+      <button class="app" data-app="carpeta-redes">
+        <span class="app__icono carpeta-mini" id="cp-redes"></span>
+        <span class="app__nombre">Redes</span></button>
+      <button class="app" data-app="carpeta-mundos">
+        <span class="app__icono carpeta-mini" id="cp-mundos"></span>
+        <span class="app__nombre">Mundos</span></button>
+      <button class="app" data-app="carpeta-libreria">
+        <span class="app__icono carpeta-mini" id="cp-libreria"></span>
+        <span class="app__nombre">Librería</span></button>
       <button class="app" data-app="ajustes">
-        <span class="app__icono" style="background:linear-gradient(160deg,#8e8e93,#48484a)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 2.5 13.2 5a1.5 1.5 0 0 0 1.8.8l2.5-.8-.8 2.5a1.5 1.5 0 0 0 .8 1.8l2.5.8-2.5 1a1.5 1.5 0 0 0-.8 1.8l.8 2.5-2.5-.8a1.5 1.5 0 0 0-1.8.8L13.2 21.5 12 19a1.5 1.5 0 0 0-1.8-.8l-2.5.8.8-2.5a1.5 1.5 0 0 0-.8-1.8L5.2 14.5l2.5-1a1.5 1.5 0 0 0 .8-1.8l-.8-2.5 2.5.8a1.5 1.5 0 0 0 1.8-.8z"/><circle cx="12" cy="12" r="3"/></svg></span>
+        <span class="app__icono"><svg class="icono" viewBox="0 0 62 62"><defs><linearGradient id="g-a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a3a3a8"/><stop offset="1" stop-color="#5a5a5f"/></linearGradient></defs><rect width="62" height="62" rx="15.5" fill="url(#g-a)"/><path d="M31 11 33.6 17a4.4 4.4 0 0 0 5 2.4l6-1.9-1.9 6A4.4 4.4 0 0 0 45 30.5l6 1.9-6 2.2a4.4 4.4 0 0 0-2.3 5l1.9 6-6-1.9a4.4 4.4 0 0 0-5 2.4L31 57l-2.6-6a4.4 4.4 0 0 0-5-2.4l-6 1.9 1.9-6a4.4 4.4 0 0 0-2.3-5l-6-2.2 6-1.9a4.4 4.4 0 0 0 2.3-5l-1.9-6 6 1.9a4.4 4.4 0 0 0 5-2.4z" fill="#f2f2f5"/><circle cx="31" cy="33.8" r="8.5" fill="#5a5a5f"/><circle cx="31" cy="33.8" r="4.3" fill="#f2f2f5"/></svg></span>
         <span class="app__nombre">Ajustes</span></button>
     </div>
     <button class="pildora" data-app="spotlight" aria-label="Búsqueda">
@@ -319,15 +338,15 @@ html:not(.js) .deshaz,html:not(.js) .antorchas,html:not(.js) .mota,html:not(.js)
     <div class="mota" aria-hidden="true"><b class="on"></b><b></b></div>
     <div class="dock">
       <button class="app" data-app="telefono" aria-label="Teléfono">
-        <span class="app__icono" style="background:linear-gradient(160deg,#4cd964,#248a3d)"><svg viewBox="0 0 24 24" fill="#fff"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.3 1z"/></svg></span></button>
+        <span class="app__icono"><svg class="icono" viewBox="0 0 62 62"><defs><linearGradient id="g-ph" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5cf06f"/><stop offset="1" stop-color="#1fae3d"/></linearGradient></defs><rect width="62" height="62" rx="15.5" fill="url(#g-ph)"/><path d="M21.6 34.4a24 24 0 0 0 10.8 10.8l3.6-3.6c1.2-1.2 2.6-.8 3.8-.4 2 .7 3.9 1 5.8 1 1.8 0 2.8 1.2 2.8 2.8v4.6c0 1.8-1.2 2.8-2.8 2.8C27.1 52.8 8.8 34.5 8.8 14.6 8.8 12.8 10 11 11.8 11H16c1.8 0 2.8 1.2 2.8 2.8 0 2 .3 3.9 1 5.8.4 1.2.2 2.4-.6 3.4z" fill="#fff"/></svg></span></button>
       <a class="app" href="https://davidantizar.wordpress.com" target="_blank" rel="noopener" aria-label="Safari: el blog">
-        <span class="app__icono" style="background:#fff"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#1c9de6"/><path d="M12 2a10 10 0 0 1 0 20z" fill="#000" opacity=".08"/><path d="m15.8 8.2-7.4 3.9L5 16.4l7-3.3 3.8-4.9z" fill="#f5f5f7"/><path d="m15.8 8.2-3.8 4.9 1.7 3.2 2.1-8.1z" fill="#ff453a"/></svg></span></a>
-      <button class="app" data-app="correo" aria-label="Mensajes">
-        <span class="app__icono" style="background:#25d366"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l4.9-1.4A10 10 0 1 0 12 2z" opacity=".95"/><path d="M8.9 7.7c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.5l.6 1.5c0 .2 0 .3-.1.5l-.4.4c-.1.2-.2.3 0 .5.2.4.7 1 1.4 1.4.5.3.7.2.9.1l.5-.6c.1-.2.3-.2.5-.1l1.4.7c.4.2.4.3.4.5 0 .4-.2 1-.6 1.3-.3.2-.9.4-2 0-1.7-.6-3-2.2-3.4-2.8-.4-.6-.8-1.5-.8-2.6 0-1 .5-1.5.7-1.8z" fill="#25d366"/></svg><span class="insignia">7</span></span></button>
+        <span class="app__icono"><svg class="icono" viewBox="0 0 62 62"><defs><linearGradient id="g-s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#42a9ff"/><stop offset="1" stop-color="#0b6cff"/></linearGradient></defs><rect width="62" height="62" rx="15.5" fill="url(#g-s)"/><circle cx="31" cy="31" r="22" fill="#fff" opacity=".08"/><g stroke="#fff" stroke-width="1.6" opacity=".75"><line x1="31" y1="8" x2="31" y2="12"/><line x1="31" y1="50" x2="31" y2="54"/><line x1="8" y1="31" x2="12" y2="31"/><line x1="50" y1="31" x2="54" y2="31"/></g><path d="M44 18 25 27l-6 17 25-12z" fill="#fff"/><path d="M44 18 25 27l11 11z" fill="#ff453a"/></svg></span></a>
+      <button class="app" data-app="correo" aria-label="Mail">
+        <span class="app__icono"><svg class="icono" viewBox="0 0 62 62"><defs><linearGradient id="g-m" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#35a8ff"/><stop offset="1" stop-color="#0a60ff"/></linearGradient></defs><rect width="62" height="62" rx="15.5" fill="url(#g-m)"/><rect x="12" y="19" width="38" height="25" rx="6" fill="#fff"/><path d="M14 22.5 31 34l17-11.5" stroke="#0a60ff" stroke-width="3" fill="none" stroke-linecap="round"/></svg><span class="insignia">42</span></span></button>
     </div>
   </section>
 
-  <!-- ═══ VISOR (apps internas y carpetas) ═══ -->
+  <!-- ═══ VISOR ═══ -->
   <section class="fase" id="visor" aria-label="Aplicación abierta">
     <div class="visor__barra">
       <button class="visor__volver" id="visor-volver">‹ Escritorio</button>
@@ -350,9 +369,43 @@ html:not(.js) .deshaz,html:not(.js) .antorchas,html:not(.js) .mota,html:not(.js)
 "use strict";
 document.documentElement.classList.add("js");
 
-/* ─── Reloj y widget ─── */
+/* ─── Enlaces: las marcas viven aquí (carpetas y spotlight), no suel­tas por el cajón ─── */
+const LINKS={
+  linkedin:{n:"LinkedIn",u:"https://www.linkedin.com/in/davidantizar/",c:"#0a66c2",ic:"in"},
+  x:{n:"X",u:"https://x.com/DNtizar",c:"#000",ic:"X"},
+  substack:{n:"Substack · Moviendo kW",u:"https://moviendokilowatios.substack.com/",c:"#ff6719",ic:"S"},
+  github:{n:"GitHub",u:"https://github.com/Ntizar",c:"#24292f",ic:"G"},
+  nap:{n:"NAP Dashboard",u:"https://nap-dashboard-plum.vercel.app/",c:"#34c759",ic:"N"},
+  solmad:{n:"SolMadrid",u:"https://ntizar.github.io/solmad/",c:"#ff7a00",ic:"☀"},
+  yolo:{n:"YoloConteo",u:"https://yolo-conteov2.vercel.app/",c:"#3634a3",ic:"Y"},
+  lichess:{n:"lichess",u:"https://lichess.org/",c:"#5a3046",ic:"♞"},
+  amazon:{n:"El poni de Von der Leyen",u:"https://www.amazon.es/dp/B0CP8HS3TZ?tag=ntizar-21",c:"#232f3e",ic:"P"},
+  kit72h:{n:"Kit72h",u:"https://ntizar.github.io/Kit72h/",c:"#37475a",ic:"K"},
+  blog:{n:"Blog",u:"https://davidantizar.wordpress.com",c:"#0a84ff",ic:"B"},
+  irpf:{n:"IRPFdibujitos",u:"https://ntizar.github.io/IRPFdibujitos/",c:"#ff453a",ic:"€"},
+  aurora:{n:"Aurora",u:"https://ntizar.github.io/Aurora/",c:"#bf5af2",ic:"A"},
+  mastermind:{n:"MasterMind",u:"https://ntizar.github.io/MasterMind/",c:"#0a84ff",ic:"M"}
+};
+const CARPETAS={
+  "carpeta-redes":{titulo:"Redes",keys:["linkedin","x","substack","github"]},
+  "carpeta-mundos":{titulo:"Mundos",keys:["nap","solmad","yolo","lichess"]},
+  "carpeta-libreria":{titulo:"Librería",keys:["amazon","kit72h","blog","irpf"]}
+};
+/* mini-tiles dentro de las carpetas del cajón: letra sobre color, sin logotipos */
+function pintarCarpetas(){
+  for(const [id,cp] of Object.entries(CARPETAS)){
+    const cont=document.getElementById("cp-"+id.replace("carpeta-",""));
+    if(!cont)continue;
+    cont.innerHTML=cp.keys.map(k=>{const l=LINKS[k];
+      return `<svg viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="${l.c}"/><text x="16" y="21.5" font-size="15" font-weight="700" fill="#fff" text-anchor="middle" font-family="-apple-system,Arial">${l.ic}</text></svg>`;}).join("");
+  }
+}
+pintarCarpetas();
+
+/* ─── Reloj (barra, widget, manecillas) ─── */
 const DIAS=["DOMINGO","LUNES","MARTES","MIÉRCOLES","JUEVES","VIERNES","SÁBADO"];
-function pintarHora(){
+function rotar(id,deg){const e=document.getElementById(id);if(e)e.style.transform=`rotate(${deg}deg)`;}
+function tick(){
   const d=new Date();
   const hora=d.getHours()+":"+String(d.getMinutes()).padStart(2,"0");
   ["hora-sb","hora-sb2","hora-grande"].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=hora;});
@@ -360,31 +413,56 @@ function pintarHora(){
   if(f)f.textContent=d.toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"});
   const w=document.getElementById("w-dow"),wd=document.getElementById("w-day");
   if(w)w.textContent=DIAS[d.getDay()];if(wd)wd.textContent=d.getDate();
+  const s=d.getSeconds(),m=d.getMinutes()+s/60,h=(d.getHours()%12)+m/60;
+  rotar("ag-h",h*30);rotar("ag-m",m*6);rotar("ag-s",s*6);
+  const g=document.getElementById("reloj-grande");
+  if(g)g.textContent=hora+":"+String(s).padStart(2,"0");
 }
-pintarHora();setInterval(pintarHora,15000);
+tick();setInterval(tick,1000);
 
-/* ─── Fondos: solo los que existan en disco ─── */
+/* ─── Tiempo real: Open-Meteo (Madrid), gratis y sin clave ─── */
+let tiempoCache=null;
+function fetchTiempo(){
+  return fetch("https://api.open-meteo.com/v1/forecast?latitude=40.4168&longitude=-3.7038&current=temperature_2m,weather_code")
+    .then(r=>r.json())
+    .then(j=>{
+      const c=j.current.weather_code;
+      const desc=c<2?"Despejado":c<4?"Variable":c<50?"Nublado":c<70?"Lluvia":"Tormenta";
+      tiempoCache={t:Math.round(j.current.temperature_2m),desc};
+      const b=document.getElementById("t-temp");if(b)b.textContent=tiempoCache.t+"°";
+      renderTiempo();
+    }).catch(()=>{const b=document.getElementById("t-temp");if(b)b.textContent="18°";});
+}
+function renderTiempo(){const v=document.querySelector("#visor-cuerpo .t-live");if(v&&tiempoCache)v.textContent=tiempoCache.t+"°";}
+fetchTiempo();setInterval(fetchTiempo,600000);
+
+/* ─── Fondos: solo los que existan ─── */
 const FONDOS_TODO=[
-  {id:"morado",src:"assets/img/wallpaper-morado.jpg"},
+  {id:"grafito",src:"assets/img/wallpaper-grafito.svg"},
+  {id:"grafito-foto",src:"assets/img/wallpaper-grafito.jpg"},
   {id:"noche",src:"assets/img/wallpaper-noche.jpg"},
   {id:"energia",src:"assets/img/wallpaper-energia.jpg"},
   {id:"amanecer",src:"assets/img/wallpaper-amanecer.jpg"}
 ];
-let FONDOS=[];
-FONDOS_TODO.forEach(f=>{const i=new Image();i.onload=()=>{if(!FONDOS.some(x=>x.src===f.src)){FONDOS.push(f);if(fondoActivo===0&&f.id!=="morado")aplicarFondo(0);}};i.src=f.src;});
-/* fallback inmediato con el primer fondo disponible */
-let fondoActivo=-1;
+let FONDOS=[FONDOS_TODO[0]];
+let fondoActivo=0;
 function aplicarFondo(n){
-  if(!FONDOS.length)return;
+  if(!FONDOS.length)FONDOS=[FONDOS_TODO[1]];
   fondoActivo=Math.max(0,Math.min(n,FONDOS.length-1));
   const src=FONDOS[fondoActivo].src;
   document.getElementById("wall-bloqueo").style.backgroundImage=`url('${src}')`;
   document.getElementById("wall-escritorio").style.backgroundImage=`url('${src}')`;
-  const g=document.getElementById("wall-gorda");if(g.src.indexOf(src)<0)g.src=src;
+  const g=document.getElementById("wall-gorda");if(!g.src.endsWith(src))g.src=src;
   document.querySelectorAll("#visor-cuerpo .galeria__item,#visor-cuerpo .fondo-op").forEach(b=>b.classList.toggle("on",+b.dataset.fondo===fondoActivo));
 }
-FONDOS=[FONDOS_TODO[0]]; /* suposición inicial; se corrige si 404 */
-const prueba=new Image();prueba.onerror=()=>{FONDOS=[FONDOS_TODO[1]];aplicarFondo(0);};prueba.src=FONDOS_TODO[0].src;
+FONDOS=[];
+FONDOS_TODO.forEach(f=>{
+  const i=new Image();
+  i.onload=()=>{if(!FONDOS.some(x=>x.src===f.src)){FONDOS.push(f);FONDOS.sort((a,b)=>FONDOS_TODO.indexOf(a)-FONDOS_TODO.indexOf(b));if(f===FONDOS[0])aplicarFondo(fondoActivo);}};
+  i.onerror=()=>{/* se queda fuera de la lista */};
+  i.src=f.src;
+});
+setTimeout(()=>aplicarFondo(fondoActivo),400);
 setInterval(()=>{if(fase==="bloqueo"&&FONDOS.length>1)aplicarFondo((fondoActivo+1)%FONDOS.length);},12000);
 
 /* ─── Fases ─── */
@@ -393,7 +471,6 @@ const elCara=document.getElementById("cara");
 const elEscritorio=document.getElementById("escritorio");
 const elVisor=document.getElementById("visor");
 let fase="bloqueo";let progreso=0;
-
 function mostrarCara(){fase="cara";elBloqueo.classList.add("fase-oculta");elCara.classList.remove("fase-oculta");escanear();}
 function mostrarEscritorio(){fase="escritorio";elCara.classList.add("fase-oculta");elEscritorio.classList.remove("fase-oculta");}
 function volverBloqueo(){fase="bloqueo";progreso=0;
@@ -401,7 +478,7 @@ function volverBloqueo(){fase="bloqueo";progreso=0;
   elCara.classList.add("fase-oculta");elCara.classList.remove("escaneando","ok");
   elBloqueo.classList.remove("fase-oculta");elBloqueo.style.transform="";elBloqueo.style.opacity="";}
 
-/* ─── Face ID: 100% animación. No pide ni usa la cámara. ─── */
+/* ─── Face ID: animación pura. No pide ni usa la cámara. ─── */
 const textoCara=document.getElementById("texto-cara");
 function escanear(){
   elCara.classList.add("escaneando");
@@ -433,100 +510,138 @@ addEventListener("touchmove",e=>{
 addEventListener("touchend",()=>{toqueY=null;if(progreso>0&&progreso<1){progreso=0;elBloqueo.style.transform="";elBloqueo.style.opacity="";}});
 addEventListener("keydown",e=>{if((e.key==="ArrowUp"||e.key===" "||e.key==="Enter")&&fase==="bloqueo"){e.preventDefault();onScrollUp(.4);}if(e.key==="Escape"){if(elVisor.classList.contains("abierta"))cerrarVisor();else volverBloqueo();}});
 elBloqueo.addEventListener("click",e=>{if(e.target.closest("button"))return;onScrollUp(1.2);});
-
 document.getElementById("btn-linterna").addEventListener("click",e=>{
-  e.stopPropagation();
-  document.body.style.filter="brightness(2.2)";
-  setTimeout(()=>document.body.style.filter="",500);
+  e.stopPropagation();document.body.style.filter="brightness(2.2)";setTimeout(()=>document.body.style.filter="",500);
 });
 document.getElementById("btn-cam-antorcha").addEventListener("click",e=>{e.stopPropagation();onScrollUp(1.2);});
 
-/* ─── Catálogo de enlaces (para spotlight y carpetas) ─── */
-const LINKS={
-  linkedin:{n:"LinkedIn",u:"https://www.linkedin.com/in/davidantizar/",c:"#0a66c2"},
-  x:{n:"X",u:"https://x.com/DNtizar",c:"#000"},
-  substack:{n:"Substack",u:"https://moviendokilowatios.substack.com/",c:"#ff6719"},
-  amazon:{n:"Amazon · El poni",u:"https://www.amazon.es/dp/B0CP8HS3TZ?tag=ntizar-21",c:"#232f3e"},
-  github:{n:"GitHub",u:"https://github.com/Ntizar",c:"#24292f"},
-  aurora:{n:"Aurora",u:"https://ntizar.github.io/Aurora/",c:"#0a84ff"},
-  mastermind:{n:"MasterMind",u:"https://ntizar.github.io/MasterMind/",c:"#5e5ce6"},
-  kit72h:{n:"Kit72h",u:"https://ntizar.github.io/Kit72h/",c:"#ff9f0a"},
-  solmad:{n:"SolMadrid",u:"https://ntizar.github.io/solmad/",c:"#ff7a00"},
-  nap:{n:"NAP Mapas",u:"https://nap-dashboard-plum.vercel.app/",c:"#34c759"},
-  yolo:{n:"YoloConteo",u:"https://yolo-conteov2.vercel.app/",c:"#3634a3"},
-  irpf:{n:"IRPFdibujitos",u:"https://ntizar.github.io/IRPFdibujitos/",c:"#ff453a"},
-  blog:{n:"Blog",u:"https://davidantizar.wordpress.com",c:"#0a84ff"},
-  lichess:{n:"lichess",u:"https://lichess.org/",c:"#5a3046"}
-};
-const CARPETAS={
-  "carpeta-dinero":{titulo:"¥€$",keys:["amazon","kit72h","nap","yolo"],nota:"Apps que (a veces) dan dinero."},
-  "carpeta-swag":{titulo:"Swag",keys:["substack","blog","lichess","amazon"],nota:"Merchandising intelectual."},
-  "carpeta-inmortal":{titulo:"Inmortal",keys:["github","aurora","mastermind","irpf"],nota:"Cosas que sobreviven a mi agenda."}
-};
-function filaLink(k){const l=LINKS[k];return `<a class="fila-app" href="${l.u}" target="_blank" rel="noopener nofollow"><span class="ic" style="background:${l.c}"><b style="color:#fff;font-weight:700">${l.n[0]}</b></span><span>${l.n}</span><span class="chevron">›</span></a>`;}
+/* ─── Fila de enlace (spotlight) ─── */
+function filaLink(k){const l=LINKS[k];return `<a class="fila-app" href="${l.u}" target="_blank" rel="noopener nofollow"><span class="ic" style="background:${l.c}">${l.ic}</span><span>${l.n}</span><span class="chevron">›</span></a>`;}
 
 /* ─── Vistas del visor ─── */
-const ICONO_CORREO='<span class="ic" style="background:linear-gradient(160deg,#5ac8fa,#0a60ff)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>';
 function galeriaHTML(){
-  return '<div class="galeria">'+FONDOS.map((f,i)=>`<button class="galeria__item ${i===fondoActivo?'on':''}" data-fondo="${i}" style="background-image:url('${f.src}')" aria-label="Poner fondo ${f.id}"></button>`).join("")+'</div><p style="opacity:.5;font-size:13.5px;margin-top:14px">Toca una foto y se pone de fondo en todo el teléfono.</p>';}
+  return '<div class="galeria">'+FONDOS.map((f,i)=>`<button class="galeria__item ${i===fondoActivo?'on':''}" data-fondo="${i}" style="background-image:url('${f.src}')" aria-label="Fondo ${f.id}"></button>`).join("")+'</div><p style="opacity:.5;font-size:13.5px;margin-top:14px">Toca una foto y se pone de fondo en todo el teléfono.</p>';}
 function galeriaEvents(){document.querySelectorAll("#visor-cuerpo .galeria__item,#visor-cuerpo .fondo-op").forEach(b=>b.addEventListener("click",()=>aplicarFondo(+b.dataset.fondo)));}
 const vistas={
   calendario:()=>{
     const emp=(new Date(2026,7,1).getDay()+6)%7;
     const nombres=["L","M","X","J","V","S","D"];
-    let cells=[];for(let i=0;i<emp;i++)cells.push("<td></td>");
-    for(let d=1;d<=31;d++)cells.push('<td class="vaci"><span>'+d+'</span></td>');
-    while(cells.length%7)cells.push("<td></td>");
+    let cells=[];for(let i=0;i<emp;i++)cells.push("<td style='background:none'></td>");
+    for(let d=1;d<=31;d++)cells.push("<td>"+d+"</td>");
+    while(cells.length%7)cells.push("<td style='background:none'></td>");
     let filas="";for(let i=0;i<cells.length;i+=7)filas+="<tr>"+cells.slice(i,i+7).join("")+"</tr>";
     return '<div style="text-align:center;font-size:22px;font-weight:700;color:#ff453a;margin-bottom:6px">AGOSTO 2026</div><table class="cal"><thead><tr>'+nombres.map(n=>"<th>"+n+"</th>").join("")+'</tr></thead><tbody>'+filas+'</tbody></table><div class="cal-leyenda">🏖️ <b>Todo agosto: de vacaciones.</b> El correo suena, yo no estoy. Escríbeme antes del 1 o después del 31 y te contesto con cara de haber dormido.</div>';
   },
-  correo:()=>`<div class="fila-app" style="border-bottom:none">${ICONO_CORREO}<span><b>Bandeja de entrada</b><small>42 sin leer · 0 de spam, por suerte</small></span></div>
-    <a class="fila-app" href="mailto:hola@davidantizar.com">${ICONO_CORREO}<span>Redactar a David<small>hola@davidantizar.com · te leo, casi siempre</small></span><span class="chevron">›</span></a>
-    <a class="fila-app" href="https://moviendokilowatios.substack.com/" target="_blank" rel="noopener"><span class="ic" style="background:#ff6719"><b style="color:#fff;font-weight:700">S</b></span><span>Substack: Moviendo kW<small>Suscripción gratis — escribo ahí</small></span><span class="chevron">›</span></a>
-    <button class="boton-ios" data-mailto>✉ Escribir un correo a David</button>`,
-  telefono:()=>`<div style="text-align:center;padding:30px 0">
-      <div style="width:88px;height:88px;border-radius:50%;background:linear-gradient(160deg,#3a3a3c,#1c1c1e);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:600">DA</div>
-      <div style="font-size:24px;font-weight:600">David Antizar</div>
-      <div style="opacity:.5;font-size:15px;margin-top:4px">Madrid · ahora mismo, o moviendo kW o moviendo datos</div></div>
-    <div class="fila-app" style="border-bottom:none;justify-content:center"><span style="opacity:.6;font-size:14px">🔇 Este botón es de mentira: llámame por correo, que suena mejor.</span></div>
-    <button class="boton-ios" data-mailto>✉ Escríbele un correo</button>`,
-  fotos:galeriaHTML,
-  camara:()=>`<div class="cam-ui">
-  <div class="cam-visor" id="cam-visor"><div class="cam-grid"></div><div class="cam-focus"></div><div class="cam-flash" id="cam-flash"></div><span class="cam-zoom">1x</span></div>
-  <div class="cam-pie">
-    <div class="cam-mini" id="cam-mini">0</div>
-    <button class="cam-disparo" id="cam-disparo" aria-label="Disparar"></button>
-    <div style="width:44px"></div>
+  correo:()=>`<div class="lista-ios">
+    <div class="fila-app" style="cursor:default"><span class="ic" style="background:linear-gradient(160deg,#35a8ff,#0a60ff)">✉</span><span><b>Bandeja de entrada</b><small>42 sin leer · 0 de spam</small></span><span class="chevron">42</span></div>
+    <a class="fila-app" href="mailto:hola@davidantizar.com"><span class="ic" style="background:var(--ios-blue)">＋</span><span>Redactar a David<small>hola@davidantizar.com</small></span><span class="chevron">›</span></a>
+    ${filaLink("substack")}
   </div>
-  <p class="cam-nota">Cámara de utilería: este iPhone web no tiene cámara de verdad.<br>Nada que ver, nada que grabar, nada que pedir.</p>
-</div>`,
+  <button class="boton-ios" data-mailto>Escribir un correo a David</button>`,
+  telefono:()=>`<div style="text-align:center;padding:30px 0">
+      <div style="width:88px;height:88px;border-radius:50%;background:linear-gradient(160deg,#48484a,#1c1c1e);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:500">DA</div>
+      <div style="font-size:24px;font-weight:600">David Antizar</div>
+      <div style="opacity:.5;font-size:15px;margin-top:4px">Madrid · moviendo kW o moviendo datos</div></div>
+    <div class="fila-app" style="justify-content:center"><span style="opacity:.55;font-size:14px">🔇 Botón de adorno: lo que funciona es el correo.</span></div>
+    <button class="boton-ios" data-mailto>Escríbele un correo</button>`,
+  camara:()=>`<div>
+    <div class="cam-visor" id="cam-visor"><div class="cam-grid"></div><div class="cam-focus"></div><div class="cam-flash" id="cam-flash"></div></div>
+    <div class="cam-pie">
+      <div class="cam-mini" id="cam-mini">0</div>
+      <button class="cam-disparo" id="cam-disparo" aria-label="Disparar"></button>
+      <div style="width:44px"></div>
+    </div>
+    <p class="cam-nota">Cámara de utilería: no ve, no graba, no pide nada.<br>El visor es el fondo actual del teléfono.</p>
+  </div>`,
+  tiempo:()=>`<div class="tiempo">
+    <div style="font-size:21px;font-weight:600">Madrid</div>
+    <div class="tiempo__g"><span class="t-live">${tiempoCache?tiempoCache.t+"°":"…"}</span></div>
+    <div class="tiempo__c">${tiempoCache?tiempoCache.desc:"tiempo real vía Open-Meteo"}</div>
+    <div class="seccion-titulo" style="text-align:left">Predicción honesta</div>
+    <div class="lista-ios">
+      <div class="fila-app" style="cursor:default"><span>Sol para trabajar</span><span class="chevron">100%</span></div>
+      <div class="fila-app" style="cursor:default"><span>Lluvia de ideas</span><span class="chevron">torrencial</span></div>
+      <div class="fila-app" style="cursor:default"><span>Huracán en agosto</span><span class="chevron">0 · vacaciones</span></div>
+    </div>
+  </div>`,
+  reloj:()=>`<div style="text-align:center;padding:16px 0">
+    <div id="reloj-grande" style="font-size:60px;font-weight:200;font-variant-numeric:tabular-nums"></div>
+    <div style="opacity:.55;font-size:15px;margin-top:4px">Madrid · la hora real de este iPhone de cartón</div></div>
+    <div class="seccion-titulo">Alarma</div>
+    <div class="lista-ios"><div class="fila-app" style="cursor:default"><span>☀️ Levantarse</span><span class="chevron">apagada — vacaciones</span></div></div>`,
+  calc:()=>`<div class="calc">
+    <div class="calc__pantalla" id="calc-p">0</div>
+    <div class="calc__rejilla">
+      <button class="calc__b calc__b--gris" data-c="C">AC</button><button class="calc__b calc__b--gris" data-c="+/-">±</button><button class="calc__b calc__b--gris" data-c="%">%</button><button class="calc__b calc__b--op" data-c="÷">÷</button>
+      ${[7,8,9].map(n=>`<button class="calc__b" data-d="${n}">${n}</button>`).join("")}<button class="calc__b calc__b--op" data-c="×">×</button>
+      ${[4,5,6].map(n=>`<button class="calc__b" data-d="${n}">${n}</button>`).join("")}<button class="calc__b calc__b--op" data-c="−">−</button>
+      ${[1,2,3].map(n=>`<button class="calc__b" data-d="${n}">${n}</button>`).join("")}<button class="calc__b calc__b--op" data-c="+">+</button>
+      <button class="calc__b" data-d="0" style="grid-column:span 2;border-radius:34px;text-align:left;padding-left:26px">0</button>
+      <button class="calc__b" data-d=".">,</button><button class="calc__b calc__b--op" data-c="=">=</button>
+    </div></div>`,
+  recordatorios:()=>`<div class="seccion-titulo" style="margin-top:4px">Hoy</div>
+    <div class="chk hecho"><i>✓</i><span>Montar un iPhone en una web</span></div>
+    <div class="chk"><i></i><span>Escribir el próximo post de Moviendo kW</span></div>
+    <div class="chk"><i></i><span>Contestar correos (después de agosto)</span></div>
+    <div class="chk"><i></i><span>Añadir un mundo nuevo a este iPhone web</span></div>
+    <div class="seccion-titulo">Programado</div>
+    <div class="chk"><i></i><span>1 → 31 ago: NO MOLESTAR (vacaciones)</span></div>`,
+  salud:()=>`<div class="seccion-titulo" style="margin-top:2px">Tu día en anillos</div>
+    <div class="anillos"><svg viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="78" stroke="#3a1f26" stroke-width="17"/><circle cx="100" cy="100" r="78" stroke="#ff375f" stroke-width="17" stroke-dasharray="490" stroke-dashoffset="118"/>
+      <circle cx="100" cy="100" r="59" stroke="#2f3a1e" stroke-width="17"/><circle cx="100" cy="100" r="59" stroke="#a8ff3e" stroke-width="17" stroke-dasharray="371" stroke-dashoffset="95"/>
+      <circle cx="100" cy="100" r="40" stroke="#0f3743" stroke-width="17"/><circle cx="100" cy="100" r="40" stroke="#2ee6f0" stroke-width="17" stroke-dasharray="251" stroke-dashoffset="40"/>
+    </svg></div>
+    <div class="lista-ios">
+      <div class="fila-app" style="cursor:default"><span class="ic" style="background:#ff375f">👟</span><span>Pasos<small>8.412 · caminando hacia el Nap</small></span><span class="chevron">76%</span></div>
+      <div class="fila-app" style="cursor:default"><span class="ic" style="background:#a8ff3e;color:#000">⚡</span><span>Energía<small>412 kcal · un poste de luz</small></span><span class="chevron">68%</span></div>
+      <div class="fila-app" style="cursor:default"><span class="ic" style="background:#2ee6f0;color:#000">🧘</span><span>Mente<small>0 min de estrés en agosto</small></span><span class="chevron">100%</span></div>
+    </div>`,
+  bolsa:()=>`<div style="text-align:center;padding:10px 0 4px">
+      <div style="font-size:15px;opacity:.6">DAVID · MAD:YO</div>
+      <div style="font-size:44px;font-weight:300;margin:4px 0">∞</div>
+      <div style="color:#30d158;font-weight:600">▲ +0,00 (0,00%) hoy</div>
+    </div>
+    <div class="seccion-titulo">Composición de la cartera</div>
+    <div class="lista-ios">
+      ${[["Datos abiertos de transporte","58%"],["IA aplicada a obra pública","30%"],["Un libro de hipersónicos","7%"],["Café","5%"]].map(([x,y])=>`<div class="fila-app" style="cursor:default"><span>${x}</span><span class="chevron">${y}</span></div>`).join("")}
+    </div>
+    <p style="opacity:.45;font-size:13px;margin-top:16px;text-align:center">Parodia: nada de esto es consejo financiero.</p>`,
+  notas:()=>`<a class="nota" href="https://moviendokilowatios.substack.com/" target="_blank" rel="noopener"><b>Escribo aquí ↓</b><small>Moviendo kW · energía y datos</small></a>
+    <div class="nota"><b>Quién soy</b><small>Ingeniero de Caminos · AI Builder. Castillos en el aire, pero con buenos cimientos 🏗️</small></div>
+    <div class="nota"><b>Esta web</b><small>Es un iPhone. Desliza arriba, Face ID de mentira, y dentro están mis redes, mapas, el libro y mis cosas.</small></div>
+    <a class="nota" href="https://www.amazon.es/dp/B0CP8HS3TZ?tag=ntizar-21" target="_blank" rel="noopener nofollow"><b>El poni de Von der Leyen</b><small>En Amazon · enlace de afiliado, obvio</small></a>`,
   spotlight:()=>`<input class="spot-input" id="spot-in" placeholder="Buscar en David…" autocomplete="off">
     <div id="spot-lista">${Object.keys(LINKS).map(filaLink).join("")}</div>`,
-  ajustes:()=>`<div style="font-size:13px;text-transform:uppercase;opacity:.5;font-weight:600;margin-bottom:10px">Fondo del iPhone</div>
+  ajustes:()=>`<div class="seccion-titulo" style="margin-top:2px">Fondo del iPhone</div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">${FONDOS.map((f,i)=>`<button class="fondo-op ${i===fondoActivo?'on':''}" data-fondo="${i}" style="background-image:url('${f.src}')" aria-label="Fondo ${f.id}"></button>`).join("")}</div>
-    <div class="fila-app" style="margin-top:22px"><span class="ic" style="background:#8e8e93"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2.5 13.2 5a1.5 1.5 0 0 0 1.8.8l2.5-.8-.8 2.5a1.5 1.5 0 0 0 .8 1.8l2.5.8-2.5 1a1.5 1.5 0 0 0-.8 1.8l.8 2.5-2.5-.8a1.5 1.5 0 0 0-1.8.8L13.2 21.5 12 19a1.5 1.5 0 0 0-1.8-.8l-2.5.8.8-2.5a1.5 1.5 0 0 0-.8-1.8L5.2 14.5l2.5-1a1.5 1.5 0 0 0 .8-1.8l-.8-2.5 2.5.8a1.5 1.5 0 0 0 1.8-.8z"/><circle cx="12" cy="12" r="3"/></svg></span>
-      <span>Face ID<small>Animación pura: ni siquiera pide la cámara</small></span></div>
-    <div class="fila-app"><span class="ic" style="background:#ff9f0a"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-2h2zm0-4h-2V7h2z"/></svg></span>
-      <span>Sobre esta web<small>La hizo Mastermind, la firmó David</small></span></div>`
+    <div class="seccion-titulo">Galería</div>
+    ${galeriaHTML()}
+    <div class="lista-ios" style="margin-top:22px">
+      <div class="fila-app" style="cursor:default"><span class="ic" style="background:#636366">⚙</span><span>Face ID<small>Animación pura: ni siquiera pide la cámara</small></span></div>
+      <div class="fila-app" style="cursor:default"><span class="ic" style="background:#8e8e93">i</span><span>Sobre esta web<small>La hizo Mastermind, la firmó David</small></span></div>
+    </div>`
 };
 function abrirVisor(id){
   const cuerpo=document.getElementById("visor-cuerpo");
   const titulo=document.getElementById("visor-titulo");
   if(CARPETAS[id]){
     titulo.textContent=CARPETAS[id].titulo;
-    cuerpo.innerHTML='<p style="opacity:.55;font-size:14px;margin-bottom:6px">'+CARPETAS[id].nota+'</p><div class="carpita">'+CARPETAS[id].keys.map(k=>{const l=LINKS[k];return `<a class="app" href="${l.u}" target="_blank" rel="noopener nofollow" style="gap:8px"><span class="app__icono" style="background:${l.c}"><b style="color:#fff;font-size:22px;font-weight:700">${l.n[0]}</b></span><span class="app__nombre">${l.n}</span></a>`;}).join("")+'</div>';
+    cuerpo.innerHTML='<div class="carpita">'+CARPETAS[id].keys.map(k=>{const l=LINKS[k];return `<a class="app" href="${l.u}" target="_blank" rel="noopener nofollow" style="gap:8px"><span class="app__icono" style="width:72px;height:72px"><svg class="icono" viewBox="0 0 72 72"><rect width="72" height="72" rx="18" fill="${l.c}"/><text x="36" y="47" font-size="30" font-weight="700" fill="#fff" text-anchor="middle" font-family="-apple-system,Arial">${l.ic}</text></svg></span><span class="app__nombre">${l.n}</span></a>`;}).join("")+'</div>';
     elVisor.classList.add("abierta");return;
   }
-  const titulos={calendario:"Calendario",correo:"Correo",telefono:"Teléfono",fotos:"Fotos",camara:"Cámara",spotlight:"Búsqueda",ajustes:"Ajustes"};
+  const titulos={calendario:"Calendario",correo:"Correo",telefono:"Teléfono",fotos:"Fotos",camara:"Cámara",spotlight:"Búsqueda",ajustes:"Ajustes",tiempo:"Tiempo",reloj:"Reloj",calc:"Calc",recordatorios:"Recordatorios",bolsa:"Bolsa",notas:"Notas",salud:"Salud"};
   titulo.textContent=titulos[id]||id;
   cuerpo.innerHTML=vistas[id]?vistas[id]():"";
   elVisor.classList.add("abierta");
-  if(id==="fotos"||id==="ajustes")galeriaEvents();
+  if(id==="ajustes")galeriaEvents();
+  if(id==="tiempo")renderTiempo();
   if(id==="spotlight"){
     const inp=cuerpo.querySelector("#spot-in"),lista=cuerpo.querySelector("#spot-lista");
     inp.addEventListener("input",()=>{
       const q=inp.value.toLowerCase();
-      lista.innerHTML=Object.keys(LINKS).filter(k=>LINKS[k].n.toLowerCase().includes(q)).map(filaLink).join("")||'<p style="opacity:.5;text-align:center;margin-top:30px">Nada. Como mi agenda en agosto.</p>';
+      const kw={amazon:"libro book poni amazon hipersonico",x:"twitter",substack:"newsletter kW energia blog",nap:"mapa transporte",yolo:"cuenta gente vision",lichess:"ajedrez chess",blog:"wordpress",kit72h:"emergencia supervivencia afiliado"};
+      lista.innerHTML=Object.keys(LINKS).filter(k=>(LINKS[k].n.toLowerCase()+" "+k+" "+(kw[k]||"")).includes(q)).map(filaLink).join("")||'<p style="opacity:.5;text-align:center;margin-top:30px">Nada. Como mi agenda en agosto.</p>';
     });
     setTimeout(()=>inp.focus(),350);
   }
@@ -535,9 +650,25 @@ function abrirVisor(id){
     if(FONDOS[fondoActivo])visor.style.backgroundImage=`url('${FONDOS[fondoActivo].src}')`;
     const disparo=cuerpo.querySelector("#cam-disparo"),flash=cuerpo.querySelector("#cam-flash"),mini=cuerpo.querySelector("#cam-mini");
     let fotos=0;
-    disparo.addEventListener("click",()=>{
-      flash.classList.remove("on");void flash.offsetWidth;flash.classList.add("on");
-      fotos++;mini.textContent=fotos;mini.classList.toggle("con-foto",fotos>0);
+    disparo.addEventListener("click",()=>{flash.classList.remove("on");void flash.offsetWidth;flash.classList.add("on");fotos++;mini.textContent=fotos;mini.classList.toggle("con-foto",fotos>0);});
+  }
+  if(id==="calc"){
+    const p=cuerpo.querySelector("#calc-p");
+    let act="0",prev=null,op=null,reset=false;
+    const fmt=v=>{v=String(v).replace(".",",");return v.length>9?Number(v).toPrecision(6):v;};
+    const calc=(a,b,o)=>o==="+"? +a+ +b : o==="−"? a-b : o==="×"? a*b : (b===0?NaN:a/b);
+    cuerpo.addEventListener("click",e=>{
+      const d=e.target.dataset;if(!d)return;
+      if(d.d!==undefined){
+        if(act==="0"||reset){act=d.d==="."?"0.":String(d.d);reset=false;}
+        else if(d.d==="."&&act.includes("."))return;
+        else act+=String(d.d);
+        p.textContent=fmt(act);
+      }else if(d.c==="C"){act="0";prev=null;op=null;p.textContent="0";}
+      else if(d.c&&"+−×÷".includes(d.c)){prev=parseFloat(act)||0;op=d.c;reset=true;}
+      else if(d.c==="="&&op){const r=calc(prev,parseFloat(act),op);act=isNaN(r)?"Error":String(r);prev=null;op=null;reset=true;p.textContent=fmt(act);}
+      else if(d.c==="+/-"){act=String(-parseFloat(act)||0);p.textContent=fmt(act);}
+      else if(d.c==="%"){act=String((parseFloat(act)||0)/100);p.textContent=fmt(act);}
     });
   }
   cuerpo.querySelectorAll("[data-mailto]").forEach(b=>b.addEventListener("click",()=>{location.href="mailto:hola@davidantizar.com";}));
@@ -545,8 +676,6 @@ function abrirVisor(id){
 function cerrarVisor(){elVisor.classList.remove("abierta");}
 document.getElementById("visor-volver").addEventListener("click",cerrarVisor);
 document.querySelectorAll("[data-app]").forEach(b=>b.addEventListener("click",()=>abrirVisor(b.dataset.app)));
-
-/* Micro-zoom en enlaces externos */
 document.querySelectorAll("a.app").forEach(a=>{
   a.addEventListener("click",()=>{a.classList.add("abriendo");setTimeout(()=>a.classList.remove("abriendo"),320);});
 });

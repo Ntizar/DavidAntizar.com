@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="1344" viewBox="0 0 768 1344">
+  <defs>
+    <linearGradient id="base" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c0d10"/>
+      <stop offset=".55" stop-color="#101319"/>
+      <stop offset="1" stop-color="#14171d"/>
+    </linearGradient>
+    <radialGradient id="azul" cx=".18" cy=".88" r=".95">
+      <stop offset="0" stop-color="#2f6bff" stop-opacity=".55"/>
+      <stop offset=".38" stop-color="#1d3f9e" stop-opacity=".28"/>
+      <stop offset=".7" stop-color="#0b1230" stop-opacity=".1"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ambar" cx=".92" cy=".3" r=".6">
+      <stop offset="0" stop-color="#c97b2a" stop-opacity=".16"/>
+      <stop offset=".5" stop-color="#7a4a12" stop-opacity=".06"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="luz" cx=".32" cy=".72" r=".55">
+      <stop offset="0" stop-color="#6fa4ff" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vinf" cx=".5" cy=".42" r=".78">
+      <stop offset=".72" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity=".5"/>
+    </radialGradient>
+    <filter id="suave" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="90"/>
+    </filter>
+  </defs>
+  <rect width="768" height="1344" fill="url(#base)"/>
+  <g filter="url(#suave)">
+    <path d="M-80 1300 Q 220 900 760 760 L768 1420 -80 1420 Z" fill="#1e408f" opacity=".5"/>
+    <ellipse cx="120" cy="1180" rx="420" ry="260" fill="#2f6bff" opacity=".28"/>
+    <ellipse cx="700" cy="420" rx="240" ry="300" fill="#8a5a22" opacity=".1"/>
+    <ellipse cx="240" cy="980" rx="200" ry="220" fill="#7fa8ff" opacity=".12"/>
+  </g>
+  <rect width="768" height="1344" fill="url(#vinf)"/>
+</svg>
