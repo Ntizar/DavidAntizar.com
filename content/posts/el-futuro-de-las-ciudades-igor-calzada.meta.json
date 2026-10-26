@@ -1,0 +1,30 @@
+{
+ "ID": 220,
+ "title": "El futuro de las ciudades &#8211; Igor Calzada",
+ "slug": "el-futuro-de-las-ciudades-igor-calzada",
+ "date": "2016-04-19T10:53:32+00:00",
+ "modified": "2016-04-20T15:39:59+00:00",
+ "status": "publish",
+ "URL": "http://davidantizar.com/2016/04/19/el-futuro-de-las-ciudades-igor-calzada/",
+ "excerpt": "<p>Igor Calzada  nos explica el futuro de las ciudades en esta charla TEDx en Montevideo. [Suelo + Identidad] ^ Redes &nbsp; &nbsp;</p>\n",
+ "featured_image": "",
+ "post_thumbnail": null,
+ "tags": {},
+ "categories": {
+  "Charlas": {
+   "ID": 48981,
+   "name": "Charlas",
+   "slug": "charlas",
+   "description": "",
+   "post_count": 2,
+   "parent": 0,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:charlas",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:charlas/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ }
+}

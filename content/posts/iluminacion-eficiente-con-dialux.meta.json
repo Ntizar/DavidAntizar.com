@@ -1,0 +1,30 @@
+{
+ "ID": 257,
+ "title": "Iluminación eficiente con Dialux",
+ "slug": "iluminacion-eficiente-con-dialux",
+ "date": "2016-09-08T09:20:30+00:00",
+ "modified": "2016-09-08T09:22:09+00:00",
+ "status": "publish",
+ "URL": "http://davidantizar.com/2016/09/08/iluminacion-eficiente-con-dialux/",
+ "excerpt": "<p>Uno de los muchos problemas que nos encontramos con los cambios de iluminación tradicional por iluminación LED en el sector residencial es la necesidad de mantener o mejorar las condiciones de iluminación actuales con menor gasto. Lograr más con menos Para ello herramientas como el software Dialux nos permiten no solo lograrlo, sino que ofrecer [&hellip;]</p>\n",
+ "featured_image": "",
+ "post_thumbnail": null,
+ "tags": {},
+ "categories": {
+  "Uncategorized": {
+   "ID": 1,
+   "name": "Uncategorized",
+   "slug": "uncategorized",
+   "description": "",
+   "post_count": 14,
+   "parent": 0,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:uncategorized",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:uncategorized/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,30 @@
+{
+ "ID": 432,
+ "title": "Urban Transport RoadMap",
+ "slug": "urban-transport-roadmap",
+ "date": "2018-02-16T17:10:21+00:00",
+ "modified": "2018-02-16T17:10:21+00:00",
+ "status": "publish",
+ "URL": "http://davidantizar.com/2018/02/16/urban-transport-roadmap/",
+ "excerpt": "<p>Nunca fue tan sencillo realizar un Plan de Movilidad Urbana Sostenible. Gracias a la herramiento Urban Transport RoadMap podrás realizar un predimensionamiento rápidamente, así como cumplir todas las directivas de una manera rápida y eficaz. Pulsa en la imagen para acceder a toda la información.</p>\n",
+ "featured_image": "",
+ "post_thumbnail": null,
+ "tags": {},
+ "categories": {
+  "Uncategorized": {
+   "ID": 1,
+   "name": "Uncategorized",
+   "slug": "uncategorized",
+   "description": "",
+   "post_count": 14,
+   "parent": 0,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:uncategorized",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:uncategorized/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ }
+}

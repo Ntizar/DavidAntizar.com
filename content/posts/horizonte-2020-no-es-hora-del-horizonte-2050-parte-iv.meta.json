@@ -1,0 +1,45 @@
+{
+ "ID": 33,
+ "title": "¿Horizonte 2020? No, es hora del horizonte 2050. (Parte IV)",
+ "slug": "horizonte-2020-no-es-hora-del-horizonte-2050-parte-iv",
+ "date": "2015-10-26T11:10:36+00:00",
+ "modified": "2016-04-20T15:41:39+00:00",
+ "status": "publish",
+ "URL": "http://davidantizar.com/2015/10/26/horizonte-2020-no-es-hora-del-horizonte-2050-parte-iv/",
+ "excerpt": "<p>Como vimos anteriormente la necesidad de inversión en FER hará que el sector energético europeo sea potencialmente menos solvente que sus homólogos internacionales que continúen por el camino de los sistemas anteriores. Por ello la energía nuclear constituye una importante aportación (Entre un 15 y 18% de la energía primaria). Según la comisión esto registrará [&hellip;]</p>\n",
+ "featured_image": "",
+ "post_thumbnail": null,
+ "tags": {
+  "Horizonte 2050": {
+   "ID": 236360510,
+   "name": "Horizonte 2050",
+   "slug": "horizonte-2050",
+   "description": "",
+   "post_count": 5,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/tags/slug:horizonte-2050",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/tags/slug:horizonte-2050/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ },
+ "categories": {
+  "Horizonte 2050": {
+   "ID": 236360510,
+   "name": "Horizonte 2050",
+   "slug": "horizonte-2050",
+   "description": "",
+   "post_count": 5,
+   "parent": 0,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:horizonte-2050",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:horizonte-2050/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ }
+}

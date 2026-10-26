@@ -1,0 +1,45 @@
+{
+ "ID": 53,
+ "title": "CERTIFICACIÓN DEL URBANISMO ECOSISTÉMICO &#8211; Agencia de Ecología Urbana de Barcelona (RECOMENDACIÓN II)",
+ "slug": "certificacion-del-urbanismo-ecosistemico-agencia-de-ecologia-urbana-de-barcelona-recomendacion-ii",
+ "date": "2015-12-01T11:45:11+00:00",
+ "modified": "2016-04-20T15:39:41+00:00",
+ "status": "publish",
+ "URL": "http://davidantizar.com/2015/12/01/certificacion-del-urbanismo-ecosistemico-agencia-de-ecologia-urbana-de-barcelona-recomendacion-ii/",
+ "excerpt": "<p>Estudio sobre la certificación del urbanismo ecosistémico solicitado por la Dirección General de Suelo y Políticas Urbanas Secretaría de Estado de Vivienda y Actuaciones Urbanas Ministerio de Fomento. Gobierno de España y realizado por la Agencia de Ecología Urbana de Barcelona. Se puede acceder al archivo pinchando en la imagen: Click to access certif_urb_ecosistemico_web.pdf Tuve la suerte de [&hellip;]</p>\n",
+ "featured_image": "",
+ "post_thumbnail": null,
+ "tags": {
+  "Lecturas recomendadas": {
+   "ID": 175579,
+   "name": "Lecturas recomendadas",
+   "slug": "lecturas-recomendadas",
+   "description": "",
+   "post_count": 2,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/tags/slug:lecturas-recomendadas",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/tags/slug:lecturas-recomendadas/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ },
+ "categories": {
+  "Lecturas recomendadas": {
+   "ID": 175579,
+   "name": "Lecturas recomendadas",
+   "slug": "lecturas-recomendadas",
+   "description": "",
+   "post_count": 2,
+   "parent": 0,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:lecturas-recomendadas",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:lecturas-recomendadas/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ }
+}

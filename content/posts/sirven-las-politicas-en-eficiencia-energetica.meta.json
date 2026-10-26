@@ -1,0 +1,30 @@
+{
+ "ID": 398,
+ "title": "¿Sirven las políticas en eficiencia energética?",
+ "slug": "sirven-las-politicas-en-eficiencia-energetica",
+ "date": "2017-09-27T18:43:41+00:00",
+ "modified": "2017-09-27T18:43:41+00:00",
+ "status": "publish",
+ "URL": "http://davidantizar.com/2017/09/27/sirven-las-politicas-en-eficiencia-energetica/",
+ "excerpt": "<p>Desde la Unión Europea (en los 90) se están promoviendo distintas políticas basadas en la eficiencia, la reducción de la huella de carbono y el desarrollo sostenible. Esto es debido a múltiples beneficios al seguir estas políticas, y aunque la más remarcable es la lucha contra el cambio climático no debemos olvidos de la fuerza [&hellip;]</p>\n",
+ "featured_image": "",
+ "post_thumbnail": null,
+ "tags": {},
+ "categories": {
+  "Uncategorized": {
+   "ID": 1,
+   "name": "Uncategorized",
+   "slug": "uncategorized",
+   "description": "",
+   "post_count": 14,
+   "parent": 0,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:uncategorized",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:uncategorized/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ }
+}

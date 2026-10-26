@@ -1,0 +1,30 @@
+{
+ "ID": 243,
+ "title": "Windyty, wind map &amp; forecast",
+ "slug": "windyty-wind-map-forecast",
+ "date": "2016-07-04T20:24:55+00:00",
+ "modified": "2016-07-04T20:35:14+00:00",
+ "status": "publish",
+ "URL": "http://davidantizar.com/2016/07/04/windyty-wind-map-forecast/",
+ "excerpt": "<p>La maravilla de los mapas, los datos en tiempo real y la visualización con buen gusto. En Windyty nos encontramos con una preciosa herramienta visual para ver el viento, la temperatura y las precipitaciones no solo en tiempo real sino en el futuro. Herramientas futuristas que ya están al alcance de nuestra mano. Utiliza tanto [&hellip;]</p>\n",
+ "featured_image": "",
+ "post_thumbnail": null,
+ "tags": {},
+ "categories": {
+  "Uncategorized": {
+   "ID": 1,
+   "name": "Uncategorized",
+   "slug": "uncategorized",
+   "description": "",
+   "post_count": 14,
+   "parent": 0,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:uncategorized",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:uncategorized/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,30 @@
+{
+ "ID": 429,
+ "title": "Global Climate Change Monitor",
+ "slug": "global-climate-change-monitor",
+ "date": "2018-02-10T17:05:39+00:00",
+ "modified": "2018-02-10T17:05:39+00:00",
+ "status": "publish",
+ "URL": "http://davidantizar.com/2018/02/10/global-climate-change-monitor/",
+ "excerpt": "<p>¿Aún eres escéptico sobre el cambio climático? Te invito a explorar la web del siguiente enlace: En esta imagen podéis ver las anomalías de las temperaturas medias durante el año 2017. ¿Aún eres escéptico?</p>\n",
+ "featured_image": "",
+ "post_thumbnail": null,
+ "tags": {},
+ "categories": {
+  "Uncategorized": {
+   "ID": 1,
+   "name": "Uncategorized",
+   "slug": "uncategorized",
+   "description": "",
+   "post_count": 14,
+   "parent": 0,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:uncategorized",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:uncategorized/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ }
+}

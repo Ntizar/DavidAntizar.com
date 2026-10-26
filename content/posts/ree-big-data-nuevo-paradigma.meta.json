@@ -1,0 +1,30 @@
+{
+ "ID": 332,
+ "title": "REE &#8211; Big data &#8211; Nuevo paradigma",
+ "slug": "ree-big-data-nuevo-paradigma",
+ "date": "2017-06-29T18:32:42+00:00",
+ "modified": "2017-06-29T18:32:42+00:00",
+ "status": "publish",
+ "URL": "http://davidantizar.com/2017/06/29/ree-big-data-nuevo-paradigma/",
+ "excerpt": "<p>Red Eléctrica Española está trabajando en los ultimos años tratando de informar a los usuarios, empresas y colaboradores. Principalmente lo hacen a través de distintas plataformas de su web en las que podemos visualizar en tiempo real: Gracias a esta información la población, estudiantes, empresas&#8230; Van a poder conocer mejor el funcionamiento del sistema eléctrico [&hellip;]</p>\n",
+ "featured_image": "",
+ "post_thumbnail": null,
+ "tags": {},
+ "categories": {
+  "Uncategorized": {
+   "ID": 1,
+   "name": "Uncategorized",
+   "slug": "uncategorized",
+   "description": "",
+   "post_count": 14,
+   "parent": 0,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:uncategorized",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:uncategorized/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ }
+}

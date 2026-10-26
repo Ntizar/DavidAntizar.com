@@ -1,0 +1,45 @@
+{
+ "ID": 7,
+ "title": "¿Horizonte 2020? No, es hora del horizonte 2050. (Parte I)",
+ "slug": "horizonte-2020-no-es-hora-del-horizonte-2050-parte-i",
+ "date": "2015-10-21T13:08:10+00:00",
+ "modified": "2016-04-20T15:41:52+00:00",
+ "status": "publish",
+ "URL": "http://davidantizar.com/2015/10/21/horizonte-2020-no-es-hora-del-horizonte-2050-parte-i/",
+ "excerpt": "<p>Ya en el año 2011 la Comisión Europea trazó una Hoja de Ruta de la Energía para 2050. A lo largo de estos artículos iré resumiendo el camino que va a seguir la UE a través de políticas, medidas e inversiones para alcanzar sus objetivos. Como antecedentes la UE se comprometió a reducir las emisiones [&hellip;]</p>\n",
+ "featured_image": "",
+ "post_thumbnail": null,
+ "tags": {
+  "Horizonte 2050": {
+   "ID": 236360510,
+   "name": "Horizonte 2050",
+   "slug": "horizonte-2050",
+   "description": "",
+   "post_count": 5,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/tags/slug:horizonte-2050",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/tags/slug:horizonte-2050/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ },
+ "categories": {
+  "Horizonte 2050": {
+   "ID": 236360510,
+   "name": "Horizonte 2050",
+   "slug": "horizonte-2050",
+   "description": "",
+   "post_count": 5,
+   "parent": 0,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:horizonte-2050",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:horizonte-2050/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ }
+}

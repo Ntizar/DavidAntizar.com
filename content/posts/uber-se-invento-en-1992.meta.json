@@ -1,0 +1,30 @@
+{
+ "ID": 357,
+ "title": "Uber se inventó en 1992",
+ "slug": "uber-se-invento-en-1992",
+ "date": "2017-07-07T19:27:30+00:00",
+ "modified": "2017-07-07T19:29:48+00:00",
+ "status": "publish",
+ "URL": "http://davidantizar.com/2017/07/07/uber-se-invento-en-1992/",
+ "excerpt": "<p>Pensar en el tráfico puede hacernos ver en lo que nos hemos convertido. El sentido común nos indica que el transporte &#8211;ser llevado de un sitio a otro&#8211; aumenta nuestra libertad personal sólo si se puede aceptar o rechazar. El congestionamiento del tráfico se ha vuelto el paradigma de nuestra época. Si esto es cierto, [&hellip;]</p>\n",
+ "featured_image": "",
+ "post_thumbnail": null,
+ "tags": {},
+ "categories": {
+  "Uncategorized": {
+   "ID": 1,
+   "name": "Uncategorized",
+   "slug": "uncategorized",
+   "description": "",
+   "post_count": 14,
+   "parent": 0,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:uncategorized",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:uncategorized/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ }
+}

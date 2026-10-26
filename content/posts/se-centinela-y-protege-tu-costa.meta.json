@@ -1,0 +1,30 @@
+{
+ "ID": 380,
+ "title": "Se Centinela y protege tu costa",
+ "slug": "se-centinela-y-protege-tu-costa",
+ "date": "2017-09-02T16:52:27+00:00",
+ "modified": "2017-09-02T16:52:27+00:00",
+ "status": "publish",
+ "URL": "http://davidantizar.com/2017/09/02/se-centinela-y-protege-tu-costa/",
+ "excerpt": "<p>Desde hace unos años formo parte del voluntariado Centinelas Coastwatch Cantabria, una oportunidad de &#8220;adoptar&#8221; un trocito de costa, ser el encargado de cuidarla y de informar si ocurre algo que no debe suceder. Por cierto, mi tramo es el 45-2. Os invito a participar si sois de Cantabria o que busquéis formas similares de [&hellip;]</p>\n",
+ "featured_image": "",
+ "post_thumbnail": null,
+ "tags": {},
+ "categories": {
+  "Uncategorized": {
+   "ID": 1,
+   "name": "Uncategorized",
+   "slug": "uncategorized",
+   "description": "",
+   "post_count": 14,
+   "parent": 0,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:uncategorized",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:uncategorized/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ }
+}

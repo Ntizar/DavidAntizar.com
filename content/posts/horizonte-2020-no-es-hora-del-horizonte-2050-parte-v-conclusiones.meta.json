@@ -1,0 +1,45 @@
+{
+ "ID": 36,
+ "title": "¿Horizonte 2020? No, es hora del horizonte 2050. (Parte V &#8211; Conclusiones)",
+ "slug": "horizonte-2020-no-es-hora-del-horizonte-2050-parte-v-conclusiones",
+ "date": "2015-10-27T12:26:44+00:00",
+ "modified": "2016-04-20T15:45:27+00:00",
+ "status": "publish",
+ "URL": "http://davidantizar.com/2015/10/27/horizonte-2020-no-es-hora-del-horizonte-2050-parte-v-conclusiones/",
+ "excerpt": "<p>Para la Comisión Europea la Hoja de Ruta de la Energía para 2050 demuestra que la descarbonización es viable, tanto técnicamente como económicamente. Considera imperativo realizar esta transformación debido a: Cambio climático Seguridad Economía Igualmente considera que con la actitud actual, las decisiones actuales y la actual sensación de urgencia y compromiso no se lograrán [&hellip;]</p>\n",
+ "featured_image": "",
+ "post_thumbnail": null,
+ "tags": {
+  "Horizonte 2050": {
+   "ID": 236360510,
+   "name": "Horizonte 2050",
+   "slug": "horizonte-2050",
+   "description": "",
+   "post_count": 5,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/tags/slug:horizonte-2050",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/tags/slug:horizonte-2050/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ },
+ "categories": {
+  "Horizonte 2050": {
+   "ID": 236360510,
+   "name": "Horizonte 2050",
+   "slug": "horizonte-2050",
+   "description": "",
+   "post_count": 5,
+   "parent": 0,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:horizonte-2050",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:horizonte-2050/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ }
+}

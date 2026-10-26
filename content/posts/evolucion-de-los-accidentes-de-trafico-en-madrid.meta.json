@@ -1,0 +1,45 @@
+{
+ "ID": 72,
+ "title": "Evolución de los accidentes de tráfico en Madrid",
+ "slug": "evolucion-de-los-accidentes-de-trafico-en-madrid",
+ "date": "2015-12-11T17:20:12+00:00",
+ "modified": "2016-04-20T15:43:15+00:00",
+ "status": "publish",
+ "URL": "http://davidantizar.com/2015/12/11/evolucion-de-los-accidentes-de-trafico-en-madrid/",
+ "excerpt": "<p>Una de las maneras más cómodas para captar información con variables de datos son los mapas. Últimamente se está viendo como los mapas nos permiten mostrar bases de datos en tiempo real (muchas de las soluciones de las Smart Cities parten de alguno de estos principios). La tecnología ya existe, pero es importante saber que hacer [&hellip;]</p>\n",
+ "featured_image": "",
+ "post_thumbnail": null,
+ "tags": {
+  "Accidentes tráfico Madrid": {
+   "ID": 485966875,
+   "name": "Accidentes tráfico Madrid",
+   "slug": "accidentes-trafico-madrid",
+   "description": "",
+   "post_count": 1,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/tags/slug:accidentes-trafico-madrid",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/tags/slug:accidentes-trafico-madrid/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ },
+ "categories": {
+  "Accidentes de tráfico en Madrid": {
+   "ID": 485967764,
+   "name": "Accidentes de tráfico en Madrid",
+   "slug": "accidentes-de-trafico-en-madrid",
+   "description": "",
+   "post_count": 1,
+   "parent": 0,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:accidentes-de-trafico-en-madrid",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:accidentes-de-trafico-en-madrid/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "ID": 161,
+ "title": "Pablo Parellada y Molas y los gobiernos &#8220;modernos&#8221;",
+ "slug": "pablo-parellada-y-molas-y-los-gobiernos-modernos",
+ "date": "2016-04-13T10:53:48+00:00",
+ "modified": "2016-04-20T15:40:37+00:00",
+ "status": "publish",
+ "URL": "http://davidantizar.com/2016/04/13/pablo-parellada-y-molas-y-los-gobiernos-modernos/",
+ "excerpt": "<p>Hoy os  voy a poner uno de los versos más representativos de la España del siglo XIX, aunque seguro que también lo será de la España del siglo XXI. Trata sobre &#8220;chimeneas&#8221; y su correcto dimensionamiento, cuadradas o redondas. Pero parece que la ciencia no va a ser la solución correcta. Pablo Parellada y Molas dibuja [&hellip;]</p>\n",
+ "featured_image": "",
+ "post_thumbnail": null,
+ "tags": {
+  "Curiosidades": {
+   "ID": 5718,
+   "name": "Curiosidades",
+   "slug": "curiosidades",
+   "description": "",
+   "post_count": 2,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/tags/slug:curiosidades",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/tags/slug:curiosidades/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ },
+ "categories": {
+  "Curiosidades": {
+   "ID": 5718,
+   "name": "Curiosidades",
+   "slug": "curiosidades",
+   "description": "",
+   "post_count": 2,
+   "parent": 0,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:curiosidades",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:curiosidades/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ }
+}

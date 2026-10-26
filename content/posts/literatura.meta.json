@@ -1,0 +1,45 @@
+{
+ "ID": 41,
+ "title": "Las ciudades del siglo XXI  &#8211;  Luis Irastorza  (Recomendación I)",
+ "slug": "literatura",
+ "date": "2015-11-12T12:39:02+00:00",
+ "modified": "2016-04-20T15:41:30+00:00",
+ "status": "publish",
+ "URL": "http://davidantizar.com/2015/11/12/literatura/",
+ "excerpt": "<p>Un ensayo sobre la situación actual de las ciudades y el camino que deben seguir a lo largo del próximo siglo. Lectura recomendada. Pulsa en la imagen para descargarlo.</p>\n",
+ "featured_image": "",
+ "post_thumbnail": null,
+ "tags": {
+  "Lecturas recomendadas": {
+   "ID": 175579,
+   "name": "Lecturas recomendadas",
+   "slug": "lecturas-recomendadas",
+   "description": "",
+   "post_count": 2,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/tags/slug:lecturas-recomendadas",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/tags/slug:lecturas-recomendadas/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ },
+ "categories": {
+  "Lecturas recomendadas": {
+   "ID": 175579,
+   "name": "Lecturas recomendadas",
+   "slug": "lecturas-recomendadas",
+   "description": "",
+   "post_count": 2,
+   "parent": 0,
+   "meta": {
+    "links": {
+     "self": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:lecturas-recomendadas",
+     "help": "https://public-api.wordpress.com/rest/v1.1/sites/99650078/categories/slug:lecturas-recomendadas/help",
+     "site": "https://public-api.wordpress.com/rest/v1.1/sites/99650078"
+    }
+   }
+  }
+ }
+}
