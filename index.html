@@ -29,6 +29,7 @@ body{
   font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   background:#000;color:var(--texto);overflow:hidden;
   display:flex;align-items:center;justify-content:center;-webkit-font-smoothing:antialiased;
+  transition:filter .3s ease;
 }
 /* El wallpaper desenfocado rodea al teléfono en PC */
 .escenario{position:fixed;inset:0;z-index:0}
@@ -75,7 +76,7 @@ html:not(.js) #bloqueo,html:not(.js) #cara{display:none}
 #cara{background:rgba(0,0,0,.55);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;z-index:30}
 .escaner{position:relative;width:150px;height:190px}
 .escaner video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;transform:scaleX(-1);opacity:0;transition:opacity .5s}
-.escaner.con-cam video{opacity:.9}
+.escaner video{display:none}
 .cara-svg{position:absolute;inset:0;width:100%;height:100%}
 .cara-svg .contorno{stroke:rgba(255,255,255,.35);stroke-width:2;fill:none;stroke-dasharray:6 8;animation:girar 6s linear infinite}
 .cara-svg .rasgo{stroke:rgba(255,255,255,.5);stroke-width:2;fill:none;stroke-linecap:round}
@@ -150,9 +151,20 @@ html:not(.js) #bloqueo,html:not(.js) #cara{display:none}
 .carpita .app__nombre{max-width:none;white-space:normal}
 .spot-input{width:100%;background:rgba(120,120,128,.28);border:none;border-radius:12px;padding:12px 14px;color:#fff;font-size:16px;font-family:inherit;margin-bottom:14px}
 .spot-input::placeholder{color:rgba(255,255,255,.5)}
-.vidrio{position:relative;border-radius:22px;overflow:hidden;background:#1c1c1e;display:flex;align-items:center;justify-content:center;min-height:340px}
-.vidrio video{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transform:scaleX(-1)}
-.vidrio .sin-cam{text-align:center;opacity:.7;font-size:15px;line-height:1.5;padding:30px}
+.cam-visor{position:relative;aspect-ratio:3/4;border-radius:22px;overflow:hidden;background:rgba(120,120,128,.25);background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center}
+.cam-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.22) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.22) 1px,transparent 1px);background-size:33.4% 33.4%}
+.cam-focus{width:72px;height:72px;border:2px solid #ffd60a;border-radius:8px;animation:enfoca 4s ease-in-out infinite}
+@keyframes enfoca{0%,100%{transform:translate(-14px,8px)}50%{transform:translate(14px,-12px)}}
+.cam-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+.cam-flash.on{animation:flashazo .5s ease}
+@keyframes flashazo{0%{opacity:0}12%{opacity:.95}100%{opacity:0}}
+.cam-zoom{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.5);color:#ffd60a;font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px}
+.cam-pie{display:flex;align-items:center;justify-content:space-between;margin-top:18px}
+.cam-mini{width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;opacity:.7}
+.cam-mini.con-foto{background:#ffd60a;color:#000;font-weight:700;opacity:1}
+.cam-disparo{width:64px;height:64px;border-radius:50%;background:#fff;border:4px solid rgba(255,255,255,.45);cursor:pointer;transition:transform .15s}
+.cam-disparo:active{transform:scale(.88)}
+.cam-nota{margin-top:16px;font-size:13px;opacity:.55;text-align:center;line-height:1.5}
 .credito{position:fixed;bottom:8px;left:0;right:0;text-align:center;font-size:12px;color:rgba(255,255,255,.4);z-index:1;letter-spacing:.3px}
 @media (max-width:430px){.credito{bottom:max(8px,env(safe-area-inset-bottom))}}
 @keyframes zoom-app{from{transform:scale(1);opacity:1}to{transform:scale(1.4);opacity:0}}
@@ -203,7 +215,7 @@ html:not(.js) .deshaz,html:not(.js) .antorchas,html:not(.js) .mota,html:not(.js)
   <!-- ═══ FACE ID ═══ -->
   <section class="fase fase-oculta" id="cara" aria-label="Reconocimiento facial">
     <div class="escaner" id="escaner">
-      <video id="video-cam" autoplay playsinline muted></video>
+      
       <svg class="cara-svg" viewBox="0 0 150 190" aria-hidden="true">
         <path class="contorno" d="M30 55 Q30 18 75 18 Q120 18 120 55 L120 115 Q120 172 75 172 Q30 172 30 115 Z"/>
         <g class="rasgo">
@@ -383,31 +395,22 @@ const elVisor=document.getElementById("visor");
 let fase="bloqueo";let progreso=0;
 
 function mostrarCara(){fase="cara";elBloqueo.classList.add("fase-oculta");elCara.classList.remove("fase-oculta");escanear();}
-function mostrarEscritorio(){fase="escritorio";elCara.classList.add("fase-oculta");elEscritorio.classList.remove("fase-oculta");detenerCamara();}
+function mostrarEscritorio(){fase="escritorio";elCara.classList.add("fase-oculta");elEscritorio.classList.remove("fase-oculta");}
 function volverBloqueo(){fase="bloqueo";progreso=0;
   elEscritorio.classList.add("fase-oculta");cerrarVisor();
   elCara.classList.add("fase-oculta");elCara.classList.remove("escaneando","ok");
   elBloqueo.classList.remove("fase-oculta");elBloqueo.style.transform="";elBloqueo.style.opacity="";}
 
-/* ─── Face ID ─── */
-const video=document.getElementById("video-cam");
-const escaner=document.getElementById("escaner");
+/* ─── Face ID: 100% animación. No pide ni usa la cámara. ─── */
 const textoCara=document.getElementById("texto-cara");
-let stream=null;
-function detenerCamara(){if(stream&&stream!==visorStream){/* el del escáner sí se para */}}
-function pararStream(s){if(s){s.getTracks().forEach(t=>t.stop());}}
-async function escanear(){
+function escanear(){
   elCara.classList.add("escaneando");
   textoCara.innerHTML='Escaneando rostro…<small>Face ID · así de fácil me cuelas</small>';
-  try{
-    const st=await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"},audio:false});
-    stream=st;video.srcObject=st;escaner.classList.add("con-cam");
-  }catch(e){/* sin permiso: la animación basta, es falsa a propósito */}
   setTimeout(()=>{
     elCara.classList.remove("escaneando");elCara.classList.add("ok");
     textoCara.innerHTML='¡Hola! 👋<small>Face ID aceptado — aunque no te conozca</small>';
     document.getElementById("leng-candado").setAttribute("d","M8 10V7a4 4 0 0 1 7.5-1.8");
-    setTimeout(()=>{mostrarEscritorio();pararStream(stream);stream=null;escaner.classList.remove("con-cam");},850);
+    setTimeout(mostrarEscritorio,850);
   },2400);
 }
 
@@ -431,15 +434,10 @@ addEventListener("touchend",()=>{toqueY=null;if(progreso>0&&progreso<1){progreso
 addEventListener("keydown",e=>{if((e.key==="ArrowUp"||e.key===" "||e.key==="Enter")&&fase==="bloqueo"){e.preventDefault();onScrollUp(.4);}if(e.key==="Escape"){if(elVisor.classList.contains("abierta"))cerrarVisor();else volverBloqueo();}});
 elBloqueo.addEventListener("click",e=>{if(e.target.closest("button"))return;onScrollUp(1.2);});
 
-document.getElementById("btn-linterna").addEventListener("click",async e=>{
+document.getElementById("btn-linterna").addEventListener("click",e=>{
   e.stopPropagation();
-  try{
-    const st=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});
-    const track=st.getVideoTracks()[0];
-    const cap=track.getCapabilities&&track.getCapabilities().torch;
-    if(cap){await track.applyConstraints({advanced:[{torch:!track.settings.torch}]});setTimeout(()=>{track.stop();},1200);}
-    else{document.body.style.filter="brightness(2)";setTimeout(()=>document.body.style.filter="",600);st.getTracks().forEach(t=>t.stop());}
-  }catch(err){}
+  document.body.style.filter="brightness(2.2)";
+  setTimeout(()=>document.body.style.filter="",500);
 });
 document.getElementById("btn-cam-antorcha").addEventListener("click",e=>{e.stopPropagation();onScrollUp(1.2);});
 
@@ -468,7 +466,6 @@ const CARPETAS={
 function filaLink(k){const l=LINKS[k];return `<a class="fila-app" href="${l.u}" target="_blank" rel="noopener nofollow"><span class="ic" style="background:${l.c}"><b style="color:#fff;font-weight:700">${l.n[0]}</b></span><span>${l.n}</span><span class="chevron">›</span></a>`;}
 
 /* ─── Vistas del visor ─── */
-let visorStream=null;
 const ICONO_CORREO='<span class="ic" style="background:linear-gradient(160deg,#5ac8fa,#0a60ff)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>';
 function galeriaHTML(){
   return '<div class="galeria">'+FONDOS.map((f,i)=>`<button class="galeria__item ${i===fondoActivo?'on':''}" data-fondo="${i}" style="background-image:url('${f.src}')" aria-label="Poner fondo ${f.id}"></button>`).join("")+'</div><p style="opacity:.5;font-size:13.5px;margin-top:14px">Toca una foto y se pone de fondo en todo el teléfono.</p>';}
@@ -494,13 +491,21 @@ const vistas={
     <div class="fila-app" style="border-bottom:none;justify-content:center"><span style="opacity:.6;font-size:14px">🔇 Este botón es de mentira: llámame por correo, que suena mejor.</span></div>
     <button class="boton-ios" data-mailto>✉ Escríbele un correo</button>`,
   fotos:galeriaHTML,
-  camara:()=>`<div class="vidrio" id="vidrio-cam"><div class="sin-cam">La cámara de este iPhone es de utilería:<br>aquí no se ve ni se graba nada.<br><button class="boton-ios" id="cam-on" style="max-width:220px;margin:18px auto 0">Verme (solo en pantalla, sin guardar)</button></div></div>`,
+  camara:()=>`<div class="cam-ui">
+  <div class="cam-visor" id="cam-visor"><div class="cam-grid"></div><div class="cam-focus"></div><div class="cam-flash" id="cam-flash"></div><span class="cam-zoom">1x</span></div>
+  <div class="cam-pie">
+    <div class="cam-mini" id="cam-mini">0</div>
+    <button class="cam-disparo" id="cam-disparo" aria-label="Disparar"></button>
+    <div style="width:44px"></div>
+  </div>
+  <p class="cam-nota">Cámara de utilería: este iPhone web no tiene cámara de verdad.<br>Nada que ver, nada que grabar, nada que pedir.</p>
+</div>`,
   spotlight:()=>`<input class="spot-input" id="spot-in" placeholder="Buscar en David…" autocomplete="off">
     <div id="spot-lista">${Object.keys(LINKS).map(filaLink).join("")}</div>`,
   ajustes:()=>`<div style="font-size:13px;text-transform:uppercase;opacity:.5;font-weight:600;margin-bottom:10px">Fondo del iPhone</div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">${FONDOS.map((f,i)=>`<button class="fondo-op ${i===fondoActivo?'on':''}" data-fondo="${i}" style="background-image:url('${f.src}')" aria-label="Fondo ${f.id}"></button>`).join("")}</div>
     <div class="fila-app" style="margin-top:22px"><span class="ic" style="background:#8e8e93"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2.5 13.2 5a1.5 1.5 0 0 0 1.8.8l2.5-.8-.8 2.5a1.5 1.5 0 0 0 .8 1.8l2.5.8-2.5 1a1.5 1.5 0 0 0-.8 1.8l.8 2.5-2.5-.8a1.5 1.5 0 0 0-1.8.8L13.2 21.5 12 19a1.5 1.5 0 0 0-1.8-.8l-2.5.8.8-2.5a1.5 1.5 0 0 0-.8-1.8L5.2 14.5l2.5-1a1.5 1.5 0 0 0 .8-1.8l-.8-2.5 2.5.8a1.5 1.5 0 0 0 1.8-.8z"/><circle cx="12" cy="12" r="3"/></svg></span>
-      <span>Face ID<small>Simulado: no guarda ninguna imagen tuya — promesa</small></span></div>
+      <span>Face ID<small>Animación pura: ni siquiera pide la cámara</small></span></div>
     <div class="fila-app"><span class="ic" style="background:#ff9f0a"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-2h2zm0-4h-2V7h2z"/></svg></span>
       <span>Sobre esta web<small>La hizo Mastermind, la firmó David</small></span></div>`
 };
@@ -526,23 +531,18 @@ function abrirVisor(id){
     setTimeout(()=>inp.focus(),350);
   }
   if(id==="camara"){
-    const btn=cuerpo.querySelector("#cam-on");
-    if(btn)btn.addEventListener("click",async()=>{
-      try{
-        visorStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"},audio:false});
-        const v=document.createElement("video");v.autoplay=true;v.playsInline=true;v.muted=true;v.srcObject=visorStream;
-        const vidrio=cuerpo.querySelector("#vidrio-cam");vidrio.innerHTML="";vidrio.appendChild(v);
-      }catch(e){cuerpo.querySelector("#vidrio-cam .sin-cam").innerHTML="Sin permiso no hay cámara. También es de mentira, tranqui.";}
+    const visor=cuerpo.querySelector("#cam-visor");
+    if(FONDOS[fondoActivo])visor.style.backgroundImage=`url('${FONDOS[fondoActivo].src}')`;
+    const disparo=cuerpo.querySelector("#cam-disparo"),flash=cuerpo.querySelector("#cam-flash"),mini=cuerpo.querySelector("#cam-mini");
+    let fotos=0;
+    disparo.addEventListener("click",()=>{
+      flash.classList.remove("on");void flash.offsetWidth;flash.classList.add("on");
+      fotos++;mini.textContent=fotos;mini.classList.toggle("con-foto",fotos>0);
     });
   }
   cuerpo.querySelectorAll("[data-mailto]").forEach(b=>b.addEventListener("click",()=>{location.href="mailto:hola@davidantizar.com";}));
 }
-function cerrarVisor(){
-  elVisor.classList.remove("abierta");
-  if(visorStream){visorStream.getTracks().forEach(t=>t.stop());visorStream=null;}
-  detenerCamaraVisor();
-}
-function detenerCamaraVisor(){const v=document.querySelector("#vidrio-cam video");if(v&&v.srcObject)v.srcObject.getTracks().forEach(t=>t.stop());}
+function cerrarVisor(){elVisor.classList.remove("abierta");}
 document.getElementById("visor-volver").addEventListener("click",cerrarVisor);
 document.querySelectorAll("[data-app]").forEach(b=>b.addEventListener("click",()=>abrirVisor(b.dataset.app)));
 
