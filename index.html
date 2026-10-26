@@ -7,80 +7,71 @@
 <meta name="description" content="La web de David Antizar: un iPhone. Desliza hacia arriba, te reconoce la cara y entra a su escritorio. LinkedIn, X, Substack, el libro, GitHub, correo y calendario de vacaciones.">
 <meta property="og:title" content="David Antizar — otra manera de mirar al mundo">
 <meta property="og:description" content="Abre esta web como si fuera tu iPhone: scroll hacia arriba, Face ID falso, escritorio con apps.">
-<meta property="og:image" content="assets/img/wallpaper-noche.jpg">
+<meta property="og:image" content="assets/img/wallpaper-morado.jpg">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230a84ff'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'%3ED%3C/text%3E%3C/svg%3E">
 <style>
 /* ============================================================
-   davidantizar.com — estilo iPhone, no Aurora (a propósito).
-   Fases: BLOQUEO → FACE ID → ESCRITORIO → APP.
-   Sin JS la página muestra el escritorio con enlaces reales.
+   davidantizar.com — clon de iPhone (iOS 26), no Aurora (a propósito).
+   Fases: BLOQUEO → FACE ID → ESCRITORIO → VISOR/CARPETA.
+   Widget calendario arriba, carpetas glass, píldora Búsqueda,
+   dock de 3, batería con %, campana silenciada — calcado del original.
+   Sin JS: escritorio con enlaces reales.
    ============================================================ */
 :root{
-  --iphone-w: 390px; --iphone-h: 844px;
-  --radius: 54px; --bezel: 12px;
-  --ios-blue:#0a84ff; --ios-orange:#ff9f0a; --ios-red:#ff453a; --ios-green:#30d158;
-  --texto:#fff;
+  --iphone-w:390px; --iphone-h:844px; --radius:54px; --bezel:12px;
+  --ios-blue:#0a84ff; --ios-orange:#ff9f0a; --ios-red:#ff453a; --ios-green:#30d158; --texto:#fff;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{
   font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   background:#000;color:var(--texto);overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-  -webkit-font-smoothing:antialiased;
+  display:flex;align-items:center;justify-content:center;-webkit-font-smoothing:antialiased;
 }
-/* ---------- Escenario: el wallpaper rodea al iPhone en PC ---------- */
+/* El wallpaper desenfocado rodea al teléfono en PC */
 .escenario{position:fixed;inset:0;z-index:0}
-.escenario img{width:100%;height:100%;object-fit:cover;filter:blur(60px) brightness(.5) saturate(1.4);transform:scale(1.2)}
-/* ---------- El teléfono ---------- */
+.escenario img{width:100%;height:100%;object-fit:cover;filter:blur(60px) brightness(.45) saturate(1.4);transform:scale(1.2)}
 .telefono{
-  position:relative;z-index:2;
-  width:min(var(--iphone-w), 100vw);
-  height:min(var(--iphone-h), 100dvh);
+  position:relative;z-index:2;width:min(var(--iphone-w),100vw);height:min(var(--iphone-h),100dvh);
   background:#000;border-radius:var(--radius);
-  box-shadow:0 0 0 2px #3a3a3c, 0 0 0 calc(var(--bezel)) #1c1c1e, 0 40px 120px rgba(0,0,0,.8);
+  box-shadow:0 0 0 2px #3a3a3c,0 0 0 var(--bezel) #1c1c1e,0 40px 120px rgba(0,0,0,.8);
   overflow:hidden;flex-shrink:0;
 }
-@media (max-width:430px){ .telefono{--radius:0;box-shadow:none;border-radius:0} .escenario{display:none} }
-/* ---------- Pantalla y fases ---------- */
+@media (max-width:430px){.telefono{--radius:0;box-shadow:none;border-radius:0}.escenario{display:none}}
 .pantalla{position:absolute;inset:0;overflow:hidden;background:#000}
-.fase{position:absolute;inset:0;transition:transform .6s cubic-bezier(.32,.72,0,1), opacity .5s ease}
-/* En modo JS las fases se apilan; sin JS solo se ve el escritorio */
+.fase{position:absolute;inset:0;transition:transform .6s cubic-bezier(.32,.72,0,1),opacity .5s ease}
 html.js .fase-oculta{opacity:0;pointer-events:none;transform:scale(1.08)}
 html:not(.js) #bloqueo,html:not(.js) #cara{display:none}
-
-/* ---------- StatusBar común ---------- */
-.statusbar{position:absolute;top:0;left:0;right:0;height:54px;display:flex;align-items:center;justify-content:space-between;padding:18px 28px 0;font-size:15px;font-weight:600;z-index:40;pointer-events:none}
+/* ─── Barra de estado: izq hora+campana, der señal+wifi+batería con % ─── */
+.statusbar{position:absolute;top:0;left:0;right:0;height:54px;display:flex;align-items:center;justify-content:space-between;padding:16px 30px 0;font-size:15px;font-weight:600;z-index:40;pointer-events:none}
 .notch{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:120px;height:34px;background:#000;border-radius:20px;z-index:41}
-@media (max-width:430px){ .notch{background:#000} }
-.statusbar .der{display:flex;gap:6px;align-items:center}
-.sb-bateria{width:25px;height:12px;border:1.4px solid rgba(255,255,255,.6);border-radius:3.5px;position:relative;padding:1.5px}
-.sb-bateria::after{content:"";position:absolute;right:-4px;top:3px;width:2px;height:4px;background:rgba(255,255,255,.6);border-radius:0 2px 2px 0}
-.sb-bateria i{display:block;height:100%;width:78%;background:#fff;border-radius:1.5px}
-.sb-senal,.sb-wifi{display:flex;align-items:flex-end;gap:1.5px;height:11px}
+.sb-iz{display:flex;align-items:center;gap:7px}
+.sb-der{display:flex;align-items:center;gap:7px}
+.sb-senal{display:flex;align-items:flex-end;gap:1.5px;height:11px}
 .sb-senal b{width:3px;background:#fff;border-radius:1px}
 .sb-senal b:nth-child(1){height:4px}.sb-senal b:nth-child(2){height:6px}.sb-senal b:nth-child(3){height:8px}.sb-senal b:nth-child(4){height:10px}
-
-/* ---------- FASE 1: Bloqueo ---------- */
-#bloqueo{display:flex;flex-direction:column;align-items:center;background-size:cover;background-position:center;background-repeat:no-repeat}
+.sb-bateria{width:27px;height:13px;border:1.4px solid rgba(255,255,255,.5);border-radius:4px;position:relative;padding:1.6px}
+.sb-bateria::after{content:"";position:absolute;right:-4px;top:3.5px;width:2px;height:4px;background:rgba(255,255,255,.5);border-radius:0 2px 2px 0}
+.sb-bateria i{display:block;height:100%;width:31%;background:#fff;border-radius:2px}
+.sb-bateria b{position:absolute;left:2px;top:0;bottom:0;right:0;display:flex;align-items:center;font-size:7.5px;font-weight:700;color:#fff}
+/* ─── FASE 1 · Bloqueo ─── */
+#bloqueo{display:flex;flex-direction:column;align-items:center;background-size:cover;background-position:center}
 #bloqueo .wall{position:absolute;inset:0;background-size:cover;background-position:center;transition:opacity 1.2s ease}
-#bloqueo .contenido{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;padding-top:84px;text-shadow:0 1px 12px rgba(0,0,0,.35)}
+#bloqueo .contenido{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;padding-top:78px;text-shadow:0 1px 12px rgba(0,0,0,.35)}
 .hora{font-size:78px;font-weight:700;letter-spacing:-2px;line-height:1;font-variant-numeric:tabular-nums}
 .fecha{font-size:19px;font-weight:600;margin-top:6px;opacity:.95}
-.notif{margin-top:34px;width:calc(100% - 44px);background:rgba(120,120,128,.32);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-radius:19px;padding:13px 16px;display:flex;gap:12px;align-items:flex-start;text-align:left}
+.notif{margin-top:30px;width:calc(100% - 44px);background:rgba(120,120,128,.32);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-radius:19px;padding:13px 16px;display:flex;gap:12px;align-items:flex-start;text-align:left}
 .notif .ic{width:36px;height:36px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.notif .t{font-size:15px;font-weight:600}
-.notif .p{font-size:14px;opacity:.85;margin-top:2px;line-height:1.3}
-.notif .h{font-size:13px;opacity:.6;float:right}
+.notif .t{font-size:15px;font-weight:600}.notif .p{font-size:14px;opacity:.85;margin-top:2px;line-height:1.3}.notif .h{font-size:13px;opacity:.6;float:right}
 .aviso-vac{margin-top:12px;width:calc(100% - 44px);background:rgba(255,159,10,.22);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:14px;padding:9px 14px;font-size:13.5px;text-align:center}
-.deshaz{position:absolute;bottom:34px;left:0;right:0;text-align:center;font-size:15px;font-weight:600;z-index:3;animation:latido 2.4s ease-in-out infinite}
-.deshaz .linea{width:130px;height:5px;background:rgba(255,255,255,.9);border-radius:3px;margin:14px auto 0}
+.deshaz{position:absolute;bottom:32px;left:0;right:0;text-align:center;font-size:15px;font-weight:600;z-index:3;animation:latido 2.4s ease-in-out infinite}
+.deshaz .linea{width:130px;height:5px;background:rgba(255,255,255,.9);border-radius:3px;margin:12px auto 0}
 @keyframes latido{0%,100%{opacity:.55;transform:translateY(0)}50%{opacity:1;transform:translateY(-6px)}}
-.antorchas{position:absolute;bottom:80px;left:0;right:0;display:flex;justify-content:space-between;padding:0 46px;z-index:3}
-.antorcha{width:56px;height:56px;border-radius:50%;background:rgba(120,120,128,.3);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;border:none;color:#fff}
-/* ---------- FASE 2: Face ID ---------- */
+.antorchas{position:absolute;bottom:76px;left:0;right:0;display:flex;justify-content:space-between;padding:0 46px;z-index:3}
+.antorcha{width:54px;height:54px;border-radius:50%;background:rgba(120,120,128,.3);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;border:none;color:#fff}
+/* ─── FASE 2 · Face ID ─── */
 #cara{background:rgba(0,0,0,.55);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;z-index:30}
 .escaner{position:relative;width:150px;height:190px}
 .escaner video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;transform:scaleX(-1);opacity:0;transition:opacity .5s}
@@ -100,87 +91,105 @@ html:not(.js) #bloqueo,html:not(.js) #cara{display:none}
 .punto-carga b{width:8px;height:8px;border-radius:50%;background:#fff;opacity:.25;animation:pulso 1.2s infinite}
 .punto-carga b:nth-child(2){animation-delay:.2s}.punto-carga b:nth-child(3){animation-delay:.4s}
 @keyframes pulso{0%,100%{opacity:.25}50%{opacity:1}}
-/* ---------- FASE 3: Escritorio ---------- */
+/* ─── FASE 3 · Escritorio ─── */
 #escritorio{background-size:cover;background-position:center;display:flex;flex-direction:column}
 #escritorio .wall{position:absolute;inset:0;background-size:cover;background-position:center}
-.velos{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(0,0,0,.25),transparent 60%)}
-.rejilla{position:relative;z-index:2;flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:22px 8px;padding:88px 22px 8px;align-content:start;overflow:hidden}
-.app{display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;color:#fff}
-.app__icono{width:62px;height:62px;border-radius:14.5px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.25);transition:transform .18s cubic-bezier(.32,.72,0,1);position:relative;overflow:hidden}
+.velos{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(0,0,0,.28),transparent 55%)}
+.rejilla{position:relative;z-index:2;flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:19px 8px;padding:78px 20px 6px;align-content:start;overflow:hidden}
+.app{display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;color:#fff;background:none;border:none;font-family:inherit;cursor:pointer;padding:0}
+.app__icono{width:62px;height:62px;border-radius:15px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.3);transition:transform .18s cubic-bezier(.32,.72,0,1);position:relative;overflow:hidden}
+.app__icono::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,0) 44%);pointer-events:none}
 .app:active .app__icono{transform:scale(.88)}
 .app__icono svg{width:34px;height:34px}
-.app__nombre{font-size:12px;font-weight:500;text-shadow:0 1px 6px rgba(0,0,0,.7);max-width:70px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.insignia{position:absolute;top:-5px;right:-5px;min-width:20px;height:20px;border-radius:10px;background:var(--ios-red);color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;padding:0 5px;border:2px solid rgba(0,0,0,.15)}
-.mota{position:absolute;bottom:88px;left:0;right:0;display:flex;justify-content:center;gap:8px;z-index:3}
-.mota b{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.5)}
-.mota b.on{background:#fff}
-.dock{position:relative;z-index:2;margin:0 14px 26px;background:rgba(255,255,255,.16);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-radius:30px;padding:13px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.app__nombre{font-size:12px;font-weight:500;text-shadow:0 1px 6px rgba(0,0,0,.75);max-width:76px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.insignia{position:absolute;top:-5px;right:-6px;min-width:20px;height:20px;border-radius:10px;background:var(--ios-red);color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;padding:0 5px;z-index:2}
+/* Widget de calendario (blanco, columnas, chips crema) */
+.widget{grid-column:1/-1;display:flex;gap:13px;background:#fff;color:#1c1c1e;border-radius:26px;padding:14px 15px;height:180px;box-shadow:0 6px 18px rgba(0,0,0,.3);overflow:hidden;border:none;font-family:inherit;cursor:pointer;text-align:left}
+.widget__col{flex:1;min-width:0}
+.widget__dow{font-size:12px;font-weight:700;letter-spacing:.4px;color:var(--ios-red);text-transform:uppercase}
+.widget__day{font-size:42px;font-weight:600;line-height:.95;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.widget__otro{font-size:11px;font-weight:600;color:#8e8e93;text-transform:uppercase;margin-top:14px}
+.widget__ev{display:flex;align-items:center;gap:6;background:#f6e7d4;color:#7c4a1d;border-radius:9px;padding:6px 7px;font-size:12.5px;margin-top:7px;white-space:nowrap;overflow:hidden}
+.widget__ev .pt{width:3px;height:16px;border-radius:3px;background:#f59f0a;flex-shrink:0}
+.widget__ev span{overflow:hidden;text-overflow:ellipsis}
+.widget__ev small{opacity:.65;font-size:10.5px;flex-shrink:0}
+.widget__mas{color:#8e8e93;background:transparent;padding-left:2px}
+/* Píldora Búsqueda */
+.pildora{display:flex;margin:4px auto 8px;width:47%;justify-content:center;align-items:center;gap:7px;background:rgba(255,255,255,.22);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:999px;padding:8px;font-size:14px;color:#fff;border:none;font-family:inherit;cursor:pointer;position:relative;z-index:3}
+.mota{position:relative;z-index:3;display:flex;justify-content:center;gap:8px;margin-bottom:10px}
+.mota b{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55)}.mota b.on{background:#fff}
+.dock{position:relative;z-index:2;margin:0 14px 24px;background:rgba(255,255,255,.16);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-radius:30px;padding:13px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .dock .app__nombre{display:none}
-/* ---------- Visor de app interna (Calendario, Correo, Teléfono, Ajustes) ---------- */
-#visor{background:#000;z-index:50;display:flex;flex-direction:column;transform:scale(.3);opacity:0;pointer-events:none;transform-origin:center;border-radius:var(--radius)}
-#visor.abierta{transform:scale(1);opacity:1;pointer-events:auto;border-radius:0}
-.visor__barra{padding:64px 20px 12px;display:flex;align-items:center;justify-content:space-between;background:rgba(28,28,30,.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:sticky;top:0;z-index:2}
+/* Carpetas glass */
+.app__icono--carpeta{background:rgba(40,32,56,.55)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:grid!important;grid-template-columns:repeat(3,1fr);gap:5px;padding:10px!important}
+.mini{width:100%;aspect-ratio:1;border-radius:5px;box-shadow:0 1px 2px rgba(0,0,0,.35)}
+/* ─── Visor ─── */
+#visor{background:#000;z-index:50;display:flex;flex-direction:column;transform:scale(.3);opacity:0;pointer-events:none;transition:transform .4s cubic-bezier(.32,.72,0,1),opacity .3s}
+#visor.abierta{transform:scale(1);opacity:1;pointer-events:auto}
+.visor__barra{padding:62px 20px 12px;display:flex;align-items:center;justify-content:space-between;background:rgba(28,28,30,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:sticky;top:0;z-index:2}
 .visor__volver{background:none;border:none;color:var(--ios-blue);font-size:17px;display:flex;align-items:center;gap:4px;cursor:pointer;font-family:inherit}
 .visor__titulo{font-size:17px;font-weight:600}
-.visor__ya{width:64px}
+.visor__y{width:86px}
 .visor__cuerpo{flex:1;overflow-y:auto;padding:20px;-webkit-overflow-scrolling:touch}
-/* Calendario */
 .cal{width:100%;border-collapse:collapse;font-size:14px}
-.cal th{color:var(--ios-red);font-weight:600;padding:8px 2px;text-transform:uppercase;font-size:12px}
-.cal td{text-align:center;padding:9px 2px;border-radius:10px}
-.cal .hoy{background:var(--ios-red);color:#fff;font-weight:700;border-radius:50%}
-.cal .vaci td{background:rgba(255,69,58,.18)}
-.cal .vaci .hoy{background:var(--ios-red)}
+.cal th{color:var(--ios-red);font-weight:600;padding:8px 2px;font-size:12px}
+.cal td{text-align:center;padding:9px 2px}
+.cal .vaci td{background:rgba(255,69,58,.16);border-radius:8px}
 .cal-leyenda{margin-top:18px;background:rgba(120,120,128,.16);border-radius:14px;padding:14px 16px;font-size:15px;line-height:1.45}
-.cal-leyenda b{color:var(--ios-orange)}
-/* Correo / Teléfono */
+.cal-leyenda b{color:var(--ios-blue)}
 .fila-app{display:flex;align-items:center;gap:14px;padding:15px 6px;border-bottom:.5px solid rgba(255,255,255,.12);color:#fff;text-decoration:none;font-size:16px}
 .fila-app .ic{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .fila-app small{display:block;opacity:.55;font-size:13px;margin-top:2px}
 .fila-app .chevron{margin-left:auto;opacity:.35}
 .boton-ios{display:block;background:var(--ios-blue);color:#fff;text-align:center;border-radius:14px;padding:15px;font-size:17px;font-weight:600;text-decoration:none;margin-top:22px;border:none;width:100%;font-family:inherit;cursor:pointer}
-.boton-ios.verde{background:var(--ios-green)}
-/* Ajustes: fondos */
-.fondos{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.fondo-op{aspect-ratio:9/16;border-radius:16px;background-size:cover;background-position:center;border:3px solid transparent;cursor:pointer;padding:0}
-.fondo-op.on{border-color:var(--ios-blue)}
-/* ---------- Pie de atribución (esquina, estilo iOS) ---------- */
-.credito{position:fixed;bottom:10px;left:0;right:0;text-align:center;font-size:12px;color:rgba(255,255,255,.45);z-index:1;letter-spacing:.3px}
-@media (max-width:430px){.credito{display:none}}
-/* ---------- Animación de apertura de apps ---------- */
+/* Fotos (galería), carpeta abierta, cámara, spotlight */
+.galeria{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.galeria__item{aspect-ratio:9/16;border-radius:14px;background-size:cover;background-position:center;border:2.5px solid transparent;cursor:pointer;padding:0}
+.galeria__item.on{border-color:var(--ios-blue)}
+.carpita{display:grid;grid-template-columns:repeat(2,1fr);gap:22px 12px;padding-top:10px}
+.carpita .app__nombre{max-width:none;white-space:normal}
+.spot-input{width:100%;background:rgba(120,120,128,.28);border:none;border-radius:12px;padding:12px 14px;color:#fff;font-size:16px;font-family:inherit;margin-bottom:14px}
+.spot-input::placeholder{color:rgba(255,255,255,.5)}
+.vidrio{position:relative;border-radius:22px;overflow:hidden;background:#1c1c1e;display:flex;align-items:center;justify-content:center;min-height:340px}
+.vidrio video{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transform:scaleX(-1)}
+.vidrio .sin-cam{text-align:center;opacity:.7;font-size:15px;line-height:1.5;padding:30px}
+.credito{position:fixed;bottom:8px;left:0;right:0;text-align:center;font-size:12px;color:rgba(255,255,255,.4);z-index:1;letter-spacing:.3px}
+@media (max-width:430px){.credito{bottom:max(8px,env(safe-area-inset-bottom))}}
 @keyframes zoom-app{from{transform:scale(1);opacity:1}to{transform:scale(1.4);opacity:0}}
-.app.abriendo .app__icono{animation:zoom-app .35s forwards cubic-bezier(.32,.72,0,1)}
-/* ---------- Noscript / sin JS ---------- */
-html:not(.js) .rejilla{padding-top:60px}
-html:not(.js) .deshaz,html:not(.js) .antorchas{display:none}
+.app.abriendo .app__icono{animation:zoom-app .3s forwards cubic-bezier(.32,.72,0,1)}
+html:not(.js) .rejilla{padding-top:56px}
+html:not(.js) .deshaz,html:not(.js) .antorchas,html:not(.js) .mota,html:not(.js) .pildora,html:not(.js) .widget{display:none}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
 
-<div class="escenario" aria-hidden="true"><img id="wall-gorda" src="assets/img/wallpaper-noche.jpg" alt=""></div>
+<div class="escenario" aria-hidden="true"><img id="wall-gorda" src="assets/img/wallpaper-morado.jpg" alt="" onerror="this.src='assets/img/wallpaper-noche.jpg'"></div>
 
 <main class="telefono" id="telefono" aria-label="Web de David Antizar en formato iPhone">
  <div class="pantalla">
   <div class="notch" aria-hidden="true"></div>
 
-  <!-- ═══════ FASE 1 · BLOQUEO ═══════ -->
+  <!-- ═══ BLOQUEO ═══ -->
   <section class="fase" id="bloqueo" aria-label="Pantalla de bloqueo">
-    <div class="wall" id="wall-bloqueo" style="background-image:url('assets/img/wallpaper-noche.jpg')"></div>
-    <div class="statusbar"><span id="hora-sb">9:41</span><span class="der">
-      <span class="sb-senal" aria-hidden="true"><b></b><b></b><b></b><b></b></span>
-      <span style="font-size:13px">5G</span>
-      <span class="sb-bateria" aria-hidden="true"><i></i></span></span></div>
+    <div class="wall" id="wall-bloqueo" style="background-image:url('assets/img/wallpaper-morado.jpg')"></div>
+    <div class="statusbar">
+      <span class="sb-iz"><span id="hora-sb">14:06</span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 2 8 2 8H4s2-1 2-8"/><path d="M10 20a2 2 0 0 0 4 0"/><path d="M3 3l18 18"/></svg></span>
+      <span class="sb-der">
+        <span class="sb-senal" aria-hidden="true"><b></b><b></b><b></b><b></b></span>
+        <svg width="15" height="11" viewBox="0 0 16 12" fill="#fff" aria-hidden="true"><path d="M8 11.2 6 8.8a2.9 2.9 0 0 1 4 0zM4.5 7.2a5.4 5.4 0 0 1 7 0l1.3-1.6a7.2 7.2 0 0 0-9.6 0zM2.2 4.5a8.7 8.7 0 0 1 11.6 0L15 2.8a10.5 10.5 0 0 0-14 0z"/></svg>
+        <span class="sb-bateria" aria-hidden="true"><i></i><b>31</b></span></span>
+    </div>
     <div class="contenido">
-      <div class="hora" id="hora-grande">9:41</div>
-      <div class="fecha" id="fecha-bloqueo">domingo, 26 de octubre</div>
+      <div class="hora" id="hora-grande">14:06</div>
+      <div class="fecha" id="fecha-bloqueo">lunes, 26 de octubre</div>
       <div class="notif">
-        <span class="ic" style="background:#1428a0"><svg viewBox="0 0 24 24" width="20" height="20" fill="#0a84ff"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13M7.12 20.45H3.56V9h3.56zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.97 0 1.77-.77 1.77-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></span>
-        <div><span class="h">ahora</span><div class="t">LinkedIn</div><div class="p">Ingeniero de Caminos · AI Builder. Aquí tienes mi perfil profesional →</div></div>
+        <span class="ic" style="background:#0a66c2"><svg viewBox="0 0 24 24" width="20" height="20" fill="#fff"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13M7.12 20.45H3.56V9h3.56zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.97 0 1.77-.77 1.77-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></span>
+        <div><span class="h">ahora</span><div class="t">LinkedIn</div><div class="p">Ingeniero de Caminos · AI Builder. Aquí tienes mi perfil →</div></div>
       </div>
       <div class="notif">
-        <span class="ic" style="background:#fff"><svg viewBox="0 0 24 24" width="20" height="20" fill="#000"><path d="M12 2c5.5 0 10 4.5 10 10s-4.5 10-10 10-10-4.5-10-10S6.5 2 12 2zm3.06 4.5H9.5a3 3 0 0 0-3 3v8.5h2v-8.5a1 1 0 0 1 1-1h5.56a3 3 0 0 0-1-2z"/><circle cx="15" cy="10.5" r="2.2"/></svg></span>
-        <div><span class="h">ayer</span><div class="t">El poni de Von der Leyen</div><div class="p">Ya a la venta en Amazon. Los hipersónicos también cuentan. 🐴</div></div>
+        <span class="ic" style="background:#232f3e"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#ff9900" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V4H6.5A2.5 2.5 0 0 0 4 6.5z"/><path d="M9 8h7M9 12h5"/></svg></span>
+        <div><span class="h">ayer</span><div class="t">El poni de Von der Leyen</div><div class="p">Ya a la venta en Amazon. Los hipersónicos también cuentan.</div></div>
       </div>
       <div class="aviso-vac">🏖️ <b>Agosto</b>: de vacaciones. Face ID no atiende llamadas.</div>
     </div>
@@ -191,19 +200,16 @@ html:not(.js) .deshaz,html:not(.js) .antorchas{display:none}
     <div class="deshaz">Desliza hacia arriba para desbloquear<div class="linea"></div></div>
   </section>
 
-  <!-- ═══════ FASE 2 · FACE ID ═══════ -->
+  <!-- ═══ FACE ID ═══ -->
   <section class="fase fase-oculta" id="cara" aria-label="Reconocimiento facial">
     <div class="escaner" id="escaner">
       <video id="video-cam" autoplay playsinline muted></video>
       <svg class="cara-svg" viewBox="0 0 150 190" aria-hidden="true">
         <path class="contorno" d="M30 55 Q30 18 75 18 Q120 18 120 55 L120 115 Q120 172 75 172 Q30 172 30 115 Z"/>
         <g class="rasgo">
-          <path d="M50 78 Q58 74 66 78"/>  <!-- ceja ojo izq -->
-          <path d="M84 78 Q92 74 100 78"/>
-          <circle cx="58" cy="88" r="4.5"/>
-          <circle cx="92" cy="88" r="4.5"/>
-          <path d="M75 96 L71 112 Q75 115 79 112 Z"/> <!-- nariz -->
-          <path d="M58 132 Q75 142 92 132"/> <!-- boca -->
+          <path d="M50 78 Q58 74 66 78"/><path d="M84 78 Q92 74 100 78"/>
+          <circle cx="58" cy="88" r="4.5"/><circle cx="92" cy="88" r="4.5"/>
+          <path d="M75 96 L71 112 Q75 115 79 112 Z"/><path d="M58 132 Q75 142 92 132"/>
         </g>
       </svg>
       <div class="anillo"></div>
@@ -213,78 +219,108 @@ html:not(.js) .deshaz,html:not(.js) .antorchas{display:none}
     <div class="texto-cara" id="texto-cara">Escaneando rostro…<small>Face ID · así de fácil me cuelas</small></div>
   </section>
 
-  <!-- ═══════ FASE 3 · ESCRITORIO ═══════ -->
+  <!-- ═══ ESCRITORIO ═══ -->
   <section class="fase fase-oculta" id="escritorio" aria-label="Escritorio con aplicaciones">
-    <div class="wall" id="wall-escritorio" style="background-image:url('assets/img/wallpaper-noche.jpg')"></div>
+    <div class="wall" id="wall-escritorio" style="background-image:url('assets/img/wallpaper-morado.jpg')"></div>
     <div class="velos"></div>
-    <div class="statusbar"><span id="hora-sb2">9:41</span><span class="der">
-      <span class="sb-senal" aria-hidden="true"><b></b><b></b><b></b><b></b></span>
-      <span style="font-size:13px">5G</span>
-      <span class="sb-bateria" aria-hidden="true"><i></i></span></span></div>
+    <div class="statusbar">
+      <span class="sb-iz"><span id="hora-sb2">14:06</span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 2 8 2 8H4s2-1 2-8"/><path d="M10 20a2 2 0 0 0 4 0"/><path d="M3 3l18 18"/></svg></span>
+      <span class="sb-der">
+        <span class="sb-senal" aria-hidden="true"><b></b><b></b><b></b><b></b></span>
+        <svg width="15" height="11" viewBox="0 0 16 12" fill="#fff" aria-hidden="true"><path d="M8 11.2 6 8.8a2.9 2.9 0 0 1 4 0zM4.5 7.2a5.4 5.4 0 0 1 7 0l1.3-1.6a7.2 7.2 0 0 0-9.6 0zM2.2 4.5a8.7 8.7 0 0 1 11.6 0L15 2.8a10.5 10.5 0 0 0-14 0z"/></svg>
+        <span class="sb-bateria" aria-hidden="true"><i></i><b>31</b></span></span>
+    </div>
     <div class="rejilla">
-      <!-- Externas: <a> reales (funcionan sin JS) -->
+      <!-- Widget calendario (abre Calendario) -->
+      <button class="widget" data-app="calendario" aria-label="Widget de calendario">
+        <div class="widget__col" style="flex:0 0 72px">
+          <div class="widget__dow" id="w-dow">LUNES</div>
+          <div class="widget__day" id="w-day">26</div>
+          <div class="widget__ev"><span class="pt"></span><span>Limpiar baño</span></div>
+        </div>
+        <div class="widget__col">
+          <div class="widget__ev"><span class="pt"></span><span>Entrenamiento</span><small>19:30</small></div>
+          <div class="widget__ev"><span class="pt"></span><span>Avenida Marqués…</span></div>
+          <div class="widget__otro">Mañana</div>
+          <div class="widget__ev"><span class="pt"></span><span>Cumpleaños Bruno</span></div>
+        </div>
+        <div class="widget__col">
+          <div class="widget__otro">Jueves, 29 oct</div>
+          <div class="widget__ev"><span class="pt"></span><span>Limpiar baño</span></div>
+          <div class="widget__ev widget__mas"><span class="pt"></span>1 evento más</div>
+        </div>
+      </button>
+      <!-- Fila 1 -->
+      <button class="app" data-app="fotos">
+        <span class="app__icono" style="background:#fff"><svg viewBox="0 0 24 24"><circle cx="12" cy="6" r="4" fill="#f9d024"/><circle cx="6.5" cy="9.5" r="4" fill="#e8503f"/><circle cx="17.5" cy="9.5" r="4" fill="#f7a53b"/><circle cx="8" cy="15.5" r="4" fill="#4a90d9"/><circle cx="16" cy="15.5" r="4" fill="#7ab648"/><circle cx="12" cy="12" r="3.2" fill="#fff"/><circle cx="12" cy="12" r="1.5" fill="#3a3a3c"/></svg></span>
+        <span class="app__nombre">Fotos</span></button>
+      <button class="app" data-app="correo">
+        <span class="app__icono" style="background:linear-gradient(160deg,#5ac8fa,#0a60ff)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7.5 8.5 6 8.5-6"/></svg><span class="insignia">42</span></span>
+        <span class="app__nombre">Correo</span></button>
+      <button class="app" data-app="carpeta-dinero">
+        <span class="app__icono app__icono--carpeta">
+          <i class="mini" style="background:#ff9900"></i><i class="mini" style="background:#2ecc71"></i><i class="mini" style="background:#0a84ff"></i>
+          <i class="mini" style="background:#ff453a"></i><i class="mini" style="background:#5e5ce6"></i><i class="mini" style="background:#ff9f0a"></i>
+          <i class="mini" style="background:#64d2ff"></i><i class="mini" style="background:#30d158"></i><i class="mini" style="background:#bf5af2"></i>
+          <span class="insignia">4</span></span>
+        <span class="app__nombre">¥€$</span></button>
+      <a class="app" href="https://nap-dashboard-plum.vercel.app/" target="_blank" rel="noopener">
+        <span class="app__icono" style="background:#fff"><svg viewBox="0 0 24 24"><path fill="#34a853" d="M3 17.5V6.8c0-1 .7-1.6 1.6-1.4l5.4 1.1v12.5l-5.9-1.2a1.5 1.5 0 0 1-1.1-1.3z"/><path fill="#4285f4" d="M10 6.5l5.4 1.1v12.5l-5.4-1z"/><path fill="#fbbc04" d="M15.4 7.6 20.8 6.5c.8.2 1.2.6 1.2 1.4v9.6l-6.6 1.1z"/><path fill="#ea4335" d="M12 2.5 9 9l-5 2 8-8.5z" opacity=".75"/></svg></span>
+        <span class="app__nombre">Mapas</span></a>
+      <!-- Fila 2 -->
+      <button class="app" data-app="camara">
+        <span class="app__icono" style="background:linear-gradient(160deg,#e8e8ed,#9d9da6)"><svg viewBox="0 0 24 24" fill="none" stroke="#48484a" stroke-width="2" stroke-linecap="round"><path d="M4 8h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13" r="3.5"/><circle cx="12" cy="13" r="1.3" fill="#48484a"/></svg></span>
+        <span class="app__nombre">Cámara</span></button>
+      <button class="app" data-app="carpeta-swag">
+        <span class="app__icono app__icono--carpeta">
+          <i class="mini" style="background:#232f3e"></i><i class="mini" style="background:#ff6719"></i><i class="mini" style="background:#ffd60a"></i>
+          <i class="mini" style="background:#0a66c2"></i><i class="mini" style="background:#34c759"></i><i class="mini" style="background:#ff453a"></i>
+          <i class="mini" style="background:#5e5ce6"></i><i class="mini" style="background:#64d2ff"></i><i class="mini" style="background:#ff9f0a"></i>
+          <span class="insignia">4</span></span>
+        <span class="app__nombre">Swag</span></button>
+      <button class="app" data-app="carpeta-inmortal">
+        <span class="app__icono app__icono--carpeta">
+          <i class="mini" style="background:#bf5af2"></i><i class="mini" style="background:#0a84ff"></i><i class="mini" style="background:#ff9f0a"></i>
+          <i class="mini" style="background:#30d158"></i><i class="mini" style="background:#1c1c1e"></i><i class="mini" style="background:#ff453a"></i>
+          <i class="mini" style="background:#ffd60a"></i><i class="mini" style="background:#5ac8fa"></i><i class="mini" style="background:#a2845e"></i>
+          <span class="insignia">4</span></span>
+        <span class="app__nombre">Inmortal</span></button>
+      <a class="app" href="https://lichess.org/" target="_blank" rel="noopener">
+        <span class="app__icono" style="background:#5a3046"><svg viewBox="0 0 24 24" fill="#fff"><path d="M18.9 6.1C18.9 9 17.7 11.6 15.5 13.3c.2 1.4 1 2.4 1.9 3.4 1 1.2 1.6 2.3 1.6 4.3H5c0-2 .6-3.1 1.6-4.3.9-1 1.7-2 1.9-3.4-2.2-1.7-3.4-4.3-3.4-7.2 0 0 1.5 1.6 3.2 2.2 1.2-1.5 2.9-2.4 4.7-2.4s3.5.9 4.7 2.4c1.7-.6 1.5-2.6 1.5-2.6z"/></svg></span>
+        <span class="app__nombre">lichess</span></button>
+      <!-- Fila 3 -->
+      <a class="app" href="https://moviendokilowatios.substack.com/" target="_blank" rel="noopener">
+        <span class="app__icono" style="background:#ff6719"><svg viewBox="0 0 24 24" fill="#fff"><path d="M22.54 8.24H1.46V5.41h21.08zM1.46 10.81V24L12 18.11 22.54 24V10.81zM22.54 0H1.46v2.84h21.08z"/></svg></span>
+        <span class="app__nombre">Substack</span></button>
       <a class="app" href="https://www.linkedin.com/in/davidantizar/" target="_blank" rel="noopener">
         <span class="app__icono" style="background:#0a66c2"><svg viewBox="0 0 24 24" fill="#fff"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13M7.12 20.45H3.56V9h3.56zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.97 0 1.77-.77 1.77-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></span>
-        <span class="app__nombre">LinkedIn</span></a>
+        <span class="app__nombre">LinkedIn</span></button>
       <a class="app" href="https://x.com/DNtizar" target="_blank" rel="noopener">
         <span class="app__icono" style="background:#000"><svg viewBox="0 0 24 24" fill="#fff"><path d="M18.9 1.15h3.68l-8.05 9.19L24 22.85h-7.4l-5.8-7.59-6.64 7.59H.48l8.6-9.83L0 1.15h7.6l5.24 6.93zm-1.3 19.7h2.04L6.49 3.24H4.3z"/></svg></span>
-        <span class="app__nombre">X</span></a>
-      <a class="app" href="https://moviendokilowatios.substack.com/" target="_blank" rel="noopener">
-        <span class="app__icono" style="background:#ff6719"><svg viewBox="0 0 24 24" fill="#fff"><path d="M22.54 8.24H1.46V5.41h21.08zM1.46 10.81V24L12 18.11 22.54 24V10.81zM22.54 0H1.46v2.84h21.08z"/></svg><span class="insignia">1</span></span>
-        <span class="app__nombre">Substack</span></a>
-      <a class="app" href="https://www.amazon.es/dp/B0CP8HS3TZ?tag=ntizar-21" target="_blank" rel="noopener nofollow">
-        <span class="app__icono" style="background:linear-gradient(160deg,#37475a,#232f3e)"><svg viewBox="0 0 24 24" fill="#ff9900"><path d="M.77 15.96c.07-.11.18-.12.34-.02 3.57 2.07 7.46 3.1 11.65 3.1 2.8 0 5.57-.52 8.29-1.56l.31-.14c.13-.06.23-.1.29-.13.22-.09.38-.04.51.13.12.17.09.33-.11.47-.25.19-.59.4-.99.64-1.22.73-2.59 1.29-4.11 1.7a17.3 17.3 0 0 1-10.74-.57 17.55 17.55 0 0 1-5.32-3.29c-.1-.07-.15-.14-.15-.21 0-.05.02-.09.05-.13zm6.45-6.09c0-.99.24-1.83.73-2.53.48-.7 1.14-1.23 2-1.59.78-.33 1.72-.56 2.86-.7l.26-.03c.84-.06 1.38-.1 1.62-.1v-.36c0-.91-.1-1.53-.29-1.84-.29-.42-.76-.64-1.41-.64h-.18c-.47.05-.88.19-1.22.45-.34.26-.56.62-.66 1.08-.06.29-.2.45-.42.5l-2.48-.31c-.24-.06-.36-.17-.36-.38 0-.05 0-.09.02-.15.24-1.27.84-2.21 1.78-2.83.96-.6 2.07-.95 3.33-1.03h.53c1.63 0 2.91.43 3.82 1.27.13.14.27.29.4.47.11.16.21.3.27.44.07.13.14.32.19.56.06.25.1.41.13.5.03.1.06.29.07.61l.02.53v5.19c0 .37.06.71.16 1.02.11.31.2.53.31.66l.5.66c.09.14.13.26.13.36 0 .12-.05.22-.17.31-1.18 1.03-1.83 1.59-1.93 1.68-.16.13-.37.15-.62.05-.17-.14-.35-.3-.51-.49l-.3-.34a9 9 0 0 1-.31-.41l-.3-.43c-.79.87-1.57 1.41-2.35 1.64-.49.14-1.08.21-1.8.21-1.1 0-2.01-.34-2.72-1.02-.7-.68-1.06-1.63-1.06-2.88zm3.7-.43c0 .55.13 1 .41 1.34.28.34.67.5 1.14.5h.18c.6-.15 1.06-.54 1.4-1.16.16-.27.28-.57.35-.89.09-.31.12-.58.13-.79.02-.19.02-.53.02-.98v-.53h-.37c-.78 0-1.36.06-1.76.17-1.25.36-1.87 1.15-1.87 2.38zm9.03 6.92c.03-.05.07-.1.13-.17.35-.23.7-.4 1.03-.48.34-.1.66-.16.97-.19l.27-.02h.14c.64.06 1.04.16 1.15.33.07.08.1.22.1.38v.14c0 .51-.15 1.1-.42 1.77-.27.69-.65 1.24-1.13 1.66-.08.05-.14.08-.2.08a.19.19 0 0 1-.08-.02c-.1-.04-.1-.11-.07-.22.53-1.24.79-2.12.79-2.61 0-.15-.03-.26-.09-.34-.14-.16-.54-.25-1.2-.25-.24 0-.53.02-.86.05-.35.04-.69.08-.98.13-.09 0-.15-.01-.18-.04-.03-.03-.04-.05-.02-.07z"/></svg></span>
-        <span class="app__nombre">Amazon</span></a>
-      <a class="app" href="https://github.com/Ntizar" target="_blank" rel="noopener">
-        <span class="app__icono" style="background:#24292f"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1a.72.72 0 0 1 .76-.41c-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.17 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.65.24 2.87.12 3.17.77.84 1.23 1.9 1.23 3.22 0 4.61-2.8 5.62-5.48 5.92.42.36.81 1.1.81 2.22l-.01 2.2c0 .32.2.7.83.58A12 12 0 0 0 12 .3"/></svg></span>
-        <span class="app__nombre">GitHub</span></a>
-      <a class="app" href="https://ntizar.github.io/solmad/" target="_blank" rel="noopener">
-        <span class="app__icono" style="background:linear-gradient(160deg,#ffb340,#ff7a00)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></svg></span>
-        <span class="app__nombre">SolMadrid</span></a>
-      <a class="app" href="https://nap-dashboard-plum.vercel.app/" target="_blank" rel="noopener">
-        <span class="app__icono" style="background:linear-gradient(160deg,#34c759,#248a3d)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-5.5 2.5V7L9 4.5m0 15.5 6-2.5m-6 2.5V4.5m6 8.5 5.5 2.5V2l-5.5 2.5m0 8.5V4.5m0 6L9 12.5"/></svg></span>
-        <span class="app__nombre">Mapas</span></a>
-      <a class="app" href="https://yolo-conteov2.vercel.app/" target="_blank" rel="noopener">
-        <span class="app__icono" style="background:linear-gradient(160deg,#5e5ce6,#3634a3)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M4 8h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
-        <span class="app__nombre">YoloConteo</span></a>
-      <a class="app" href="https://davidantizar.wordpress.com" target="_blank" rel="noopener">
-        <span class="app__icono" style="background:linear-gradient(160deg,#64d2ff,#0a84ff)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V4H6.5A2.5 2.5 0 0 0 4 6.5v13z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg></span>
-        <span class="app__nombre">Blog</span></a>
-      <!-- Internas: abren visor dentro del teléfono -->
-      <button class="app" data-app="calendario">
-        <span class="app__icono" style="background:#fff;color:#000;flex-direction:column;gap:0">
-          <span id="cal-dow" style="font-size:10px;font-weight:600;color:#ff453a;line-height:1;margin-top:6px">DOM</span>
-          <span id="cal-day" style="font-size:28px;font-weight:300;color:#000;line-height:1;margin-top:2px">26</span></span>
-        <span class="app__nombre">Calendario</span></button>
-      <button class="app" data-app="correo">
-        <span class="app__icono" style="background:linear-gradient(160deg,#5ac8fa,#0a84ff)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="insignia">3</span></span>
-        <span class="app__nombre">Correo</span></button>
-      <button class="app" data-app="telefono">
-        <span class="app__icono" style="background:linear-gradient(160deg,#4cd964,#248a3d)"><svg viewBox="0 0 24 24" fill="#fff"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.3 1z"/></svg></span>
-        <span class="app__nombre">Teléfono</span></button>
+        <span class="app__nombre">X</span></button>
       <button class="app" data-app="ajustes">
         <span class="app__icono" style="background:linear-gradient(160deg,#8e8e93,#48484a)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 2.5 13.2 5a1.5 1.5 0 0 0 1.8.8l2.5-.8-.8 2.5a1.5 1.5 0 0 0 .8 1.8l2.5.8-2.5 1a1.5 1.5 0 0 0-.8 1.8l.8 2.5-2.5-.8a1.5 1.5 0 0 0-1.8.8L13.2 21.5 12 19a1.5 1.5 0 0 0-1.8-.8l-2.5.8.8-2.5a1.5 1.5 0 0 0-.8-1.8L5.2 14.5l2.5-1a1.5 1.5 0 0 0 .8-1.8l-.8-2.5 2.5.8a1.5 1.5 0 0 0 1.8-.8z"/><circle cx="12" cy="12" r="3"/></svg></span>
         <span class="app__nombre">Ajustes</span></button>
     </div>
+    <button class="pildora" data-app="spotlight" aria-label="Búsqueda">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>Búsqueda</button>
     <div class="mota" aria-hidden="true"><b class="on"></b><b></b></div>
     <div class="dock">
-      <a class="app" href="https://www.linkedin.com/in/davidantizar/" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <span class="app__icono" style="background:#0a66c2"><svg viewBox="0 0 24 24" fill="#fff"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13M7.12 20.45H3.56V9h3.56zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.97 0 1.77-.77 1.77-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></span></a>
-      <a class="app" href="https://www.amazon.es/dp/B0CP8HS3TZ?tag=ntizar-21" target="_blank" rel="noopener nofollow" aria-label="Comprar el libro">
-        <span class="app__icono" style="background:linear-gradient(160deg,#37475a,#232f3e)"><svg viewBox="0 0 24 24" fill="#ff9900"><path d="M.77 15.96c.07-.11.18-.12.34-.02 3.57 2.07 7.46 3.1 11.65 3.1 2.8 0 5.57-.52 8.29-1.56l.31-.14c.13-.06.23-.1.29-.13.22-.09.38-.04.51.13.12.17.09.33-.11.47-.25.19-.59.4-.99.64-1.22.73-2.59 1.29-4.11 1.7a17.3 17.3 0 0 1-10.74-.57 17.55 17.55 0 0 1-5.32-3.29c-.1-.07-.15-.14-.15-.21 0-.05.02-.09.05-.13zm6.45-6.09c0-.99.24-1.83.73-2.53.48-.7 1.14-1.23 2-1.59.78-.33 1.72-.56 2.86-.7l.26-.03c.84-.06 1.38-.1 1.62-.1v-.36c0-.91-.1-1.53-.29-1.84-.29-.42-.76-.64-1.41-.64h-.18c-.47.05-.88.19-1.22.45-.34.26-.56.62-.66 1.08-.06.29-.2.45-.42.5l-2.48-.31c-.24-.06-.36-.17-.36-.38 0-.05 0-.09.02-.15.24-1.27.84-2.21 1.78-2.83.96-.6 2.07-.95 3.33-1.03h.53c1.63 0 2.91.43 3.82 1.27.13.14.27.29.4.47.11.16.21.3.27.44.07.13.14.32.19.56.06.25.1.41.13.5.03.1.06.29.07.61l.02.53v5.19c0 .37.06.71.16 1.02.11.31.2.53.31.66l.5.66c.09.14.13.26.13.36 0 .12-.05.22-.17.31-1.18 1.03-1.83 1.59-1.93 1.68-.16.13-.37.15-.62.05-.17-.14-.35-.3-.51-.49l-.3-.34a9 9 0 0 1-.31-.41l-.3-.43c-.79.87-1.57 1.41-2.35 1.64-.49.14-1.08.21-1.8.21-1.1 0-2.01-.34-2.72-1.02-.7-.68-1.06-1.63-1.06-2.88zm3.7-.43c0 .55.13 1 .41 1.34.28.34.67.5 1.14.5h.18c.6-.15 1.06-.54 1.4-1.16.16-.27.28-.57.35-.89.09-.31.12-.58.13-.79.02-.19.02-.53.02-.98v-.53h-.37c-.78 0-1.36.06-1.76.17-1.25.36-1.87 1.15-1.87 2.38zm9.03 6.92c.03-.05.07-.1.13-.17.35-.23.7-.4 1.03-.48.34-.1.66-.16.97-.19l.27-.02h.14c.64.06 1.04.16 1.15.33.07.08.1.22.1.38v.14c0 .51-.15 1.1-.42 1.77-.27.69-.65 1.24-1.13 1.66-.08.05-.14.08-.2.08a.19.19 0 0 1-.08-.02c-.1-.04-.1-.11-.07-.22.53-1.24.79-2.12.79-2.61 0-.15-.03-.26-.09-.34-.14-.16-.54-.25-1.2-.25-.24 0-.53.02-.86.05-.35.04-.69.08-.98.13-.09 0-.15-.01-.18-.04-.03-.03-.04-.05-.02-.07z"/></svg></span></a>
-      <button class="app" data-app="correo" aria-label="Correo">
-        <span class="app__icono" style="background:linear-gradient(160deg,#5ac8fa,#0a84ff)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span></button>
-      <button class="app" data-app="calendario" aria-label="Calendario">
-        <span class="app__icono" style="background:#fff;color:#000;flex-direction:column;gap:0"><span style="font-size:10px;font-weight:600;color:#ff453a;line-height:1;margin-top:6px">AGO</span><span style="font-size:22px;font-weight:300;color:#ff453a;line-height:1;margin-top:2px">1-31</span></span></button>
+      <button class="app" data-app="telefono" aria-label="Teléfono">
+        <span class="app__icono" style="background:linear-gradient(160deg,#4cd964,#248a3d)"><svg viewBox="0 0 24 24" fill="#fff"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.3 1z"/></svg></span></button>
+      <a class="app" href="https://davidantizar.wordpress.com" target="_blank" rel="noopener" aria-label="Safari: el blog">
+        <span class="app__icono" style="background:#fff"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#1c9de6"/><path d="M12 2a10 10 0 0 1 0 20z" fill="#000" opacity=".08"/><path d="m15.8 8.2-7.4 3.9L5 16.4l7-3.3 3.8-4.9z" fill="#f5f5f7"/><path d="m15.8 8.2-3.8 4.9 1.7 3.2 2.1-8.1z" fill="#ff453a"/></svg></span></a>
+      <button class="app" data-app="correo" aria-label="Mensajes">
+        <span class="app__icono" style="background:#25d366"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l4.9-1.4A10 10 0 1 0 12 2z" opacity=".95"/><path d="M8.9 7.7c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .6.5l.6 1.5c0 .2 0 .3-.1.5l-.4.4c-.1.2-.2.3 0 .5.2.4.7 1 1.4 1.4.5.3.7.2.9.1l.5-.6c.1-.2.3-.2.5-.1l1.4.7c.4.2.4.3.4.5 0 .4-.2 1-.6 1.3-.3.2-.9.4-2 0-1.7-.6-3-2.2-3.4-2.8-.4-.6-.8-1.5-.8-2.6 0-1 .5-1.5.7-1.8z" fill="#25d366"/></svg><span class="insignia">7</span></span></button>
     </div>
   </section>
 
-  <!-- ═══════ VISOR · apps internas ═══════ -->
+  <!-- ═══ VISOR (apps internas y carpetas) ═══ -->
   <section class="fase" id="visor" aria-label="Aplicación abierta">
     <div class="visor__barra">
       <button class="visor__volver" id="visor-volver">‹ Escritorio</button>
-      <span class="visor__titulo" id="visor-titulo">Calendario</span>
-      <span class="visor__ya"></span>
+      <span class="visor__titulo" id="visor-titulo"></span>
+      <span class="visor__y"></span>
     </div>
     <div class="visor__cuerpo" id="visor-cuerpo"></div>
   </section>
@@ -294,7 +330,7 @@ html:not(.js) .deshaz,html:not(.js) .antorchas{display:none}
 <footer class="credito">Hecho con ❤️ por David Antizar</footer>
 
 <noscript>
-  <style>.notch,.mota,.deshaz,.antorchas,.credito{display:none}#escritorio{position:static;opacity:1!important}</style>
+  <style>.notch,.pildora,.mota,.deshaz,.antorchas,.widget,.credito,.statusbar{display:none}#escritorio{position:static;opacity:1!important}</style>
 </noscript>
 
 <script>
@@ -302,183 +338,220 @@ html:not(.js) .deshaz,html:not(.js) .antorchas{display:none}
 "use strict";
 document.documentElement.classList.add("js");
 
-/* ───────── Reloj e idioma ───────── */
+/* ─── Reloj y widget ─── */
+const DIAS=["DOMINGO","LUNES","MARTES","MIÉRCOLES","JUEVES","VIERNES","SÁBADO"];
 function pintarHora(){
   const d=new Date();
   const hora=d.getHours()+":"+String(d.getMinutes()).padStart(2,"0");
-  const fecha=d.toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"});
-  const dow=d.toLocaleDateString("es-EN",{weekday:"short"}).toUpperCase();
-  ["hora-sb","hora-sb2","hora-grande"].forEach(id=>{const e=document.getElementById(id); if(e)e.textContent=hora;});
-  const f=document.getElementById("fecha-bloqueo"); if(f)f.textContent=fecha;
-  const cd=document.getElementById("cal-day"),cw=document.getElementById("cal-dow");
-  if(cd)cd.textContent=d.getDate();
-  if(cw)cw.textContent=dow.slice(0,3);
+  ["hora-sb","hora-sb2","hora-grande"].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=hora;});
+  const f=document.getElementById("fecha-bloqueo");
+  if(f)f.textContent=d.toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"});
+  const w=document.getElementById("w-dow"),wd=document.getElementById("w-day");
+  if(w)w.textContent=DIAS[d.getDay()];if(wd)wd.textContent=d.getDate();
 }
-pintarHora(); setInterval(pintarHora,15000);
+pintarHora();setInterval(pintarHora,15000);
 
-/* ───────── Fondos ───────── */
-const FONDOS=[
-  {id:"noche", src:"assets/img/wallpaper-noche.jpg"},
-  {id:"energia", src:"assets/img/wallpaper-energia.jpg"},
-  {id:"amanecer", src:"assets/img/wallpaper-amanecer.jpg"}
+/* ─── Fondos: solo los que existan en disco ─── */
+const FONDOS_TODO=[
+  {id:"morado",src:"assets/img/wallpaper-morado.jpg"},
+  {id:"noche",src:"assets/img/wallpaper-noche.jpg"},
+  {id:"energia",src:"assets/img/wallpaper-energia.jpg"},
+  {id:"amanecer",src:"assets/img/wallpaper-amanecer.jpg"}
 ];
-let fondoActivo=0;
+let FONDOS=[];
+FONDOS_TODO.forEach(f=>{const i=new Image();i.onload=()=>{if(!FONDOS.some(x=>x.src===f.src)){FONDOS.push(f);if(fondoActivo===0&&f.id!=="morado")aplicarFondo(0);}};i.src=f.src;});
+/* fallback inmediato con el primer fondo disponible */
+let fondoActivo=-1;
 function aplicarFondo(n){
-  fondoActivo=n;
-  const src=FONDOS[n].src;
+  if(!FONDOS.length)return;
+  fondoActivo=Math.max(0,Math.min(n,FONDOS.length-1));
+  const src=FONDOS[fondoActivo].src;
   document.getElementById("wall-bloqueo").style.backgroundImage=`url('${src}')`;
   document.getElementById("wall-escritorio").style.backgroundImage=`url('${src}')`;
-  document.getElementById("wall-gorda").src=src;
-  document.querySelectorAll(".fondo-op").forEach(b=>b.classList.toggle("on", +b.dataset.fondo===n));
+  const g=document.getElementById("wall-gorda");if(g.src.indexOf(src)<0)g.src=src;
+  document.querySelectorAll("#visor-cuerpo .galeria__item,#visor-cuerpo .fondo-op").forEach(b=>b.classList.toggle("on",+b.dataset.fondo===fondoActivo));
 }
-/* rotación automática de fondos en el bloqueo */
-setInterval(()=>{ if(fase==="bloqueo") aplicarFondo((fondoActivo+1)%FONDOS.length); }, 12000);
+FONDOS=[FONDOS_TODO[0]]; /* suposición inicial; se corrige si 404 */
+const prueba=new Image();prueba.onerror=()=>{FONDOS=[FONDOS_TODO[1]];aplicarFondo(0);};prueba.src=FONDOS_TODO[0].src;
+setInterval(()=>{if(fase==="bloqueo"&&FONDOS.length>1)aplicarFondo((fondoActivo+1)%FONDOS.length);},12000);
 
-/* ───────── Máquina de fases: bloqueo → cara → escritorio ───────── */
+/* ─── Fases ─── */
 const elBloqueo=document.getElementById("bloqueo");
 const elCara=document.getElementById("cara");
 const elEscritorio=document.getElementById("escritorio");
 const elVisor=document.getElementById("visor");
-let fase="bloqueo";
-let progreso=0; /* 0..1 scroll acumulado */
+let fase="bloqueo";let progreso=0;
 
-function mostrarCara(){
-  fase="cara";
-  elBloqueo.classList.add("fase-oculta");
-  elCara.classList.remove("fase-oculta");
-  escanear();
-}
-function mostrarEscritorio(){
-  fase="escritorio";
-  elCara.classList.add("fase-oculta");
-  elEscritorio.classList.remove("fase-oculta");
-  detenerCamara();
-}
-function volverBloqueo(){
-  fase="bloqueo"; progreso=0;
-  elEscritorio.classList.add("fase-oculta");
-  elVisor.classList.remove("abierta");
-  elCara.classList.add("fase-oculta");
-  elCara.classList.remove("escaneando","ok");
-  elBloqueo.classList.remove("fase-oculta");
-  elBloqueo.style.transform=""; elBloqueo.style.opacity="";
-}
+function mostrarCara(){fase="cara";elBloqueo.classList.add("fase-oculta");elCara.classList.remove("fase-oculta");escanear();}
+function mostrarEscritorio(){fase="escritorio";elCara.classList.add("fase-oculta");elEscritorio.classList.remove("fase-oculta");detenerCamara();}
+function volverBloqueo(){fase="bloqueo";progreso=0;
+  elEscritorio.classList.add("fase-oculta");cerrarVisor();
+  elCara.classList.add("fase-oculta");elCara.classList.remove("escaneando","ok");
+  elBloqueo.classList.remove("fase-oculta");elBloqueo.style.transform="";elBloqueo.style.opacity="";}
 
-/* ───────── Face ID (cámara opcional, falsedad garantizada) ───────── */
+/* ─── Face ID ─── */
 const video=document.getElementById("video-cam");
 const escaner=document.getElementById("escaner");
 const textoCara=document.getElementById("texto-cara");
 let stream=null;
-function detenerCamara(){ if(stream){ stream.getTracks().forEach(t=>t.stop()); stream=null; } escaner.classList.remove("con-cam"); }
+function detenerCamara(){if(stream&&stream!==visorStream){/* el del escáner sí se para */}}
+function pararStream(s){if(s){s.getTracks().forEach(t=>t.stop());}}
 async function escanear(){
   elCara.classList.add("escaneando");
   textoCara.innerHTML='Escaneando rostro…<small>Face ID · así de fácil me cuelas</small>';
   try{
-    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"},audio:false});
-    video.srcObject=stream; escaner.classList.add("con-cam");
-  }catch(e){ /* sin permiso: la animación basta, es falsa a propósito */ }
+    const st=await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"},audio:false});
+    stream=st;video.srcObject=st;escaner.classList.add("con-cam");
+  }catch(e){/* sin permiso: la animación basta, es falsa a propósito */}
   setTimeout(()=>{
-    elCara.classList.remove("escaneando"); elCara.classList.add("ok");
+    elCara.classList.remove("escaneando");elCara.classList.add("ok");
     textoCara.innerHTML='¡Hola! 👋<small>Face ID aceptado — aunque no te conozca</small>';
     document.getElementById("leng-candado").setAttribute("d","M8 10V7a4 4 0 0 1 7.5-1.8");
-    setTimeout(mostrarEscritorio, 850);
-  }, 2400);
+    setTimeout(()=>{mostrarEscritorio();pararStream(stream);stream=null;escaner.classList.remove("con-cam");},850);
+  },2400);
 }
 
-/* ───────── Gestos: rueda, táctil, teclado ───────── */
+/* ─── Gestos ─── */
 function onScrollUp(delta){
-  if(fase!=="bloqueo") return;
+  if(fase!=="bloqueo")return;
   progreso+=delta;
-  /* el bloqueo se desplaza arriba progresivamente */
   elBloqueo.style.transform=`translateY(${-Math.min(progreso,1)*45}%)`;
   elBloqueo.style.opacity=String(1-Math.min(progreso,1)*.6);
-  if(progreso>=1){ elBloqueo.style.transform="translateY(-100%)"; mostrarCara(); }
+  if(progreso>=1){elBloqueo.style.transform="translateY(-100%)";mostrarCara();}
 }
-addEventListener("wheel",e=>{ if(fase==="bloqueo"&&e.deltaY<0) onScrollUp(Math.abs(e.deltaY)/320); },{passive:true});
+addEventListener("wheel",e=>{if(fase==="bloqueo"&&e.deltaY<0)onScrollUp(Math.abs(e.deltaY)/320);},{passive:true});
 let toqueY=null;
 addEventListener("touchstart",e=>{toqueY=e.touches[0].clientY},{passive:true});
 addEventListener("touchmove",e=>{
   if(toqueY===null||fase!=="bloqueo")return;
   const dy=toqueY-e.touches[0].clientY;
-  if(dy>0){ onScrollUp(dy/220); toqueY=e.touches[0].clientY; }
+  if(dy>0){onScrollUp(dy/220);toqueY=e.touches[0].clientY;}
 },{passive:true});
-addEventListener("touchend",()=>{toqueY=null;if(progreso<1&&progreso>0){progreso=0;elBloqueo.style.transform="";elBloqueo.style.opacity="";}});
-addEventListener("keydown",e=>{ if((e.key==="ArrowUp"||e.key===" "||e.key==="Enter")&&fase==="bloqueo"){e.preventDefault();onScrollUp(.4);} if(e.key==="Escape")volverBloqueo(); });
-/* atajo de bloqueo: tocar la hora también desbloquea (móvil amable) */
-document.getElementById("bloqueo").addEventListener("click",e=>{ if(e.target.closest("button"))return; onScrollUp(1.2); });
+addEventListener("touchend",()=>{toqueY=null;if(progreso>0&&progreso<1){progreso=0;elBloqueo.style.transform="";elBloqueo.style.opacity="";}});
+addEventListener("keydown",e=>{if((e.key==="ArrowUp"||e.key===" "||e.key==="Enter")&&fase==="bloqueo"){e.preventDefault();onScrollUp(.4);}if(e.key==="Escape"){if(elVisor.classList.contains("abierta"))cerrarVisor();else volverBloqueo();}});
+elBloqueo.addEventListener("click",e=>{if(e.target.closest("button"))return;onScrollUp(1.2);});
 
-/* linterna de verdad */
 document.getElementById("btn-linterna").addEventListener("click",async e=>{
   e.stopPropagation();
   try{
-    if(!stream){ stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}}); }
-    const track=stream.getVideoTracks()[0];
+    const st=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});
+    const track=st.getVideoTracks()[0];
     const cap=track.getCapabilities&&track.getCapabilities().torch;
-    if(cap) await track.applyConstraints({advanced:[{torch:!track.settings.torch}]});
-    else { document.body.style.filter="brightness(2)"; setTimeout(()=>document.body.style.filter="",600); }
+    if(cap){await track.applyConstraints({advanced:[{torch:!track.settings.torch}]});setTimeout(()=>{track.stop();},1200);}
+    else{document.body.style.filter="brightness(2)";setTimeout(()=>document.body.style.filter="",600);st.getTracks().forEach(t=>t.stop());}
   }catch(err){}
 });
 document.getElementById("btn-cam-antorcha").addEventListener("click",e=>{e.stopPropagation();onScrollUp(1.2);});
 
-/* ───────── Apps internas en el visor ───────── */
+/* ─── Catálogo de enlaces (para spotlight y carpetas) ─── */
+const LINKS={
+  linkedin:{n:"LinkedIn",u:"https://www.linkedin.com/in/davidantizar/",c:"#0a66c2"},
+  x:{n:"X",u:"https://x.com/DNtizar",c:"#000"},
+  substack:{n:"Substack",u:"https://moviendokilowatios.substack.com/",c:"#ff6719"},
+  amazon:{n:"Amazon · El poni",u:"https://www.amazon.es/dp/B0CP8HS3TZ?tag=ntizar-21",c:"#232f3e"},
+  github:{n:"GitHub",u:"https://github.com/Ntizar",c:"#24292f"},
+  aurora:{n:"Aurora",u:"https://ntizar.github.io/Aurora/",c:"#0a84ff"},
+  mastermind:{n:"MasterMind",u:"https://ntizar.github.io/MasterMind/",c:"#5e5ce6"},
+  kit72h:{n:"Kit72h",u:"https://ntizar.github.io/Kit72h/",c:"#ff9f0a"},
+  solmad:{n:"SolMadrid",u:"https://ntizar.github.io/solmad/",c:"#ff7a00"},
+  nap:{n:"NAP Mapas",u:"https://nap-dashboard-plum.vercel.app/",c:"#34c759"},
+  yolo:{n:"YoloConteo",u:"https://yolo-conteov2.vercel.app/",c:"#3634a3"},
+  irpf:{n:"IRPFdibujitos",u:"https://ntizar.github.io/IRPFdibujitos/",c:"#ff453a"},
+  blog:{n:"Blog",u:"https://davidantizar.wordpress.com",c:"#0a84ff"},
+  lichess:{n:"lichess",u:"https://lichess.org/",c:"#5a3046"}
+};
+const CARPETAS={
+  "carpeta-dinero":{titulo:"¥€$",keys:["amazon","kit72h","nap","yolo"],nota:"Apps que (a veces) dan dinero."},
+  "carpeta-swag":{titulo:"Swag",keys:["substack","blog","lichess","amazon"],nota:"Merchandising intelectual."},
+  "carpeta-inmortal":{titulo:"Inmortal",keys:["github","aurora","mastermind","irpf"],nota:"Cosas que sobreviven a mi agenda."}
+};
+function filaLink(k){const l=LINKS[k];return `<a class="fila-app" href="${l.u}" target="_blank" rel="noopener nofollow"><span class="ic" style="background:${l.c}"><b style="color:#fff;font-weight:700">${l.n[0]}</b></span><span>${l.n}</span><span class="chevron">›</span></a>`;}
+
+/* ─── Vistas del visor ─── */
+let visorStream=null;
+const ICONO_CORREO='<span class="ic" style="background:linear-gradient(160deg,#5ac8fa,#0a60ff)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>';
+function galeriaHTML(){
+  return '<div class="galeria">'+FONDOS.map((f,i)=>`<button class="galeria__item ${i===fondoActivo?'on':''}" data-fondo="${i}" style="background-image:url('${f.src}')" aria-label="Poner fondo ${f.id}"></button>`).join("")+'</div><p style="opacity:.5;font-size:13.5px;margin-top:14px">Toca una foto y se pone de fondo en todo el teléfono.</p>';}
+function galeriaEvents(){document.querySelectorAll("#visor-cuerpo .galeria__item,#visor-cuerpo .fondo-op").forEach(b=>b.addEventListener("click",()=>aplicarFondo(+b.dataset.fondo)));}
 const vistas={
-  calendario: () => {
-    /* agosto 2026: día 1 caé en qué semana (lunes=0) */
+  calendario:()=>{
     const emp=(new Date(2026,7,1).getDay()+6)%7;
     const nombres=["L","M","X","J","V","S","D"];
-    let cells=[];
-    for(let i=0;i<emp;i++)cells.push("<td></td>");
+    let cells=[];for(let i=0;i<emp;i++)cells.push("<td></td>");
     for(let d=1;d<=31;d++)cells.push('<td class="vaci"><span>'+d+'</span></td>');
     while(cells.length%7)cells.push("<td></td>");
-    let filas="";
-    for(let i=0;i<cells.length;i+=7)filas+="<tr>"+cells.slice(i,i+7).join("")+"</tr>";
+    let filas="";for(let i=0;i<cells.length;i+=7)filas+="<tr>"+cells.slice(i,i+7).join("")+"</tr>";
     return '<div style="text-align:center;font-size:22px;font-weight:700;color:#ff453a;margin-bottom:6px">AGOSTO 2026</div><table class="cal"><thead><tr>'+nombres.map(n=>"<th>"+n+"</th>").join("")+'</tr></thead><tbody>'+filas+'</tbody></table><div class="cal-leyenda">🏖️ <b>Todo agosto: de vacaciones.</b> El correo suena, yo no estoy. Escríbeme antes del 1 o después del 31 y te contesto con cara de haber dormido.</div>';
   },
-  correo: () => `
-    <a class="fila-app" href="mailto:hola@davidantizar.com">
-      <span class="ic" style="background:linear-gradient(160deg,#5ac8fa,#0a84ff)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
-      <span>Nuevo mensaje<small>hola@davidantizar.com · te leo, casi siempre</small></span>
-      <span class="chevron">›</span></a>
-    <a class="fila-app" href="https://moviendokilowatios.substack.com/" target="_blank" rel="noopener">
-      <span class="ic" style="background:#ff6719"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M22.54 8.24H1.46V5.41h21.08zM1.46 10.81V24L12 18.11 22.54 24V10.81zM22.54 0H1.46v2.84h21.08z"/></svg></span>
-      <span>Suscripción gratis<small>Moviendo kW — escribo ahí</small></span>
-      <span class="chevron">›</span></a>
-    <button class="boton-ios" onclick="window.location.href='mailto:hola@davidantizar.com'">Redactar correo a David</button>`,
-  telefono: () => `
-    <div style="text-align:center;padding:30px 0">
+  correo:()=>`<div class="fila-app" style="border-bottom:none">${ICONO_CORREO}<span><b>Bandeja de entrada</b><small>42 sin leer · 0 de spam, por suerte</small></span></div>
+    <a class="fila-app" href="mailto:hola@davidantizar.com">${ICONO_CORREO}<span>Redactar a David<small>hola@davidantizar.com · te leo, casi siempre</small></span><span class="chevron">›</span></a>
+    <a class="fila-app" href="https://moviendokilowatios.substack.com/" target="_blank" rel="noopener"><span class="ic" style="background:#ff6719"><b style="color:#fff;font-weight:700">S</b></span><span>Substack: Moviendo kW<small>Suscripción gratis — escribo ahí</small></span><span class="chevron">›</span></a>
+    <button class="boton-ios" data-mailto>✉ Escribir un correo a David</button>`,
+  telefono:()=>`<div style="text-align:center;padding:30px 0">
       <div style="width:88px;height:88px;border-radius:50%;background:linear-gradient(160deg,#3a3a3c,#1c1c1e);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:600">DA</div>
       <div style="font-size:24px;font-weight:600">David Antizar</div>
-      <div style="opacity:.5;font-size:15px;margin-top:4px">Madrid · ahora mismo, o moviendo kW o moviendo datos</div>
-    </div>
+      <div style="opacity:.5;font-size:15px;margin-top:4px">Madrid · ahora mismo, o moviendo kW o moviendo datos</div></div>
     <div class="fila-app" style="border-bottom:none;justify-content:center"><span style="opacity:.6;font-size:14px">🔇 Este botón es de mentira: llámame por correo, que suena mejor.</span></div>
-    <button class="boton-ios" onclick="document.querySelector('[data-app=correo]').click()">✉ Escribirle un correo</button>`,
-  ajustes: () => `
-    <div style="font-size:13px;text-transform:uppercase;opacity:.5;font-weight:600;margin-bottom:10px">Fondo del iPhone</div>
-    <div class="fondos">${FONDOS.map((f,i)=>`<button class="fondo-op ${i===fondoActivo?'on':''}" data-fondo="${i}" style="background-image:url('${f.src}')" aria-label="Fondo ${f.id}"></button>`).join("")}</div>
-    <div class="fila-app" style="margin-top:24px"><span class="ic" style="background:#8e8e93"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3"/></svg></span>
-      <span>Face ID<small>Simulado, no guarda ninguna imagen tuya — promesa</small></span></div>
+    <button class="boton-ios" data-mailto>✉ Escríbele un correo</button>`,
+  fotos:galeriaHTML,
+  camara:()=>`<div class="vidrio" id="vidrio-cam"><div class="sin-cam">La cámara de este iPhone es de utilería:<br>aquí no se ve ni se graba nada.<br><button class="boton-ios" id="cam-on" style="max-width:220px;margin:18px auto 0">Verme (solo en pantalla, sin guardar)</button></div></div>`,
+  spotlight:()=>`<input class="spot-input" id="spot-in" placeholder="Buscar en David…" autocomplete="off">
+    <div id="spot-lista">${Object.keys(LINKS).map(filaLink).join("")}</div>`,
+  ajustes:()=>`<div style="font-size:13px;text-transform:uppercase;opacity:.5;font-weight:600;margin-bottom:10px">Fondo del iPhone</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">${FONDOS.map((f,i)=>`<button class="fondo-op ${i===fondoActivo?'on':''}" data-fondo="${i}" style="background-image:url('${f.src}')" aria-label="Fondo ${f.id}"></button>`).join("")}</div>
+    <div class="fila-app" style="margin-top:22px"><span class="ic" style="background:#8e8e93"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2.5 13.2 5a1.5 1.5 0 0 0 1.8.8l2.5-.8-.8 2.5a1.5 1.5 0 0 0 .8 1.8l2.5.8-2.5 1a1.5 1.5 0 0 0-.8 1.8l.8 2.5-2.5-.8a1.5 1.5 0 0 0-1.8.8L13.2 21.5 12 19a1.5 1.5 0 0 0-1.8-.8l-2.5.8.8-2.5a1.5 1.5 0 0 0-.8-1.8L5.2 14.5l2.5-1a1.5 1.5 0 0 0 .8-1.8l-.8-2.5 2.5.8a1.5 1.5 0 0 0 1.8-.8z"/><circle cx="12" cy="12" r="3"/></svg></span>
+      <span>Face ID<small>Simulado: no guarda ninguna imagen tuya — promesa</small></span></div>
     <div class="fila-app"><span class="ic" style="background:#ff9f0a"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-2h2zm0-4h-2V7h2z"/></svg></span>
       <span>Sobre esta web<small>La hizo Mastermind, la firmó David</small></span></div>`
 };
 function abrirVisor(id){
-  const t={calendario:"Calendario",correo:"Correo",telefono:"Teléfono",ajustes:"Ajustes"}[id];
-  document.getElementById("visor-titulo").textContent=t;
   const cuerpo=document.getElementById("visor-cuerpo");
-  cuerpo.innerHTML=vistas[id]();
-  elVisor.classList.add("abierta");
-  if(id==="ajustes"){
-    cuerpo.querySelectorAll(".fondo-op").forEach(b=>b.addEventListener("click",()=>aplicarFondo(+b.dataset.fondo)));
+  const titulo=document.getElementById("visor-titulo");
+  if(CARPETAS[id]){
+    titulo.textContent=CARPETAS[id].titulo;
+    cuerpo.innerHTML='<p style="opacity:.55;font-size:14px;margin-bottom:6px">'+CARPETAS[id].nota+'</p><div class="carpita">'+CARPETAS[id].keys.map(k=>{const l=LINKS[k];return `<a class="app" href="${l.u}" target="_blank" rel="noopener nofollow" style="gap:8px"><span class="app__icono" style="background:${l.c}"><b style="color:#fff;font-size:22px;font-weight:700">${l.n[0]}</b></span><span class="app__nombre">${l.n}</span></a>`;}).join("")+'</div>';
+    elVisor.classList.add("abierta");return;
   }
+  const titulos={calendario:"Calendario",correo:"Correo",telefono:"Teléfono",fotos:"Fotos",camara:"Cámara",spotlight:"Búsqueda",ajustes:"Ajustes"};
+  titulo.textContent=titulos[id]||id;
+  cuerpo.innerHTML=vistas[id]?vistas[id]():"";
+  elVisor.classList.add("abierta");
+  if(id==="fotos"||id==="ajustes")galeriaEvents();
+  if(id==="spotlight"){
+    const inp=cuerpo.querySelector("#spot-in"),lista=cuerpo.querySelector("#spot-lista");
+    inp.addEventListener("input",()=>{
+      const q=inp.value.toLowerCase();
+      lista.innerHTML=Object.keys(LINKS).filter(k=>LINKS[k].n.toLowerCase().includes(q)).map(filaLink).join("")||'<p style="opacity:.5;text-align:center;margin-top:30px">Nada. Como mi agenda en agosto.</p>';
+    });
+    setTimeout(()=>inp.focus(),350);
+  }
+  if(id==="camara"){
+    const btn=cuerpo.querySelector("#cam-on");
+    if(btn)btn.addEventListener("click",async()=>{
+      try{
+        visorStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"},audio:false});
+        const v=document.createElement("video");v.autoplay=true;v.playsInline=true;v.muted=true;v.srcObject=visorStream;
+        const vidrio=cuerpo.querySelector("#vidrio-cam");vidrio.innerHTML="";vidrio.appendChild(v);
+      }catch(e){cuerpo.querySelector("#vidrio-cam .sin-cam").innerHTML="Sin permiso no hay cámara. También es de mentira, tranqui.";}
+    });
+  }
+  cuerpo.querySelectorAll("[data-mailto]").forEach(b=>b.addEventListener("click",()=>{location.href="mailto:hola@davidantizar.com";}));
 }
+function cerrarVisor(){
+  elVisor.classList.remove("abierta");
+  if(visorStream){visorStream.getTracks().forEach(t=>t.stop());visorStream=null;}
+  detenerCamaraVisor();
+}
+function detenerCamaraVisor(){const v=document.querySelector("#vidrio-cam video");if(v&&v.srcObject)v.srcObject.getTracks().forEach(t=>t.stop());}
+document.getElementById("visor-volver").addEventListener("click",cerrarVisor);
 document.querySelectorAll("[data-app]").forEach(b=>b.addEventListener("click",()=>abrirVisor(b.dataset.app)));
-document.getElementById("visor-volver").addEventListener("click",()=>elVisor.classList.remove("abierta"));
 
-/* Externas: micro-zoom antes de que el navegador haga lo suyo */
-document.querySelectorAll("#escritorio a.app, .dock a.app").forEach(a=>{
-  a.addEventListener("click",()=>{a.classList.add("abriendo");setTimeout(()=>a.classList.remove("abriendo"),400);});
+/* Micro-zoom en enlaces externos */
+document.querySelectorAll("a.app").forEach(a=>{
+  a.addEventListener("click",()=>{a.classList.add("abriendo");setTimeout(()=>a.classList.remove("abriendo"),320);});
 });
 
-/* Arranque: el escritorio ya está en el DOM (sin JS se ve directamente) */
+/* Arranque */
 elEscritorio.classList.add("fase-oculta");
 })();
 </script>
