@@ -15,9 +15,9 @@
 <style>
 /* ============================================================
    davidantizar.com — clon de iPhone (iOS 26). NO Aurora, a propósito.
-   Iconos: dibujados a mano estilo Apple. Las marcas de terceros
-   NO salen en el escritorio: viven dentro de las carpetas.
-   Sin JS: escritorio con enlaces reales. Cámara: cero, jamás.
+   Batería al 100%, iconos reales de las apps (GitHub, LinkedIn, X,
+   Substack…) con sus enlaces directos, calendario de verdad y fondos
+   de degradado. Sin JS: escritorio con enlaces reales. Cámara: cero.
    ============================================================ */
 :root{
   --iphone-w:390px; --iphone-h:844px; --radius:54px; --bezel:12px;
@@ -56,8 +56,28 @@ html:not(.js) #bloqueo,html:not(.js) #cara{display:none}
 .sb-senal b:nth-child(1){height:4px}.sb-senal b:nth-child(2){height:6px}.sb-senal b:nth-child(3){height:8px}.sb-senal b:nth-child(4){height:10px}
 .sb-bateria{width:27px;height:13px;border:1.4px solid rgba(255,255,255,.5);border-radius:4px;position:relative;padding:1.6px}
 .sb-bateria::after{content:"";position:absolute;right:-4px;top:3.5px;width:2px;height:4px;background:rgba(255,255,255,.5);border-radius:0 2px 2px 0}
-.sb-bateria i{display:block;height:100%;width:31%;background:#fff;border-radius:2px}
+.sb-bateria i{display:block;height:100%;width:100%;background:#fff;border-radius:2px}
 .sb-bateria b{position:absolute;left:0;top:0;bottom:0;right:0;display:flex;align-items:center;justify-content:center;font-size:7.5px;font-weight:700;color:#fff;text-shadow:0 0 2px rgba(0,0,0,.6)}
+
+/* ─── Notificaciones enlazadas (tocables, como las de verdad) ─── */
+a.notif,button.notif{color:#fff;text-decoration:none;cursor:pointer;text-align:left;transition:transform .15s cubic-bezier(.32,.72,0,1),background .25s}
+a.notif:hover,button.notif:hover{background:rgba(52,52,58,.62)}
+a.notif:active,button.notif:active{transform:scale(.965)}
+.notif .ic svg{width:22px;height:22px;display:block}
+.ic-cal{background:#fff!important;flex-direction:column;line-height:1;gap:1px}
+.ic-cal small{font-size:7px;font-weight:700;color:#ff453a;letter-spacing:.6px}
+.ic-cal b{font-size:17px;font-weight:500;color:#111}
+/* Degradado CSS como fondo: pantalla completa detrás del móvil, difuminada */
+.escenario.grad{filter:blur(64px) brightness(.5) saturate(1.35)}
+/* Bloqueo con el orden del iOS real: candado, fecha y hora ENORME */
+.candado-top{margin-bottom:14px;opacity:.95}
+.fecha{margin:0 0 2px}
+.hora{font-size:88px}
+/* Calendario real */
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.cal-nav span{font-size:20px;font-weight:700;color:#ff453a;letter-spacing:.5px}
+.cal-nav button{background:rgba(255,255,255,.12);border:none;color:#fff;width:36px;height:36px;border-radius:50%;font-size:22px;cursor:pointer}
+table.cal td.hoy{background:#ff453a;color:#fff;font-weight:700;border-radius:50%}
 
 /* ─── Bloqueo ─── */
 #bloqueo{display:flex;flex-direction:column;align-items:center}
@@ -98,7 +118,7 @@ html:not(.js) #bloqueo,html:not(.js) #cara{display:none}
 #escritorio{display:flex;flex-direction:column}
 #escritorio .wall{position:absolute;inset:0;background-size:cover;background-position:center}
 .velos{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),transparent 22%)}
-.rejilla{position:relative;z-index:2;flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:20px 6px;padding:76px 18px 4px;align-content:start;overflow:hidden}
+.rejilla{position:relative;z-index:2;flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:15px 6px;padding:70px 18px 4px;align-content:start;overflow:hidden}
 .app{display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;color:#fff;background:none;border:none;font-family:inherit;cursor:pointer;padding:0}
 .app__icono{width:62px;height:62px;border-radius:15.5px;display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 5px 14px rgba(0,0,0,.4);overflow:visible;transition:transform .18s cubic-bezier(.32,.72,0,1)}
 .app__icono>svg.icono{width:100%;height:100%;display:block;border-radius:15.5px}
@@ -222,20 +242,25 @@ html:not(.js) .deshaz,html:not(.js) .antorchas,html:not(.js) .mota,html:not(.js)
       <span class="sb-der">
         <span class="sb-senal" aria-hidden="true"><b></b><b></b><b></b><b></b></span>
         <svg width="15" height="11" viewBox="0 0 16 12" fill="#fff" aria-hidden="true"><path d="M8 11.2 6 8.8a2.9 2.9 0 0 1 4 0zM4.5 7.2a5.4 5.4 0 0 1 7 0l1.3-1.6a7.2 7.2 0 0 0-9.6 0zM2.2 4.5a8.7 8.7 0 0 1 11.6 0L15 2.8a10.5 10.5 0 0 0-14 0z"/></svg>
-        <span class="sb-bateria" aria-hidden="true"><i></i><b>31</b></span></span>
+        <span class="sb-bateria" aria-hidden="true"><i></i></span></span>
     </div>
     <div class="contenido">
+      <div class="candado-top"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 8V7a3 3 0 1 1 6 0v3z"/></svg></div>
+      <div class="fecha" id="fecha-bloqueo">miércoles, 27 de octubre</div>
       <div class="hora" id="hora-grande">14:06</div>
-      <div class="fecha" id="fecha-bloqueo">lunes, 26 de octubre</div>
-      <div class="notif">
-        <span class="ic" style="background:#0a66c2;font-weight:800;color:#fff">in</span>
-        <div><span class="h">ahora</span><div class="t">LinkedIn</div><div class="p">Ingeniero de Caminos · AI Builder. Aquí tienes mi perfil →</div></div>
-      </div>
-      <div class="notif">
-        <span class="ic" style="background:#232f3e;color:#ff9900;font-weight:700">P</span>
-        <div><span class="h">ayer</span><div class="t">El poni de Von der Leyen</div><div class="p">Ya a la venta en Amazon. Los hipersónicos también cuentan.</div></div>
-      </div>
-      <div class="aviso-vac">🏖️ <b>Agosto</b>: de vacaciones. Face ID no atiende llamadas.</div>
+      <a class="notif" href="mailto:dantizar@gmail.com">
+        <span class="ic" style="background:linear-gradient(160deg,#35a8ff,#0a60ff)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg></span>
+        <div><span class="h">ahora</span><div class="t">Correo</div><div class="p"><b>David Antizar</b> · Gracias por desbloquear mi iPhone 📱 Escríbeme, contesto.</div></div>
+      </a>
+      <a class="notif" href="https://github.com/Ntizar" target="_blank" rel="noopener">
+        <span class="ic" style="background:#171515"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span>
+        <div><span class="h">hace 12 min</span><div class="t">GitHub</div><div class="p"><b>Ntizar</b> · Este iPhone vive en davidantizar.com — el código, aquí.</div></div>
+      </a>
+      <button class="notif" data-app="calendario">
+        <span class="ic ic-cal"><small id="nc-dow">MIÉ</small><b id="nc-day">27</b></span>
+        <div><span class="h">hoy · 19:30</span><div class="t">Calendario</div><div class="p"><b>Marqués</b> · Reunión con cara de datos.</div></div>
+      </button>
+      <div class="aviso-vac">🔋 <b>100%</b> de batería y cero pegas: disponible para proyectos, cafés y rarezas.</div>
     </div>
     <div class="antorchas">
       <button class="antorcha" id="btn-linterna" aria-label="Linterna"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6.5 2h4a1.5 1.5 0 0 1 1.5 1.5v2.2l.9 1.4a1.6 1.6 0 0 1 .3.9V21a1.5 1.5 0 0 1-1.5 1.5h-6A1.5 1.5 0 0 1 4.2 21V8.9a1.6 1.6 0 0 1 .3-.9l.9-1.4V3.5A1.5 1.5 0 0 1 6.9 2z"/><path d="M6.8 12.2h3.4"/></svg></button>
@@ -271,7 +296,7 @@ html:not(.js) .deshaz,html:not(.js) .antorchas,html:not(.js) .mota,html:not(.js)
       <span class="sb-der">
         <span class="sb-senal" aria-hidden="true"><b></b><b></b><b></b><b></b></span>
         <svg width="15" height="11" viewBox="0 0 16 12" fill="#fff" aria-hidden="true"><path d="M8 11.2 6 8.8a2.9 2.9 0 0 1 4 0zM4.5 7.2a5.4 5.4 0 0 1 7 0l1.3-1.6a7.2 7.2 0 0 0-9.6 0zM2.2 4.5a8.7 8.7 0 0 1 11.6 0L15 2.8a10.5 10.5 0 0 0-14 0z"/></svg>
-        <span class="sb-bateria" aria-hidden="true"><i></i><b>31</b></span></span>
+        <span class="sb-bateria" aria-hidden="true"><i></i></span></span>
     </div>
     <div class="rejilla">
       <!-- Widget -->
@@ -293,7 +318,23 @@ html:not(.js) .deshaz,html:not(.js) .antorchas,html:not(.js) .mota,html:not(.js)
           <div class="widget__ev widget__mas"><span class="pt"></span>1 evento más</div>
         </div>
       </button>
-      <!-- Fila 1: Tiempo · Reloj · Notas · Salud -->
+      <!-- Fila 1: las marcas, con sus iconos de verdad -->
+      <a class="app" href="https://github.com/Ntizar" target="_blank" rel="noopener" aria-label="GitHub — github.com/Ntizar">
+        <span class="app__icono"><svg class="icono" viewBox="0 0 62 62"><rect width="62" height="62" rx="15.5" fill="#171515"/><g transform="translate(10.6 10.6) scale(1.7)" fill="#fff"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></g></svg></span>
+        <span class="app__nombre">GitHub</span></a>
+      <a class="app" href="https://www.linkedin.com/in/davidantizar/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <span class="app__icono"><svg class="icono" viewBox="0 0 62 62"><defs><linearGradient id="g-li" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f80ed"/><stop offset="1" stop-color="#0a66c2"/></linearGradient></defs><rect width="62" height="62" rx="15.5" fill="url(#g-li)"/><text x="31" y="45" font-size="34" font-weight="800" fill="#fff" text-anchor="middle" font-family="Arial,Helvetica,sans-serif">in</text></svg></span>
+        <span class="app__nombre">LinkedIn</span></a>
+      <a class="app" href="https://x.com/DNtizar" target="_blank" rel="noopener" aria-label="X">
+        <span class="app__icono"><svg class="icono" viewBox="0 0 62 62"><rect width="62" height="62" rx="15.5" fill="#000"/><g transform="translate(13.5 13.5) scale(1.46)" fill="#fff"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></g></svg></span>
+        <span class="app__nombre">X</span></a>
+      <a class="app" href="https://moviendokilowatios.substack.com/" target="_blank" rel="noopener" aria-label="Substack · Moviendo kW">
+        <span class="app__icono"><svg class="icono" viewBox="0 0 62 62"><rect width="62" height="62" rx="15.5" fill="#ff6719"/><path fill="#fff" d="M14 12h34v7H14zM14 23h34v7H14zM14 34h34v17l-17-8.8L14 51z"/></svg></span>
+        <span class="app__nombre">Moviendo kW</span></a>
+      <!-- Fila 2: Calendario (fecha real) · Tiempo · Reloj · Notas -->
+      <button class="app" data-app="calendario" aria-label="Calendario">
+        <span class="app__icono"><svg class="icono" viewBox="0 0 62 62"><rect width="62" height="62" rx="15.5" fill="#fff"/><text id="cal-dow" x="31" y="17" font-size="9" font-weight="700" fill="#ff453a" text-anchor="middle" letter-spacing="1" font-family="Arial,Helvetica,sans-serif">MIÉ</text><text id="cal-day" x="31" y="49" font-size="31" font-weight="300" fill="#1c1c1e" text-anchor="middle" font-family="Arial,Helvetica,sans-serif">27</text></svg></span>
+        <span class="app__nombre">Calendario</span></button>
       <button class="app" data-app="tiempo">
         <span class="app__icono"><svg class="icono" viewBox="0 0 62 62"><defs><linearGradient id="g-t" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#48a6ff"/><stop offset="1" stop-color="#0b5fe0"/></linearGradient></defs><rect width="62" height="62" rx="15.5" fill="url(#g-t)"/><circle cx="22" cy="20" r="7.5" fill="#ffd85e"/><path d="M20 40a8.5 8.5 0 0 1 .5-17 11 11 0 0 1 21 3.5 6.8 6.8 0 0 1-1.5 13.5z" fill="#fff"/></svg><span id="t-temp" style="position:absolute;bottom:2px;left:0;right:0;text-align:center;font-size:11px;font-weight:600;text-shadow:0 1px 3px rgba(0,0,0,.7)"></span></span>
         <span class="app__nombre">Tiempo</span></button>
@@ -319,10 +360,10 @@ html:not(.js) .deshaz,html:not(.js) .antorchas,html:not(.js) .mota,html:not(.js)
       <button class="app" data-app="camara">
         <span class="app__icono"><svg class="icono" viewBox="0 0 62 62"><defs><linearGradient id="g-c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dcdce1"/><stop offset="1" stop-color="#8f8f96"/></linearGradient></defs><rect width="62" height="62" rx="15.5" fill="url(#g-c)"/><path d="M13 22h8l4-6h12l4 6h8a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H13a4 4 0 0 1-4-4V26a4 4 0 0 1 4-4z" fill="#f2f2f5"/><circle cx="31" cy="35" r="10.5" fill="#3a3a3c"/><circle cx="31" cy="35" r="7" fill="#64d2ff"/><circle cx="28.3" cy="32.3" r="2.2" fill="#fff" opacity=".85"/></svg></span>
         <span class="app__nombre">Cámara</span></button>
-      <!-- Fila 3: carpetas con las marcas dentro -->
-      <button class="app" data-app="carpeta-redes">
-        <span class="app__icono carpeta-mini" id="cp-redes"></span>
-        <span class="app__nombre">Redes</span></button>
+      <!-- Fila 4: el libro fuera de la carpeta, mundos, librería y ajustes -->
+      <a class="app" href="https://www.amazon.es/dp/B0CP8HS3TZ?tag=ntizar-21" target="_blank" rel="noopener nofollow" aria-label="El poni de Von der Leyen — Amazon">
+        <span class="app__icono"><svg class="icono" viewBox="0 0 62 62"><defs><linearGradient id="g-po" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4a3520"/><stop offset="1" stop-color="#1d1712"/></linearGradient></defs><rect width="62" height="62" rx="15.5" fill="url(#g-po)"/><text x="31" y="44" font-size="32" text-anchor="middle" fill="#fff">🦄</text></svg></span>
+        <span class="app__nombre">El poni</span></a>
       <button class="app" data-app="carpeta-mundos">
         <span class="app__icono carpeta-mini" id="cp-mundos"></span>
         <span class="app__nombre">Mundos</span></button>
@@ -387,9 +428,8 @@ const LINKS={
   mastermind:{n:"MasterMind",u:"https://ntizar.github.io/MasterMind/",c:"#0a84ff",ic:"M"}
 };
 const CARPETAS={
-  "carpeta-redes":{titulo:"Redes",keys:["linkedin","x","substack","github"]},
   "carpeta-mundos":{titulo:"Mundos",keys:["nap","solmad","yolo","lichess"]},
-  "carpeta-libreria":{titulo:"Librería",keys:["amazon","kit72h","blog","irpf"]}
+  "carpeta-libreria":{titulo:"Librería",keys:["kit72h","blog","irpf","aurora"]}
 };
 /* mini-tiles dentro de las carpetas del cajón: letra sobre color, sin logotipos */
 function pintarCarpetas(){
@@ -413,6 +453,8 @@ function tick(){
   if(f)f.textContent=d.toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"});
   const w=document.getElementById("w-dow"),wd=document.getElementById("w-day");
   if(w)w.textContent=DIAS[d.getDay()];if(wd)wd.textContent=d.getDate();
+  const dd=DIAS[d.getDay()].slice(0,3);
+  [["cal-dow",dd],["nc-dow",dd],["cal-day",d.getDate()],["nc-day",d.getDate()]].forEach(([id,v])=>{const e=document.getElementById(id);if(e)e.textContent=v;});
   const s=d.getSeconds(),m=d.getMinutes()+s/60,h=(d.getHours()%12)+m/60;
   rotar("ag-h",h*30);rotar("ag-m",m*6);rotar("ag-s",s*6);
   const g=document.getElementById("reloj-grande");
@@ -436,27 +478,42 @@ function fetchTiempo(){
 function renderTiempo(){const v=document.querySelector("#visor-cuerpo .t-live");if(v&&tiempoCache)v.textContent=tiempoCache.t+"°";}
 fetchTiempo();setInterval(fetchTiempo,600000);
 
-/* ─── Fondos: solo los que existan ─── */
+/* ─── Fondos: degradados CSS (siempre disponibles) + fotos si cargan ─── */
+const GRADS={
+  nebulosa:"radial-gradient(90% 70% at 15% 8%,rgba(124,58,237,.75),transparent 60%),radial-gradient(80% 60% at 88% 18%,rgba(14,90,220,.7),transparent 55%),radial-gradient(110% 80% at 50% 105%,rgba(219,39,119,.6),transparent 60%),linear-gradient(165deg,#070514 0%,#0d0a2e 55%,#1a0b33 100%)",
+  atardecer:"radial-gradient(100% 80% at 85% 0%,rgba(255,170,60,.9),transparent 55%),radial-gradient(120% 90% at 10% 100%,rgba(255,70,110,.8),transparent 60%),linear-gradient(180deg,#1c0836 0%,#7a1e4b 55%,#ff8a4d 100%)",
+  oceano:"radial-gradient(90% 70% at 20% 10%,rgba(34,197,220,.6),transparent 60%),radial-gradient(100% 80% at 85% 85%,rgba(20,70,220,.7),transparent 60%),linear-gradient(170deg,#020a1c 0%,#06264d 60%,#0a3d6e 100%)",
+  bosque:"radial-gradient(90% 70% at 80% 12%,rgba(74,222,128,.5),transparent 60%),radial-gradient(110% 80% at 15% 90%,rgba(16,120,90,.7),transparent 60%),linear-gradient(170deg,#03120c 0%,#0a2e1e 60%,#11402a 100%)"
+};
 const FONDOS_TODO=[
+  {id:"nebulosa",src:"css:"+GRADS.nebulosa},
+  {id:"atardecer",src:"css:"+GRADS.atardecer},
+  {id:"oceano",src:"css:"+GRADS.oceano},
+  {id:"bosque",src:"css:"+GRADS.bosque},
   {id:"grafito",src:"assets/img/wallpaper-grafito.svg"},
   {id:"grafito-foto",src:"assets/img/wallpaper-grafito.jpg"},
   {id:"noche",src:"assets/img/wallpaper-noche.jpg"},
   {id:"energia",src:"assets/img/wallpaper-energia.jpg"},
   {id:"amanecer",src:"assets/img/wallpaper-amanecer.jpg"}
 ];
-let FONDOS=[FONDOS_TODO[0]];
+const esCss=f=>f.src.startsWith("css:");
+const bgCss=f=>esCss(f)?f.src.slice(4):`url('${f.src}')`;
+let FONDOS=FONDOS_TODO.filter(esCss);
 let fondoActivo=0;
+try{fondoActivo=Math.min(parseInt(localStorage.getItem("da-fondo")||"0",10)||0,FONDOS_TODO.length-1);}catch(e){}
 function aplicarFondo(n){
-  if(!FONDOS.length)FONDOS=[FONDOS_TODO[1]];
+  if(!FONDOS.length)FONDOS=[FONDOS_TODO[0]];
   fondoActivo=Math.max(0,Math.min(n,FONDOS.length-1));
-  const src=FONDOS[fondoActivo].src;
-  document.getElementById("wall-bloqueo").style.backgroundImage=`url('${src}')`;
-  document.getElementById("wall-escritorio").style.backgroundImage=`url('${src}')`;
-  const g=document.getElementById("wall-gorda");if(!g.src.endsWith(src))g.src=src;
+  const f=FONDOS[fondoActivo],val=bgCss(f);
+  document.getElementById("wall-bloqueo").style.backgroundImage=val;
+  document.getElementById("wall-escritorio").style.backgroundImage=val;
+  const esc=document.querySelector(".escenario"),g=document.getElementById("wall-gorda");
+  if(esCss(f)){g.style.display="none";esc.style.backgroundImage=val;esc.classList.add("grad");}
+  else{g.style.display="";if(!g.src.endsWith(f.src))g.src=f.src;esc.classList.remove("grad");esc.style.backgroundImage="";}
+  try{localStorage.setItem("da-fondo",String(fondoActivo));}catch(e){}
   document.querySelectorAll("#visor-cuerpo .galeria__item,#visor-cuerpo .fondo-op").forEach(b=>b.classList.toggle("on",+b.dataset.fondo===fondoActivo));
 }
-FONDOS=[];
-FONDOS_TODO.forEach(f=>{
+FONDOS_TODO.filter(f=>!esCss(f)).forEach(f=>{
   const i=new Image();
   i.onload=()=>{if(!FONDOS.some(x=>x.src===f.src)){FONDOS.push(f);FONDOS.sort((a,b)=>FONDOS_TODO.indexOf(a)-FONDOS_TODO.indexOf(b));if(f===FONDOS[0])aplicarFondo(fondoActivo);}};
   i.onerror=()=>{/* se queda fuera de la lista */};
@@ -520,17 +577,32 @@ function filaLink(k){const l=LINKS[k];return `<a class="fila-app" href="${l.u}" 
 
 /* ─── Vistas del visor ─── */
 function galeriaHTML(){
-  return '<div class="galeria">'+FONDOS.map((f,i)=>`<button class="galeria__item ${i===fondoActivo?'on':''}" data-fondo="${i}" style="background-image:url('${f.src}')" aria-label="Fondo ${f.id}"></button>`).join("")+'</div><p style="opacity:.5;font-size:13.5px;margin-top:14px">Toca una foto y se pone de fondo en todo el teléfono.</p>';}
+  return '<div class="galeria">'+FONDOS.map((f,i)=>`<button class="galeria__item ${i===fondoActivo?'on':''}" data-fondo="${i}" style="background-image:${bgCss(f)}" aria-label="Fondo ${f.id}"></button>`).join("")+'</div><p style="opacity:.5;font-size:13.5px;margin-top:14px">Toca una foto y se pone de fondo en todo el teléfono.</p>';}
 function galeriaEvents(){document.querySelectorAll("#visor-cuerpo .galeria__item,#visor-cuerpo .fondo-op").forEach(b=>b.addEventListener("click",()=>aplicarFondo(+b.dataset.fondo)));}
+/* Calendario real (estado de navegación entre meses) */
+let calY=null,calM=null;
+const esAgosto=(y,m)=>m===7;
 const vistas={
   calendario:()=>{
-    const emp=(new Date(2026,7,1).getDay()+6)%7;
+    const hoy=new Date();
+    const y=(typeof calY==="number")?calY:hoy.getFullYear();
+    const m=(typeof calM==="number")?calM:hoy.getMonth();
+    const nombresMes=["ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE"];
+    const emp=(new Date(y,m,1).getDay()+6)%7;
+    const dias=new Date(y,m+1,0).getDate();
     const nombres=["L","M","X","J","V","S","D"];
-    let cells=[];for(let i=0;i<emp;i++)cells.push("<td style='background:none'></td>");
-    for(let d=1;d<=31;d++)cells.push("<td>"+d+"</td>");
+    let cells=[];
+    for(let i=0;i<emp;i++)cells.push("<td style='background:none'></td>");
+    for(let d=1;d<=dias;d++){
+      const esHoy=d===hoy.getDate()&&m===hoy.getMonth()&&y===hoy.getFullYear();
+      cells.push(`<td class="${esHoy?'hoy':''}">${d}</td>`);
+    }
     while(cells.length%7)cells.push("<td style='background:none'></td>");
     let filas="";for(let i=0;i<cells.length;i+=7)filas+="<tr>"+cells.slice(i,i+7).join("")+"</tr>";
-    return '<div style="text-align:center;font-size:22px;font-weight:700;color:#ff453a;margin-bottom:6px">AGOSTO 2026</div><table class="cal"><thead><tr>'+nombres.map(n=>"<th>"+n+"</th>").join("")+'</tr></thead><tbody>'+filas+'</tbody></table><div class="cal-leyenda">🏖️ <b>Todo agosto: de vacaciones.</b> El correo suena, yo no estoy. Escríbeme antes del 1 o después del 31 y te contesto con cara de haber dormido.</div>';
+    const nota=esAgosto(y,m)
+      ?"🏖️ <b>Agosto: de vacaciones.</b> El correo suena, yo no estoy. Escríbeme antes del 1 o después del 31."
+      :"🗓️ Calendario de verdad: navega con ‹ › y hoy va marcado en rojo. Los eventos son de muestra, no se sincronizan con nada.";
+    return `<div class="cal-nav"><button data-cal-nav="-1" aria-label="Mes anterior">‹</button><span>${nombresMes[m]} ${y}</span><button data-cal-nav="1" aria-label="Mes siguiente">›</button></div><table class="cal"><thead><tr>${nombres.map(n=>"<th>"+n+"</th>").join("")}</tr></thead><tbody>${filas}</tbody></table><div class="cal-leyenda">${nota}</div>`;
   },
   correo:()=>`<div class="lista-ios">
     <div class="fila-app" style="cursor:default"><span class="ic" style="background:linear-gradient(160deg,#35a8ff,#0a60ff)">✉</span><span><b>Bandeja de entrada</b><small>42 sin leer · 0 de spam</small></span><span class="chevron">42</span></div>
@@ -614,10 +686,11 @@ const vistas={
   spotlight:()=>`<input class="spot-input" id="spot-in" placeholder="Buscar en David…" autocomplete="off">
     <div id="spot-lista">${Object.keys(LINKS).map(filaLink).join("")}</div>`,
   ajustes:()=>`<div class="seccion-titulo" style="margin-top:2px">Fondo del iPhone</div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">${FONDOS.map((f,i)=>`<button class="fondo-op ${i===fondoActivo?'on':''}" data-fondo="${i}" style="background-image:url('${f.src}')" aria-label="Fondo ${f.id}"></button>`).join("")}</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">${FONDOS.map((f,i)=>`<button class="fondo-op ${i===fondoActivo?'on':''}" data-fondo="${i}" style="background-image:${bgCss(f)}" aria-label="Fondo ${f.id}"></button>`).join("")}</div>
     <div class="seccion-titulo">Galería</div>
     ${galeriaHTML()}
     <div class="lista-ios" style="margin-top:22px">
+      <div class="fila-app" style="cursor:default"><span class="ic" style="background:#30d158">⚡</span><span>Batería<small>Siempre al 100%. Es mi iPhone y lo decido yo.</small></span><span class="chevron">100%</span></div>
       <div class="fila-app" style="cursor:default"><span class="ic" style="background:#636366">⚙</span><span>Face ID<small>Animación pura: ni siquiera pide la cámara</small></span></div>
       <div class="fila-app" style="cursor:default"><span class="ic" style="background:#8e8e93">i</span><span>Sobre esta web<small>La hizo Mastermind, la firmó David</small></span></div>
     </div>`
@@ -634,6 +707,14 @@ function abrirVisor(id){
   titulo.textContent=titulos[id]||id;
   cuerpo.innerHTML=vistas[id]?vistas[id]():"";
   elVisor.classList.add("abierta");
+  if(id==="calendario"){
+    cuerpo.querySelectorAll("[data-cal-nav]").forEach(b=>b.addEventListener("click",()=>{
+      calY=(calY===null)?new Date().getFullYear():calY;
+      calM=((calM===null)?new Date().getMonth():calM)+ (+b.dataset.calNav);
+      if(calM<0){calM=11;calY--;}if(calM>11){calM=0;calY++;}
+      abrirVisor("calendario");
+    }));
+  }
   if(id==="ajustes")galeriaEvents();
   if(id==="tiempo")renderTiempo();
   if(id==="spotlight"){
@@ -647,7 +728,7 @@ function abrirVisor(id){
   }
   if(id==="camara"){
     const visor=cuerpo.querySelector("#cam-visor");
-    if(FONDOS[fondoActivo])visor.style.backgroundImage=`url('${FONDOS[fondoActivo].src}')`;
+    if(FONDOS[fondoActivo])visor.style.backgroundImage=bgCss(FONDOS[fondoActivo]);
     const disparo=cuerpo.querySelector("#cam-disparo"),flash=cuerpo.querySelector("#cam-flash"),mini=cuerpo.querySelector("#cam-mini");
     let fotos=0;
     disparo.addEventListener("click",()=>{flash.classList.remove("on");void flash.offsetWidth;flash.classList.add("on");fotos++;mini.textContent=fotos;mini.classList.toggle("con-foto",fotos>0);});
@@ -681,6 +762,7 @@ document.querySelectorAll("a.app").forEach(a=>{
 });
 
 /* Arranque */
+document.querySelectorAll("#bloqueo a.notif").forEach(a=>a.addEventListener("click",e=>e.stopPropagation()));
 elEscritorio.classList.add("fase-oculta");
 })();
 </script>
