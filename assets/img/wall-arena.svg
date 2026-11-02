@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1170 2532" preserveAspectRatio="xMidYMid slice">
+<defs>
+<linearGradient id="b" x1="0" y1="0" x2=".25" y2="1">
+<stop offset="0" stop-color="#1b130c"/><stop offset=".55" stop-color="#3a2517"/><stop offset="1" stop-color="#0c0805"/>
+</linearGradient>
+<radialGradient id="g0"><stop offset="0" stop-color="#ffd27a" stop-opacity="0.35"/><stop offset=".55" stop-color="#ffd27a" stop-opacity="0.16"/><stop offset="1" stop-color="#ffd27a" stop-opacity="0"/></radialGradient>
+<radialGradient id="g1"><stop offset="0" stop-color="#ff9e6b" stop-opacity="0.3"/><stop offset=".55" stop-color="#ff9e6b" stop-opacity="0.14"/><stop offset="1" stop-color="#ff9e6b" stop-opacity="0"/></radialGradient>
+<radialGradient id="g2"><stop offset="0" stop-color="#c26a3a" stop-opacity="0.35"/><stop offset=".55" stop-color="#c26a3a" stop-opacity="0.16"/><stop offset="1" stop-color="#c26a3a" stop-opacity="0"/></radialGradient>
+<linearGradient id="v" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset=".35" stop-color="#000" stop-opacity="0"/>
+<stop offset=".75" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".5"/>
+</linearGradient>
+</defs>
+<rect width="1170" height="2532" fill="url(#b)"/>
+<ellipse cx="994" cy="304" rx="1112" ry="1013" fill="url(#g0)"/>
+<ellipse cx="117" cy="1393" rx="1170" ry="1139" fill="url(#g1)"/>
+<ellipse cx="702" cy="2659" rx="1404" ry="1013" fill="url(#g2)"/>
+<rect width="1170" height="2532" fill="url(#v)"/>
+</svg>
