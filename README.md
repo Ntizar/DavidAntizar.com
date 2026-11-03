@@ -3,7 +3,7 @@
 La web de David Antizar, que es un Windows Phone.
 
 Un único `index.html` sin dependencias: pantalla de bloqueo con reloj real y
-**lector de iris** (Windows Hello simulado: se toca el ojo, escanea y entra) y
+**lector de iris** (se pulsa el ojo, escanea 1,8 s y entra) y
 pantalla de inicio con **Live Tiles** de cristal que giran solas.
 Cinco fichas, solo las que existen:
 
@@ -11,7 +11,7 @@ Cinco fichas, solo las que existen:
 - LinkedIn — `in/davidantizar`
 - GitHub — `@Ntizar`, con el número de repositorios y el último repo actualizado
   en vivo contra la API pública de GitHub (texto de reserva si no hay red)
-- Instagram
+- Instagram — `@DNtizar`
 - X — `@DNtizar`
 - El poni de Von der Leyen — su libro, en Amazon
 

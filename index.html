@@ -62,7 +62,7 @@ html:not(.abierto) .barra__hora{visibility:hidden}
 /* ---------- bloqueo + lector de iris ---------- */
 .bloqueo{
   position:fixed;inset:0;z-index:30;
-  display:flex;flex-direction:column;justify-content:space-between;align-items:center;
+  display:flex;flex-direction:column;align-items:center;
   padding:calc(var(--barra) + 8px) 26px calc(26px + env(safe-area-inset-bottom));
   background:
     radial-gradient(52% 36% at 82% 12%, rgba(52,211,153,.10), transparent 72%),
@@ -71,7 +71,7 @@ html:not(.abierto) .barra__hora{visibility:hidden}
   transition:transform .62s cubic-bezier(.2,.7,.25,1), opacity .42s ease;
 }
 .abierto .bloqueo{transform:translateY(-101%);opacity:0;pointer-events:none}
-.bloqueo__reloj{width:100%;max-width:462px;margin-top:6vh}
+.bloqueo__reloj{width:100%;max-width:462px;margin:5vh 0 0}
 .bloqueo__hora{
   margin:0;font-size:clamp(62px,21vw,104px);line-height:.92;
   font-weight:300;letter-spacing:-.035em;font-variant-numeric:tabular-nums;
@@ -79,9 +79,13 @@ html:not(.abierto) .barra__hora{visibility:hidden}
 .bloqueo__fecha{margin:14px 0 0;font-size:clamp(15px,4.4vw,19px);font-weight:300;color:var(--tinta-2)}
 .bloqueo__fecha::first-letter{text-transform:uppercase}
 
-/* lector */
+/* grupo del lector: centrado exacto en la pantalla */
+.bloqueo__grupo{
+  position:absolute;left:50%;top:calc(50% + 16px);transform:translate(-50%,-50%);
+  display:flex;flex-direction:column;align-items:center;gap:18px;width:max-content;max-width:100%;
+}
 .lector{
-  display:flex;flex-direction:column;align-items:center;gap:14px;
+  display:flex;flex-direction:column;align-items:center;
   background:none;border:0;padding:0;color:inherit;font:inherit;cursor:pointer;
   -webkit-tap-highlight-color:transparent;
 }
@@ -133,14 +137,13 @@ html:not(.abierto) .barra__hora{visibility:hidden}
   filter:drop-shadow(0 0 7px rgba(52,211,153,.95));
 }
 
-.lector__texto{
-  font-size:12px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--tinta-2);min-height:15px;transition:color .3s ease;
+
+.aviso{
+  margin:0 0 6px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.62);text-align:center;transition:color .3s ease;
+  animation:respira 3.2s ease-in-out infinite;
 }
-.lector__marca{
-  font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.34);
-  margin-top:-6px;
-}
+@keyframes respira{0%,100%{opacity:.62}50%{opacity:1}}
 
 /* estados del escaneo */
 .escaneando .ojo__barrido{opacity:1;animation:barre 1.05s linear infinite}
@@ -149,12 +152,12 @@ html:not(.abierto) .barra__hora{visibility:hidden}
 .escaneando .ojo .pupila{animation:dilata 1.3s ease-in-out infinite}
 .escaneando .ojo .iris{animation:late 1.3s ease-in-out infinite}
 .escaneando .ojo .progreso{opacity:1;animation:progresa 1.78s linear forwards}
-.escaneando .lector__texto{color:#7ee2b0}
+.escaneando .aviso{color:#7ee2b0;animation:none}
 .escaneando .lector__disco{box-shadow:inset 0 1px 0 rgba(255,255,255,.26), 0 0 54px rgba(52,211,153,.38)}
 .verificado .ojo__barrido{opacity:0}
 .verificado .ojo .progreso{opacity:1;stroke-dashoffset:0;stroke:#9ef7c8}
 .verificado .ojo .pupila{r:13}
-.verificado .lector__texto{color:#9ef7c8}
+.verificado .aviso{color:#9ef7c8;animation:none}
 .verificado .lector__disco{box-shadow:inset 0 1px 0 rgba(255,255,255,.4), 0 0 66px rgba(120,255,190,.45)}
 @keyframes barre{to{transform:rotate(360deg)}}
 @keyframes barreY{from{transform:translateY(58px)}to{transform:translateY(138px)}}
@@ -231,19 +234,6 @@ html:not(.abierto) .barra__hora{visibility:hidden}
 .f-libro{--fondo-ficha:#232f3e;--borde-ficha:rgba(255,153,0,.40)}
 .f-libro .ficha__meta{color:#ff9900}
 
-/* libro en miniatura */
-.libro{position:relative;display:block;width:46px;height:64px;perspective:300px}
-.libro__tapa{
-  position:absolute;inset:0;border-radius:1px 3px 3px 1px;
-  background:#f2ead9;
-  box-shadow:0 4px 10px -6px rgba(0,0,0,.8), inset -3px 0 0 rgba(0,0,0,.12), inset 1px 0 0 rgba(255,255,255,.8);
-  display:flex;flex-direction:column;justify-content:space-between;padding:5px 4px 4px 7px;
-  transform:rotateY(-16deg);transform-origin:left center;
-}
-.libro__tapa::before{content:'';position:absolute;left:3px;top:0;bottom:0;width:2px;background:rgba(0,0,0,.14)}
-.libro__titulo{font-size:5.8px;line-height:1.2;font-weight:700;color:#1f1a14;letter-spacing:.01em;text-transform:uppercase}
-.libro__autor{font-size:4.9px;line-height:1;color:#5d5142;letter-spacing:.06em}
-
 /* entrada tras desbloquear */
 .abierto .ficha{animation:entra .52s cubic-bezier(.2,.7,.3,1) both;animation-delay:calc(var(--i,0) * 55ms)}
 @keyframes entra{from{opacity:0;transform:translateY(16px) scale(.985)}to{opacity:1;transform:none}}
@@ -278,7 +268,8 @@ html:not(.abierto) .barra__hora{visibility:hidden}
     <p class="bloqueo__fecha" data-fecha>cargando fecha</p>
   </div>
 
-  <button class="lector" id="lector" type="button" aria-label="Desbloquear leyendo el iris">
+  <div class="bloqueo__grupo">
+  <button class="lector" id="lector" type="button" aria-label="Entrar al sistema leyendo el iris">
     <span class="lector__disco">
       <svg class="ojo" viewBox="0 0 200 200" aria-hidden="true">
         <defs>
@@ -360,9 +351,9 @@ html:not(.abierto) .barra__hora{visibility:hidden}
         </g>
       </svg>
     </span>
-    <span class="lector__texto" id="texto-lector">Mira al sensor</span>
-    <span class="lector__marca">Windows Hello · iris</span>
   </button>
+  <p class="aviso" id="texto-lector">Pulsa para entrar al sistema</p>
+  </div>
 </section>
 
 <!-- inicio -->
@@ -439,14 +430,14 @@ html:not(.abierto) .barra__hora{visibility:hidden}
     </a>
 
     <!-- Instagram -->
-    <a class="ficha ficha--media f-instagram" href="https://www.instagram.com/" target="_blank" rel="noopener" data-viva style="--i:3" data-instagram>
+    <a class="ficha ficha--media f-instagram" href="https://www.instagram.com/DNtizar/" target="_blank" rel="noopener" data-viva style="--i:3" data-instagram>
       <span class="ficha__cara ficha__cara--frente">
         <span class="ficha__marca">
           <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.899.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678a6.162 6.162 0 100 12.324 6.162 6.162 0 100-12.324zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405a1.441 1.441 0 01-2.88 0 1.44 1.44 0 012.88 0z"/></svg>
         </span>
         <span class="ficha__texto">
           <span class="ficha__titulo">Instagram</span>
-          <span class="ficha__meta" data-ig-meta>instagram.com</span>
+          <span class="ficha__meta" data-ig-meta>@DNtizar</span>
         </span>
       </span>
       <span class="ficha__cara ficha__cara--detras">
@@ -455,7 +446,7 @@ html:not(.abierto) .barra__hora{visibility:hidden}
         </span>
         <span class="ficha__texto">
           <span class="ficha__titulo">Instagram</span>
-          <span class="ficha__meta" data-ig-meta>instagram.com</span>
+          <span class="ficha__meta" data-ig-meta>@DNtizar</span>
         </span>
         <span class="ficha__flecha">ABRIR ↗</span>
       </span>
@@ -484,12 +475,7 @@ html:not(.abierto) .barra__hora{visibility:hidden}
     <a class="ficha ficha--ancha f-libro" href="https://www.amazon.es/dp/B0CP8HS3TZ?tag=ntizar-21" target="_blank" rel="noopener nofollow" data-viva style="--i:5">
       <span class="ficha__cara ficha__cara--frente">
         <span class="ficha__marca">
-          <span class="libro">
-            <span class="libro__tapa">
-              <span class="libro__titulo">El poni de<br>Von der Leyen</span>
-              <span class="libro__autor">D. ANTIZAR</span>
-            </span>
-          </span>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M4 4.5h5.2c1.5 0 2.8 1.2 2.8 2.7V20c0-1.2-1-2.2-2.3-2.2H4z"/><path d="M20 4.5h-5.2c-1.5 0-2.8 1.2-2.8 2.7V20c0-1.2 1-2.2 2.3-2.2H20z"/></svg>
         </span>
         <span class="ficha__texto">
           <span class="ficha__titulo">El poni de Von der Leyen</span>
@@ -497,7 +483,9 @@ html:not(.abierto) .barra__hora{visibility:hidden}
         </span>
       </span>
       <span class="ficha__cara ficha__cara--detras">
-        <span class="ficha__marca"><span class="libro"><span class="libro__tapa"><span class="libro__titulo">El poni de<br>Von der Leyen</span><span class="libro__autor">D. ANTIZAR</span></span></span></span>
+        <span class="ficha__marca">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M4 4.5h5.2c1.5 0 2.8 1.2 2.8 2.7V20c0-1.2-1-2.2-2.3-2.2H4z"/><path d="M20 4.5h-5.2c-1.5 0-2.8 1.2-2.8 2.7V20c0-1.2 1-2.2 2.3-2.2H20z"/></svg>
+        </span>
         <span class="ficha__texto">
           <span class="ficha__titulo">Hipersónicos y trenes</span>
           <span class="ficha__meta">leerlo en Amazon</span>
@@ -658,7 +646,7 @@ html:not(.abierto) .barra__hora{visibility:hidden}
   }).catch(function(){});
 
   /* ---------- enlace de Instagram (pendiente de usuario) ---------- */
-  var IG = { usuario: '' };
+  var IG = { usuario: 'DNtizar' };
   if (IG.usuario) {
     var meta = document.querySelectorAll('[data-ig-meta]');
     for (var j = 0; j < meta.length; j++) { meta[j].textContent = '@' + IG.usuario; }
