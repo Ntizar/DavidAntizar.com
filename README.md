@@ -1,18 +1,29 @@
 # DavidAntizar.com
 
-La web de David Antizar, que es un iPhone.
+La web de David Antizar, que es un Windows Phone.
 
-Un único `index.html` sin dependencias: pantalla de bloqueo, Face ID de mentira
-(sin cámara ni permisos), escritorio con tres páginas deslizables, biblioteca de
-apps, centro de control y veinte apps que abren contenido real.
+Un único `index.html` sin dependencias: pantalla de bloqueo con reloj real y
+**lector de iris** (Windows Hello simulado: se toca el ojo, escanea y entra) y
+pantalla de inicio con **Live Tiles** de cristal que giran solas.
+Cinco fichas, solo las que existen:
+
+- Kit72h — kits de 72 horas de afiliación en Amazon
+- LinkedIn — `in/davidantizar`
+- GitHub — `@Ntizar`, con el número de repositorios y el último repo actualizado
+  en vivo contra la API pública de GitHub (texto de reserva si no hay red)
+- Instagram
+- X — `@DNtizar`
+- El poni de Von der Leyen — su libro, en Amazon
 
 ## Qué hay dentro
 
-- `index.html` — la web entera: HTML, CSS y JS en un solo fichero (~100 KB).
-- `assets/img/` — fondos (`wall-*.svg` dibujados, `wallpaper-*.jpg` de foto) e
-  imágenes del blog original.
-- `content/blog.json` — índice del archivo (27 artículos, 2015-2018).
-- `content/posts/` — el HTML de cada artículo, que se lee dentro de la app Blog.
+- `index.html` — la web entera: HTML, CSS y JS en un solo fichero (~24 KB).
+- `assets/fonts/` — Open Sans (300/400/600/700) auto-hospedada; Windows usa
+  Segoe UI nativa si la tiene.
+- `assets/img/` — fondos e imágenes del archivo antiguo, e iconos de la app.
+- `iphone.html` — la versión anterior (escritorio iPhone con 20 apps). Se queda
+  como legado; no se enlaza desde la portada.
+- `content/blog.json` y `content/posts/` — archivo del blog (2015-2018).
 - `scripts/build-blog.py` — regenera `content/blog.json` desde `content/posts/`.
 - `scripts/gen-fondos.py` — regenera los fondos SVG (`assets/img/wall-*.svg`).
 
