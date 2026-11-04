@@ -277,6 +277,35 @@ html:not(.abierto) .barra__hora{visibility:hidden}
 .f-libro{--fondo-ficha:#232f3e}
 .f-libro .ficha__meta{color:#ff9900}
 
+/* el libro: la ficha es el escaparate */
+.ficha__portada{
+  position:absolute;right:12px;top:50%;z-index:1;
+  height:calc(100% - 26px);aspect-ratio:313/500;
+  transform:translateY(-50%) rotate(-1.4deg);
+  border-radius:1px;overflow:hidden;
+  box-shadow:0 10px 20px -8px rgba(0,0,0,.82), 0 0 0 1px rgba(246,242,233,.22), 0 0 30px -10px rgba(246,242,233,.40);
+  transition:transform .5s cubic-bezier(.2,.7,.25,1), box-shadow .5s ease;
+}
+.ficha__portada img{width:100%;height:100%;object-fit:cover;display:block}
+/* lomo: la sombra que convierte el recorte en objeto */
+.ficha__portada::before{
+  content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(90deg, rgba(0,0,0,.55), rgba(0,0,0,.10) 5%, rgba(246,242,233,.10) 6.5%, rgba(0,0,0,0) 9%);
+}
+.ficha__portada::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(7,9,12,.28),rgba(7,9,12,0) 30%);
+}
+.ficha:hover .ficha__portada{
+  transform:translateY(-50%) rotate(0deg) scale(1.025);
+  box-shadow:0 12px 26px -8px rgba(0,0,0,.85), 0 0 0 1px rgba(246,242,233,.34), 0 0 40px -10px rgba(246,242,233,.6);
+}
+.f-libro .ficha__cara{padding-right:calc(30% + 10px)}
+.f-libro .ficha__marca{display:none}
+.f-libro .ficha__texto{padding-right:0}
+.f-libro .ficha__flecha{right:calc(30% + 14px);left:auto;bottom:12px;color:rgba(246,242,233,.82)}
+.f-libro .ficha__titulo{font-size:clamp(17px,4.6vw,21px);letter-spacing:-.015em;line-height:1.1}
+
 /* ajustes por marca: nada se ensucia ni se funde con el vacío */
 .f-linkedin .ficha__cara::before{filter:saturate(.80) brightness(.92) contrast(1.02)}
 .f-instagram .ficha__cara::before{filter:saturate(.62) brightness(.85) contrast(1.04)}
@@ -333,7 +362,7 @@ html:not(.abierto) .barra__hora{visibility:hidden}
   </div>
 
   <div class="bloqueo__grupo">
-  <button class="lector" id="lector" type="button" aria-label="Entrar al sistema atravesando el horizonte">
+  <button class="lector" id="lector" type="button" aria-label="Entrar al sistema leyendo el iris">
     <span class="lector__disco">
       <svg class="eclipse" viewBox="0 0 240 240" aria-hidden="true">
         <defs>
@@ -519,6 +548,7 @@ html:not(.abierto) .barra__hora{visibility:hidden}
     <!-- Libro -->
     <a class="ficha ficha--ancha f-libro" href="https://www.amazon.es/dp/B0CP8HS3TZ?tag=ntizar-21" target="_blank" rel="noopener nofollow" data-viva style="--i:5">
       <span class="ficha__cara ficha__cara--frente">
+        <span class="ficha__portada"><img src="assets/img/libro-poni.jpg" alt="Portada de El poni de Von der Leyen" width="313" height="500" loading="lazy" decoding="async"></span>
         <span class="ficha__marca">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M4 4.5h5.2c1.5 0 2.8 1.2 2.8 2.7V20c0-1.2-1-2.2-2.3-2.2H4z"/><path d="M20 4.5h-5.2c-1.5 0-2.8 1.2-2.8 2.7V20c0-1.2 1-2.2 2.3-2.2H20z"/></svg>
         </span>
@@ -528,11 +558,12 @@ html:not(.abierto) .barra__hora{visibility:hidden}
         </span>
       </span>
       <span class="ficha__cara ficha__cara--detras">
+        <span class="ficha__portada"><img src="assets/img/libro-poni.jpg" alt="" width="313" height="500" loading="lazy" decoding="async"></span>
         <span class="ficha__marca">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M4 4.5h5.2c1.5 0 2.8 1.2 2.8 2.7V20c0-1.2-1-2.2-2.3-2.2H4z"/><path d="M20 4.5h-5.2c-1.5 0-2.8 1.2-2.8 2.7V20c0-1.2 1-2.2 2.3-2.2H20z"/></svg>
         </span>
         <span class="ficha__texto">
-          <span class="ficha__titulo">Hipersónicos y trenes</span>
+          <span class="ficha__titulo">La teoría de los hipersónicos</span>
           <span class="ficha__meta">leerlo en Amazon</span>
         </span>
         <span class="ficha__flecha">COMPRAR ↗</span>
@@ -676,14 +707,14 @@ html:not(.abierto) .barra__hora{visibility:hidden}
     if (escaneando || abierto) { return; }
     escaneando = true;
     bloqueo.classList.add('escaneando');
-    if (texto) { texto.textContent = 'Alineando el horizonte'; }
+    if (texto) { texto.textContent = 'Leyendo iris'; }
 
     if (quieto) { entrar(); return; }
 
     window.setTimeout(function(){
       bloqueo.classList.remove('escaneando');
       bloqueo.classList.add('verificado');
-      if (texto) { texto.textContent = 'Horizonte abierto'; }
+      if (texto) { texto.textContent = 'Identidad confirmada'; }
       window.setTimeout(function(){ entrar(); }, 620);
     }, 1750);
   }
