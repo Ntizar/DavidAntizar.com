@@ -56,6 +56,12 @@ body::after{
 }
 a{color:inherit}
 
+/* mientras el bloqueo manda, la página no existe: ni asoma ni scrollea */
+html.js:not(.abierto){overflow:hidden;height:100%}
+html.js:not(.abierto) body{height:100%;overflow:hidden}
+html.js:not(.abierto) .inicio{opacity:0;visibility:hidden}
+.inicio{transition:opacity .4s ease .3s}
+
 /* ---------- ambiente: el vacío, visto desde dentro ---------- */
 .ambiente{
   position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;
@@ -85,10 +91,13 @@ a{color:inherit}
 .barra__hora{font-variant-numeric:tabular-nums;font-weight:600;font-size:11px}
 html:not(.abierto) .barra__hora{visibility:hidden}
 .barra svg{display:block;fill:currentColor}
+/* en un móvil de verdad la barra de estado ya existe: la falsa sobra en el bloqueo */
+@media (max-width:640px){html:not(.abierto) .barra{display:none}}
 
 /* ---------- bloqueo + lector de iris ---------- */
 .bloqueo{
   position:fixed;inset:0;z-index:30;
+  height:100vh;height:-webkit-fill-available;height:100dvh;
   display:flex;flex-direction:column;align-items:center;
   padding:calc(var(--barra) + 8px) 26px calc(26px + env(safe-area-inset-bottom));
   background:
@@ -694,6 +703,7 @@ html:not(.abierto) .barra__hora{visibility:hidden}
   function entrar(){
     if (abierto) { return; }
     abierto = true;
+    window.scrollTo(0, 0);
     raiz.classList.add('abierto');
     if (bloqueo) { bloqueo.setAttribute('aria-hidden', 'true'); }
     window.setTimeout(function(){
