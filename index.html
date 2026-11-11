@@ -31,6 +31,7 @@
   --marfil:#f6f2e9;
   --champan:#d8c4a8;
   --rosa:#c9ac9d;
+  --ambar:#eeb35a;
   --acento:var(--champan);
   --tinta:var(--marfil);
   --tinta-2:rgba(246,242,233,.74);
@@ -189,23 +190,11 @@ html:not(.abierto) .barra__hora{visibility:hidden}
   min-height:100dvh;display:flex;flex-direction:column;
   padding:calc(var(--barra) + 16px) 16px calc(20px + env(safe-area-inset-bottom));
 }
-@media (min-width:900px){.inicio{max-width:408px}}
-@media (min-width:900px){
-  .ambiente .a1{width:64vmax;height:64vmax;top:-30vmax;opacity:.9}
-  .ambiente .a2{width:52vmax;height:52vmax;right:-18vmax;bottom:-16vmax;opacity:.85}
-  /* el eclipse sigue ahí, detrás de la columna */
-  .ambiente::before{
-    content:'';position:absolute;left:50%;top:52%;width:118vmin;height:118vmin;
-    transform:translate(-50%,-50%);border-radius:50%;
-    background:radial-gradient(circle,
-      rgba(246,242,233,0) 0 34%,
-      rgba(246,242,233,.085) 35%,
-      rgba(246,242,233,.028) 40%,
-      rgba(216,196,168,.012) 52%,
-      rgba(246,242,233,0) 66%);
-    filter:blur(2px);
-  }
+/* ---------- escritorio: la malla llena el lienzo ---------- */
+@media (min-width:640px){
+  .inicio{max-width:600px}
 }
+
 .cabecera{margin:0 0 16px;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
 .cabecera__nombre{margin:0;font-size:20px;font-weight:600;letter-spacing:.01em}
 .cabecera__rol{margin:0;font-size:12px;font-weight:400;color:rgba(246,242,233,.66);letter-spacing:.02em}
@@ -219,6 +208,7 @@ html:not(.abierto) .barra__hora{visibility:hidden}
 
 /* ---------- fichas: Metro, color oficial de cada marca ---------- */
 .ficha{
+  --glow:246,242,233;
   position:relative;display:block;text-decoration:none;color:#fff;
   outline:none;-webkit-tap-highlight-color:transparent;border-radius:2px;
   transition:transform .16s ease, filter .25s ease;
@@ -240,7 +230,7 @@ html:not(.abierto) .barra__hora{visibility:hidden}
 /* el color de marca, atenuado por la luz del eclipse */
 .ficha__cara::before{
   content:'';position:absolute;inset:0;z-index:0;background:var(--fondo-ficha,#151a1f);
-  filter:saturate(.74) brightness(.88) contrast(1.025);
+  filter:saturate(1.06) brightness(1.04) contrast(1.03);
 }
 /* luz rasante: la corona entra por arriba, el vacío por abajo */
 .ficha__cara::after{
@@ -250,8 +240,8 @@ html:not(.abierto) .barra__hora{visibility:hidden}
     linear-gradient(180deg, rgba(7,9,12,0) 34%, rgba(7,9,12,.46) 100%);
 }
 .ficha:hover .ficha__cara{
-  border-color:rgba(246,242,233,.24);
-  box-shadow:inset 0 1px 0 rgba(246,242,233,.14), 0 0 30px -8px rgba(246,242,233,.22);
+  border-color:rgba(var(--glow),.45);
+  box-shadow:inset 0 1px 0 rgba(246,242,233,.16), 0 0 0 1px rgba(var(--glow),.12), 0 14px 46px -10px rgba(var(--glow),.55);
 }
 .ficha__cara--detras{opacity:0;transform:translateY(5px);pointer-events:none}
 .ficha.girada .ficha__cara--detras{opacity:1;transform:none}
@@ -283,8 +273,15 @@ html:not(.abierto) .barra__hora{visibility:hidden}
 .f-x{--fondo-ficha:#000}
 .f-instagram{--fondo-ficha:linear-gradient(45deg,#4f5bd5 0%,#962fbf 26%,#d62976 52%,#fa7e1e 78%,#feda75 100%)}
 .f-kit{--fondo-ficha:#da291c}
-.f-libro{--fondo-ficha:#232f3e}
+.f-libro{--fondo-ficha:#28374d}
 .f-libro .ficha__meta{color:#ff9900}
+/* el color de cada marca enciende su halo */
+.f-linkedin{--glow:10,102,194}
+.f-github{--glow:120,190,255}
+.f-x{--glow:235,235,235}
+.f-instagram{--glow:214,41,118}
+.f-kit{--glow:255,80,60}
+.f-libro{--glow:255,153,0}
 
 /* el libro: la ficha es el escaparate */
 .ficha__portada{
@@ -315,11 +312,9 @@ html:not(.abierto) .barra__hora{visibility:hidden}
 .f-libro .ficha__flecha{right:calc(30% + 14px);left:auto;bottom:12px;color:rgba(246,242,233,.82)}
 .f-libro .ficha__titulo{font-size:clamp(17px,4.6vw,21px);letter-spacing:-.015em;line-height:1.1}
 
-/* ajustes por marca: nada se ensucia ni se funde con el vacío */
-.f-linkedin .ficha__cara::before{filter:saturate(.80) brightness(.92) contrast(1.02)}
-.f-instagram .ficha__cara::before{filter:saturate(.62) brightness(.85) contrast(1.04)}
-.f-kit .ficha__cara::before{filter:saturate(.86) brightness(.87) contrast(1.03)}
-.f-github .ficha__cara::before,.f-x .ficha__cara::before{filter:none;background:#191d23}
+/* ajustes por marca: color pleno, la corona ya da la luz */
+.f-instagram .ficha__cara::before{filter:saturate(1.12) brightness(1.02)}
+.f-github .ficha__cara::before,.f-x .ficha__cara::before{filter:none;background:#1e242e}
 .f-github .ficha__cara::after,.f-x .ficha__cara::after{
   background:
     radial-gradient(130% 95% at 18% -12%, rgba(246,242,233,.26), rgba(246,242,233,0) 62%),
@@ -338,6 +333,68 @@ html:not(.abierto) .barra__hora{visibility:hidden}
 }
 .abierto .destello{animation:estalla 1.35s ease-out forwards}
 @keyframes estalla{0%{opacity:0}14%{opacity:.62}46%{opacity:.16}100%{opacity:0}}
+
+@media (min-width:900px){
+  .inicio{max-width:1440px;padding:calc(var(--barra) + 40px) 48px calc(40px + env(safe-area-inset-bottom));justify-content:center}
+  .rejilla{gap:16px;grid-template-columns:repeat(4,1fr);margin-bottom:0}
+  .ficha--ancha{grid-column:span 2;aspect-ratio:auto;height:100%}
+  .ficha--media{grid-column:span 1}
+  .cabecera{margin:0 0 28px}
+  .cabecera__nombre{font-size:34px}
+  .cabecera__rol{font-size:15px}
+  .cabecera__punto{width:11px;height:11px}
+  .ficha__cara{padding:20px 22px}
+  .ficha--ancha .ficha__cara{gap:20px;padding:22px 24px}
+  .ficha__titulo{font-size:24px}
+  .ficha--media .ficha__titulo{font-size:23px}
+  .ficha--ancha .ficha__titulo{font-size:29px}
+  .ficha__meta{font-size:15px}
+  .marca-in{font-size:38px}
+  .marca-72{font-size:40px}
+  .ficha--ancha .marca-72{font-size:56px}
+  .ficha__grande{font-size:clamp(46px,4.6vw,84px)}
+  .ficha__cifra{font-size:clamp(40px,4vw,64px)}
+  .ficha__flecha{font-size:12px}
+  .ficha__marca svg{width:42px;height:42px}
+  .f-libro .ficha__titulo{font-size:clamp(20px,2vw,26px)}
+
+  /* el eclipse, protagonista detrás de la malla */
+  .ambiente .a1{width:64vmax;height:64vmax;top:-30vmax;opacity:.9}
+  .ambiente .a2{width:52vmax;height:52vmax;right:-18vmax;bottom:-16vmax;opacity:.85}
+  .ambiente::before{
+    content:'';position:absolute;left:50%;top:54%;width:132vmin;height:132vmin;
+    transform:translate(-50%,-50%);border-radius:50%;
+    background:radial-gradient(circle,
+      rgba(246,242,233,0) 0 34%,
+      rgba(246,242,233,.14) 35%,
+      rgba(246,242,233,.05) 40%,
+      rgba(216,196,168,.028) 52%,
+      rgba(238,179,90,.012) 60%,
+      rgba(246,242,233,0) 68%);
+    filter:blur(2px);
+  }
+
+  /* bloqueo en pantalla grande */
+  .bloqueo__reloj{max-width:562px;margin-top:6vh}
+  .bloqueo__hora{font-size:clamp(84px,10vw,148px)}
+  .bloqueo__fecha{font-size:clamp(17px,2vw,22px)}
+  .lector__disco{width:min(34vw,360px)}
+  .bloqueo__grupo{top:calc(50% + 24px)}
+}
+/* ---------- escritorio: la ficha se inclina hacia el cursor ---------- */
+@media (hover:hover) and (pointer:fine){
+  .ficha{transition:transform .28s cubic-bezier(.2,.7,.3,1), filter .25s ease}
+  .ficha:hover{transform:perspective(720px) rotateX(2.4deg) rotateY(-2.6deg) scale(1.012)}
+  .ficha:active{transform:perspective(720px) rotateX(0deg) rotateY(0deg) scale(.985)}
+}
+
+/* ---------- detalles vivos ---------- */
+.cabecera__punto{animation:pulsoPunto 3.2s ease-in-out infinite}
+@keyframes pulsoPunto{
+  0%,100%{box-shadow:0 0 0 1px rgba(246,242,233,.55), 0 0 10px rgba(238,179,90,.25)}
+  50%{box-shadow:0 0 0 1px rgba(238,179,90,.8), 0 0 18px rgba(238,179,90,.55)}
+}
+.aviso{color:rgba(238,179,90,.75)}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
