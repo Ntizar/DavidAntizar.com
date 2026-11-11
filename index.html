@@ -197,7 +197,7 @@ html:not(.abierto) .barra__hora{visibility:hidden}
 
 .cabecera{margin:0 0 16px;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
 .cabecera__nombre{margin:0;font-size:20px;font-weight:600;letter-spacing:.01em}
-.cabecera__rol{margin:0;font-size:12px;font-weight:400;color:rgba(246,242,233,.66);letter-spacing:.02em}
+.cabecera__rol{margin:0;font-size:12px;font-weight:400;color:rgba(246,242,233,.78);letter-spacing:.02em}
 .cabecera__punto{
   width:9px;height:9px;background:#05070a;border-radius:50%;flex:0 0 auto;transform:translateY(-3px);
   box-shadow:0 0 0 1px rgba(246,242,233,.55), 0 0 12px rgba(246,242,233,.35);
@@ -263,8 +263,27 @@ html:not(.abierto) .barra__hora{visibility:hidden}
 .ficha__cifra{font-size:clamp(30px,10vw,44px)}
 .ficha__flecha{position:absolute;right:14px;bottom:12px;font-size:11px;letter-spacing:.06em;color:rgba(255,255,255,.7);z-index:1}
 
+/* el alma: el glifo de la marca, gigante y respirando detrás del texto */
+.ficha__alma{
+  position:absolute;right:-12px;bottom:-26px;z-index:0;
+  font-size:130px;font-weight:700;line-height:1;letter-spacing:-.05em;
+  opacity:.1;color:#fff;pointer-events:none;
+  transition:transform .6s cubic-bezier(.2,.7,.3,1), opacity .4s ease;
+}
+.ficha__alma svg{width:1em;height:1em;display:block;fill:currentColor}
+.ficha:hover .ficha__alma{transform:translate(-10px,-10px) scale(1.06);opacity:.17}
+.f-linkedin .ficha__alma{color:#7ab5e8;font-size:100px;right:2px;bottom:-34px}
+.f-github .ficha__alma{color:#0d1117;font-size:180px;opacity:.07;right:-34px;bottom:-58px}
+.f-x .ficha__alma{font-size:170px;opacity:.08;right:-8px;bottom:-56px}
+.f-instagram .ficha__alma{font-size:150px;opacity:.13;right:-18px;bottom:-44px}
+.f-kit .ficha__alma{color:#e8e0cf;font-size:92px;opacity:.09;right:-4px;bottom:-20px}
+
 /* marcas en texto */
-.marca-in{font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1}
+.marca-in{
+  display:inline-grid;place-items:center;width:52px;height:52px;border-radius:9px;
+  background:#fff;color:#0a66c2;font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1;
+  box-shadow:0 2px 12px rgba(0,0,0,.3);
+}
 .marca-72{font-size:26px;font-weight:700;letter-spacing:-.03em;line-height:1}
 
 /* color oficial, a la luz de la misma corona */
@@ -272,12 +291,24 @@ html:not(.abierto) .barra__hora{visibility:hidden}
 .f-github{--fondo-ficha:#181717}
 .f-x{--fondo-ficha:#000}
 .f-instagram{--fondo-ficha:linear-gradient(45deg,#4f5bd5 0%,#962fbf 26%,#d62976 52%,#fa7e1e 78%,#feda75 100%)}
-.f-kit{--fondo-ficha:#da291c}
-.f-libro{--fondo-ficha:#28374d}
+.f-kit{--fondo-ficha:#0E0C09}
+.f-kit .ficha__titulo{color:#e8e0cf}
+.f-kit .ficha__cara{border-color:rgba(232,224,207,.14)}
+.f-kit .marca-72{color:#e8e0cf}
+.f-kit .ficha__flecha{color:rgba(232,224,207,.7)}
+.f-kit .ficha__meta{
+  background:rgba(218,41,28,.24);color:#ffb4ad;padding:3px 10px;display:inline-block;
+  border-radius:2px;letter-spacing:.03em;
+}
+.f-libro{--fondo-ficha:#18222e}
 .f-libro .ficha__meta{color:#ff9900}
 /* el color de cada marca enciende su halo */
 .f-linkedin{--glow:10,102,194}
-.f-github{--glow:120,190,255}
+.f-github{--glow:190,220,255}
+.f-github .ficha__titulo{color:#0d1117}
+.f-github .ficha__meta{color:rgba(13,17,23,.68)}
+.f-github .ficha__marca svg{fill:#0d1117}
+.f-github .ficha__cara{border-color:rgba(13,17,23,.15)}
 .f-x{--glow:235,235,235}
 .f-instagram{--glow:214,41,118}
 .f-kit{--glow:255,80,60}
@@ -287,9 +318,9 @@ html:not(.abierto) .barra__hora{visibility:hidden}
 .ficha__portada{
   position:absolute;right:12px;top:50%;z-index:1;
   height:calc(100% - 26px);aspect-ratio:313/500;
-  transform:translateY(-50%) rotate(-1.4deg);
+  transform:translateY(-50%) rotate(-1deg);
   border-radius:1px;overflow:hidden;
-  box-shadow:0 10px 20px -8px rgba(0,0,0,.82), 0 0 0 1px rgba(246,242,233,.22), 0 0 30px -10px rgba(246,242,233,.40);
+  box-shadow:0 14px 28px -10px rgba(0,0,0,.85), 0 0 0 1px rgba(246,242,233,.24), 0 0 46px -6px rgba(255,153,0,.32);
   transition:transform .5s cubic-bezier(.2,.7,.25,1), box-shadow .5s ease;
 }
 .ficha__portada img{width:100%;height:100%;object-fit:cover;display:block}
@@ -303,22 +334,30 @@ html:not(.abierto) .barra__hora{visibility:hidden}
   background:linear-gradient(90deg,rgba(7,9,12,.28),rgba(7,9,12,0) 30%);
 }
 .ficha:hover .ficha__portada{
-  transform:translateY(-50%) rotate(0deg) scale(1.025);
-  box-shadow:0 12px 26px -8px rgba(0,0,0,.85), 0 0 0 1px rgba(246,242,233,.34), 0 0 40px -10px rgba(246,242,233,.6);
+  transform:translateY(-50%) rotate(0deg) scale(1.03);
+  box-shadow:0 16px 30px -10px rgba(0,0,0,.9), 0 0 0 1px rgba(246,242,233,.4), 0 0 62px -6px rgba(255,153,0,.55);
 }
 .f-libro .ficha__cara{padding-right:calc(30% + 10px)}
 .f-libro .ficha__marca{display:none}
 .f-libro .ficha__texto{padding-right:0}
 .f-libro .ficha__flecha{right:calc(30% + 14px);left:auto;bottom:12px;color:rgba(246,242,233,.82)}
-.f-libro .ficha__titulo{font-size:clamp(17px,4.6vw,21px);letter-spacing:-.015em;line-height:1.1}
+.f-libro .ficha__titulo{font-size:clamp(18px,4.8vw,22px);letter-spacing:-.015em;line-height:1.12;font-weight:700}
+.f-libro .ficha__cara--detras{padding-right:20px}
 
 /* ajustes por marca: color pleno, la corona ya da la luz */
 .f-instagram .ficha__cara::before{filter:saturate(1.12) brightness(1.02)}
-.f-github .ficha__cara::before,.f-x .ficha__cara::before{filter:none;background:#1e242e}
-.f-github .ficha__cara::after,.f-x .ficha__cara::after{
+.f-github .ficha__cara::before{filter:none;background:#f6f8fa}
+.f-x .ficha__cara::before{filter:none;background:#000}
+.f-x .ficha__cara{border-color:rgba(246,242,233,.2)}
+.f-x .ficha__cara::after{
   background:
     radial-gradient(130% 95% at 18% -12%, rgba(246,242,233,.26), rgba(246,242,233,0) 62%),
     linear-gradient(180deg, rgba(7,9,12,0) 44%, rgba(7,9,12,.42) 100%);
+}
+.f-github .ficha__cara::after{
+  background:
+    radial-gradient(130% 95% at 18% -12%, rgba(255,255,255,.55), rgba(255,255,255,0) 62%),
+    linear-gradient(180deg, rgba(255,255,255,0) 40%, rgba(13,17,23,.07) 100%);
 }
 
 /* entrada tras desbloquear: emergen del vacío */
@@ -349,7 +388,14 @@ html:not(.abierto) .barra__hora{visibility:hidden}
   .ficha--media .ficha__titulo{font-size:23px}
   .ficha--ancha .ficha__titulo{font-size:29px}
   .ficha__meta{font-size:15px}
-  .marca-in{font-size:38px}
+  .marca-in{width:64px;height:64px;font-size:36px}
+  .ficha__alma{font-size:210px;right:-20px;bottom:-42px}
+  .f-linkedin .ficha__alma{font-size:150px;bottom:-52px}
+  .f-github .ficha__alma{font-size:300px;right:-56px;bottom:-92px}
+  .f-x .ficha__alma{font-size:280px;bottom:-88px}
+  .f-instagram .ficha__alma{font-size:250px;bottom:-72px}
+  .f-kit .ficha__alma{font-size:150px;bottom:-32px}
+  .f-libro .ficha__cara--detras{padding-right:24px}
   .marca-72{font-size:40px}
   .ficha--ancha .marca-72{font-size:56px}
   .ficha__grande{font-size:clamp(46px,4.6vw,84px)}
@@ -515,6 +561,7 @@ html:not(.abierto) .barra__hora{visibility:hidden}
           <span class="ficha__meta">@davidantizar</span>
         </span>
       </span>
+        <span class="ficha__alma" aria-hidden="true">in</span>
       <span class="ficha__cara ficha__cara--detras">
         <span class="ficha__marca"><span class="marca-in">in</span></span>
         <span class="ficha__texto">
@@ -536,6 +583,7 @@ html:not(.abierto) .barra__hora{visibility:hidden}
           <span class="ficha__meta">@Ntizar</span>
         </span>
       </span>
+        <span class="ficha__alma" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span>
       <span class="ficha__cara ficha__cara--detras">
         <span class="ficha__marca"><span class="ficha__grande ficha__cifra" data-gh-num>—</span></span>
         <span class="ficha__texto">
@@ -557,6 +605,7 @@ html:not(.abierto) .barra__hora{visibility:hidden}
           <span class="ficha__meta">@DNtizar</span>
         </span>
       </span>
+        <span class="ficha__alma" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></span>
       <span class="ficha__cara ficha__cara--detras">
         <span class="ficha__marca">
           <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -580,6 +629,7 @@ html:not(.abierto) .barra__hora{visibility:hidden}
           <span class="ficha__meta" data-ig-meta>@DNtizar</span>
         </span>
       </span>
+        <span class="ficha__alma" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.899.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678a6.162 6.162 0 100 12.324 6.162 6.162 0 100-12.324zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405a1.441 1.441 0 01-2.88 0 1.44 1.44 0 012.88 0z"/></svg></span>
       <span class="ficha__cara ficha__cara--detras">
         <span class="ficha__marca">
           <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.899.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678a6.162 6.162 0 100 12.324 6.162 6.162 0 100-12.324zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405a1.441 1.441 0 01-2.88 0 1.44 1.44 0 012.88 0z"/></svg>
@@ -601,6 +651,7 @@ html:not(.abierto) .barra__hora{visibility:hidden}
           <span class="ficha__meta">kits · Amazon</span>
         </span>
       </span>
+        <span class="ficha__alma" aria-hidden="true">72H</span>
       <span class="ficha__cara ficha__cara--detras">
         <span class="ficha__marca"><span class="marca-72">72h</span></span>
         <span class="ficha__texto">
@@ -624,7 +675,6 @@ html:not(.abierto) .barra__hora{visibility:hidden}
         </span>
       </span>
       <span class="ficha__cara ficha__cara--detras">
-        <span class="ficha__portada"><img src="assets/img/libro-poni.jpg" alt="" width="313" height="500" loading="lazy" decoding="async"></span>
         <span class="ficha__marca">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M4 4.5h5.2c1.5 0 2.8 1.2 2.8 2.7V20c0-1.2-1-2.2-2.3-2.2H4z"/><path d="M20 4.5h-5.2c-1.5 0-2.8 1.2-2.8 2.7V20c0-1.2 1-2.2 2.3-2.2H20z"/></svg>
         </span>
