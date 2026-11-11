@@ -16,10 +16,11 @@
 <link rel="icon" href="assets/img/icono-app.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/img/icono-touch.png">
 <style>
-@font-face{font-family:'Open Sans';font-style:normal;font-weight:300;font-display:swap;src:url('assets/fonts/open-sans-300.woff2') format('woff2')}
-@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;font-display:swap;src:url('assets/fonts/open-sans-400.woff2') format('woff2')}
-@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;font-display:swap;src:url('assets/fonts/open-sans-600.woff2') format('woff2')}
-@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;font-display:swap;src:url('assets/fonts/open-sans-700.woff2') format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:300;font-display:swap;src:url('assets/fonts/space-grotesk-300.woff2') format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:400;font-display:swap;src:url('assets/fonts/space-grotesk-400.woff2') format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url('assets/fonts/space-grotesk-500.woff2') format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:600;font-display:swap;src:url('assets/fonts/space-grotesk-600.woff2') format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url('assets/fonts/space-grotesk-700.woff2') format('woff2')}
 
 :root{
   /* eclipse — vacío, espacio, marfil, champán */
@@ -38,7 +39,7 @@
   --tinta-3:rgba(246,242,233,.56);
   --g:11px;
   --barra:26px;
-  --fuente:'Segoe UI','Segoe UI Variable Text','Open Sans',Roboto,system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+  --fuente:'Space Grotesk','Segoe UI Variable Text','Segoe UI',Roboto,system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{background:#05070a;overflow-x:hidden}
@@ -112,7 +113,7 @@ html:not(.abierto) .barra__hora{visibility:hidden}
 .bloqueo__reloj{width:100%;max-width:462px;margin:5vh 0 0}
 .bloqueo__hora{
   margin:0;font-size:clamp(62px,21vw,104px);line-height:.92;
-  font-weight:200;letter-spacing:-.045em;font-variant-numeric:tabular-nums;
+  font-weight:300;letter-spacing:-.03em;font-variant-numeric:tabular-nums;
   text-shadow:0 0 46px rgba(246,242,233,.16);
 }
 .bloqueo__fecha{margin:14px 0 0;font-size:clamp(15px,4.4vw,19px);font-weight:300;color:var(--tinta-2)}
@@ -281,7 +282,7 @@ html:not(.abierto) .barra__hora{visibility:hidden}
 /* marcas en texto */
 .marca-in{
   display:inline-grid;place-items:center;width:52px;height:52px;border-radius:9px;
-  background:#fff;color:#0a66c2;font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1;
+  background:#fff;color:#0a66c2;font-size:29px;font-weight:700;letter-spacing:-.01em;line-height:1;
   box-shadow:0 2px 12px rgba(0,0,0,.3);
 }
 .marca-72{font-size:26px;font-weight:700;letter-spacing:-.03em;line-height:1}
