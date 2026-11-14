@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>David Antizar — un sobre de cartas</title>
-<meta name="description" content="La web de David Antizar como un sobre de cartas: cada carta abre una puerta. LinkedIn, Instagram, X, GitHub, Kit72h, su libro y una legendaria en subasta.">
-<meta name="theme-color" content="#F1EADB">
+<title>David Antizar</title>
+<meta name="description" content="Ocho cartas dentro de un sobre: LinkedIn, Instagram, X, correo, GitHub, Kit72h, el libro y una legendaria en subasta.">
+<meta name="theme-color" content="#05070A">
 <link rel="canonical" href="https://davidantizar.com/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="David Antizar — un sobre de cartas">
-<meta property="og:description" content="Ocho cartas dentro. Cada una abre una puerta. La última está en subasta.">
+<meta property="og:title" content="Un sobre de cartas">
+<meta property="og:description" content="Rasga el sobre. Ocho cartas dentro, una en subasta.">
 <meta property="og:url" content="https://davidantizar.com/">
 <meta property="og:image" content="https://davidantizar.com/assets/img/og-cartas.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -23,368 +23,358 @@
 @font-face{font-family:'Space Grotesk';font-style:normal;font-weight:600;font-display:swap;src:url('assets/fonts/space-grotesk-600.woff2') format('woff2')}
 @font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url('assets/fonts/space-grotesk-700.woff2') format('woff2')}
 
-/* ─────────────────────────────────────────────────────────────
-   davidantizar.com · un sobre de cartas
-   Sin dependencias, sin red, todo aquí dentro.
-   ───────────────────────────────────────────────────────────── */
-
+/* ─────────────────────────────────────────────
+   davidantizar.com — el sobre
+   Oscuro, con brillo. Sin dependencias.
+   ───────────────────────────────────────────── */
 :root{
-  --papel:#F1EADB;
-  --crema:#FCF9F1;
-  --tinta:#1E1C17;
-  --tinta-2:#5E574A;
-  --tinta-3:#766E60;
-  --linea:rgba(30,28,23,.13);
-  --oro:#A97C2A;
-  --r:20px;
-  --sombra:0 1px 1px rgba(46,36,20,.05),0 10px 20px -14px rgba(46,36,20,.30),0 34px 54px -44px rgba(46,36,20,.45);
-  --sombra-alta:0 2px 2px rgba(46,36,20,.06),0 18px 30px -16px rgba(46,36,20,.32),0 54px 70px -50px rgba(46,36,20,.5);
+  --negro:#05070A;
+  --negro-2:#080B11;
+  --marfil:#F7F3EA;
+  --marfil-2:rgba(247,243,234,.70);
+  --marfil-3:rgba(247,243,234,.54);
+  --oro:#E0B25C;
+  --oro-hondo:#A97C2A;
+  --linea:rgba(247,243,234,.10);
   --ease:cubic-bezier(.2,.75,.2,1);
+  --muelle:cubic-bezier(.2,1.5,.35,1);
 }
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html{-webkit-text-size-adjust:100%;background:var(--negro)}
 body{
-  margin:0;min-height:100%;
-  background:
-    radial-gradient(120% 78% at 50% -8%, #FCF7EC 0%, rgba(252,247,236,0) 62%),
-    radial-gradient(90% 58% at 50% 118%, #E7DCC6 0%, rgba(231,220,198,0) 72%),
-    var(--papel);
-  color:var(--tinta);
+  margin:0;min-height:100%;overflow-x:hidden;
+  background:var(--negro);color:var(--marfil);
   font-family:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
   font-size:17px;line-height:1.55;
   -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
-}
-body::after{
-  content:'';position:fixed;inset:0;z-index:9;pointer-events:none;opacity:.045;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode:multiply;
 }
 a{color:inherit}
 svg{display:block}
 
-.salto{position:absolute;left:-9999px;top:0;z-index:30;background:var(--tinta);color:var(--crema);padding:.7rem 1.1rem;border-radius:0 0 12px 0;font-size:.85rem}
-.salto:focus{left:0}
-
-/* ── barra ─────────────────────────────────────────────── */
-.barra{
-  position:relative;z-index:6;
-  display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
-  padding:clamp(.95rem,2.4vw,1.5rem) clamp(1.1rem,4vw,2.6rem);
-  max-width:90rem;margin:0 auto;
+/* luz ambiente */
+.ambiente{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.ambiente span{position:absolute;border-radius:50%;filter:blur(70px);animation:respira 14s ease-in-out infinite}
+.ambiente .a1{width:64vmax;height:64vmax;left:50%;top:-30vmax;transform:translateX(-50%);
+  background:radial-gradient(circle,rgba(224,178,92,.13),rgba(224,178,92,0) 64%)}
+.ambiente .a2{width:52vmax;height:52vmax;right:-18vmax;top:14vh;
+  background:radial-gradient(circle,rgba(96,120,255,.10),rgba(96,120,255,0) 66%);animation-delay:-5s}
+.ambiente .a3{width:58vmax;height:58vmax;left:-20vmax;bottom:-24vmax;
+  background:radial-gradient(circle,rgba(150,86,220,.10),rgba(150,86,220,0) 66%);animation-delay:-9s}
+@keyframes respira{0%,100%{opacity:.75}50%{opacity:1}}
+/* grano de película */
+body::after{
+  content:'';position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.055;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-.barra__firma{display:flex;align-items:baseline;gap:.6rem;text-decoration:none}
-.barra__nombre{font-weight:600;letter-spacing:-.015em;font-size:.98rem}
-.barra__lugar{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--tinta-3)}
-.barra__nav{display:flex;align-items:center;gap:1.15rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-2)}
-.barra__nav a{text-decoration:none;padding:.5rem 0;border-bottom:1px solid transparent;transition:border-color .25s,color .25s}
-.barra__nav a:hover,.barra__nav a:focus-visible{color:var(--tinta);border-color:var(--tinta)}
 
-/* ── portada: el sobre ─────────────────────────────────── */
+/* ── portada: solo el sobre ─────────────────────────────── */
 .portada{
-  position:relative;
-  min-height:calc(100svh - 5rem);
+  position:relative;z-index:2;
+  height:100svh;min-height:32rem;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:clamp(.9rem,2vw,1.5rem);
-  padding:0 clamp(1.1rem,4vw,2rem) clamp(2.2rem,5vw,3.6rem);
-  text-align:center;
+  gap:clamp(1.2rem,3vh,2.2rem);
+  padding:clamp(1rem,4vh,2rem);
+  transition:opacity .55s ease, height .7s var(--ease) .25s, padding .7s var(--ease) .25s;
+  overflow:hidden;
 }
-.portada__ojo{margin:0;font-size:clamp(.66rem,1.5vw,.76rem);letter-spacing:.28em;text-transform:uppercase;color:var(--tinta-3)}
-.portada__nombre{margin:0;font-size:clamp(1.9rem,6.4vw,3.6rem);line-height:1;letter-spacing:-.045em;font-weight:500}
-.portada__nombre em{font-style:normal;color:var(--oro)}
+.escena{position:relative;display:flex;align-items:center;justify-content:center}
+.escena::before{
+  content:'';position:absolute;left:50%;top:50%;width:150%;aspect-ratio:1;transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(224,178,92,.16),rgba(224,178,92,0) 62%);
+  filter:blur(30px);pointer-events:none;
+}
+#chispas{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:5}
 
-.escena{position:relative;perspective:1500px;perspective-origin:50% 26%;margin:clamp(.2rem,1.2vw,.9rem) 0;display:flex;justify-content:center}
-/* sombra de contacto: lo que pega el sobre a la mesa */
-.escena::after{
-  content:'';position:absolute;left:50%;bottom:-1rem;width:min(27rem,70vw);height:1.6rem;
-  transform:translateX(-50%);border-radius:50%;
-  background:radial-gradient(50% 50% at 50% 50%,rgba(74,54,28,.34),rgba(74,54,28,0) 68%);
-  filter:blur(5px);pointer-events:none;
-}
-.sobre{
-  position:relative;display:block;
-  width:min(33rem,86vw);aspect-ratio:1.52;
-  border:0;padding:0;background:none;cursor:pointer;
-  transform:rotate(-1.7deg) rotateX(calc(6deg + var(--tx,0deg))) rotateY(var(--ty,0deg));
+/* el sobre: sobre de cartas, no un sobre de correo */
+.pack{
+  position:relative;display:block;border:0;padding:0;background:none;cursor:pointer;
+  height:clamp(22rem,70svh,32rem);aspect-ratio:.665;
+  transform:rotate(-1.2deg) rotateX(calc(4deg + var(--tx,0deg))) rotateY(var(--ty,0deg));
   transform-style:preserve-3d;
   -webkit-tap-highlight-color:transparent;
-  transition:transform .4s var(--ease);
+  transition:transform .45s var(--ease), opacity .5s ease, filter .5s ease;
+  filter:drop-shadow(0 34px 44px rgba(0,0,0,.65));
 }
-.sobre:hover{transform:rotate(-.6deg) rotateX(calc(6deg + var(--tx,0deg))) rotateY(var(--ty,0deg)) translateY(-4px)}
-.sobre:focus-visible{outline:2px solid var(--tinta);outline-offset:14px;border-radius:12px}
-.sobre__cuerpo{
-  position:absolute;inset:0;border-radius:10px;
-  background:linear-gradient(167deg,#FEFBF4 0%,#F8F2E4 40%,#E9DCC4 74%,#DFD0B4 100%);
-  box-shadow:
-    inset 0 1px 0 #fff,
-    inset 0 -2px 6px rgba(120,98,64,.16),
-    inset 2px 0 5px rgba(255,255,255,.5),
-    inset 0 0 64px rgba(150,125,85,.14),
-    0 3px 0 #DFD2B8,
-    0 5px 7px -2px rgba(110,88,54,.3);
+.pack::before{
+  content:'';position:absolute;inset:0;border-radius:16px;z-index:-1;
+  background:linear-gradient(160deg,#2B313C,#0C0F14);
+  transform:translate(7px,10px);
+  box-shadow:0 24px 40px -18px rgba(0,0,0,.85);
 }
-/* el grano del papel */
-.sobre__cuerpo::after{
-  content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:.22;mix-blend-mode:multiply;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='190' height='190'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.62' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='190' height='190' filter='url(%23p)'/%3E%3C/svg%3E");
-}
-/* el interior: al abrir, la solapa se va y aparece la cavidad con las cartas */
-.sobre__boca{
-  position:absolute;left:0;right:0;top:0;height:63%;
-  clip-path:polygon(0 0,100% 0,50% 100%,50% 100%);
-  background:linear-gradient(180deg,#C9B996 0%,#DCCFB2 34%,#EDE4CE 78%,#F4EDDA 100%);
-  box-shadow:inset 0 18px 20px -12px rgba(58,42,18,.65),inset 0 -3px 8px -3px rgba(255,255,255,.8);
-  transition:clip-path .9s var(--ease);
-  display:grid;place-items:center;overflow:hidden;
-}
-.sobre--abierto .sobre__boca{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
-/* el fajo de cartas que hay dentro */
-.sobre__boca::before{
-  content:'';width:72%;height:70%;transform:translateY(8%) rotate(-.8deg);border-radius:4px;
-  background:linear-gradient(168deg,#FFFDF6 0%,#FBF5E6 60%,#F2E9D4 100%);
-  box-shadow:
-    inset 0 0 0 1px rgba(168,146,108,.55),
-    inset 0 0 0 4px rgba(255,255,255,.7),
-    0 4px 0 -1px #F6EEDA, 0 5px 0 -1px rgba(150,128,92,.45),
-    0 8px 0 -2px #F4EBD6, 0 9px 0 -2px rgba(150,128,92,.4),
-    0 12px 0 -3px #F1E8D2, 0 13px 0 -3px rgba(150,128,92,.35),
-    0 18px 26px -10px rgba(60,44,20,.45);
-  opacity:0;transition:opacity .45s ease .5s;
-}
-.sobre--abierto .sobre__boca::before{opacity:1}
-/* el labio: la sombra que da el borde de arriba sobre lo que hay dentro */
-.sobre__boca::after{
-  content:'';position:absolute;left:0;right:0;top:0;height:2px;
-  background:linear-gradient(180deg,#FFFDF6,#E2D5BA);
-}
-/* las costuras del dorso: dos pliegues que van de las esquinas al pico */
-.sobre__costura{
-  position:absolute;bottom:0;left:0;width:56%;height:1px;
-  background:linear-gradient(90deg,rgba(126,102,66,.30),rgba(126,102,66,.04));
-  transform-origin:left bottom;transform:rotate(-25.9deg);pointer-events:none;
-}
-.sobre__costura--d{
-  left:auto;right:0;transform-origin:right bottom;transform:rotate(25.9deg);
-  background:linear-gradient(270deg,rgba(126,102,66,.30),rgba(126,102,66,.04));
-}
-.sobre__solapa{
-  position:absolute;left:0;right:0;top:0;height:63%;
-  clip-path:polygon(0 0,100% 0,50% 100%);
-  background:linear-gradient(178deg,#FEFCF6 0%,#F7F0E1 52%,#EADFC9 100%);
-  filter:drop-shadow(0 2px 2px rgba(90,70,40,.22));
-  transform-origin:top center;
-  transition:transform 1s var(--ease),opacity .28s ease;
-  backface-visibility:hidden;
-}
-.sobre__solapa::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(148deg,rgba(255,255,255,.7),rgba(255,255,255,0) 44%);
-  clip-path:polygon(0 0,100% 0,50% 100%);
-}
-/* sello de cera: irregular por el filtro #cera */
-.sobre__sello{
-  position:absolute;left:50%;top:63%;width:clamp(4rem,12.5%,5.4rem);aspect-ratio:1;
-  transform:translate(-50%,-55%);
-  border-radius:47% 53% 49% 51%/51% 47% 53% 49%;
+.pack:hover{transform:rotate(-.4deg) rotateX(calc(4deg + var(--tx,0deg))) rotateY(var(--ty,0deg)) translateY(-6px)}
+.pack:focus-visible{outline:2px solid var(--oro);outline-offset:10px;border-radius:16px}
+.pack__cuerpo{
+  position:absolute;inset:0;border-radius:14px;overflow:hidden;
   background:
-    radial-gradient(46% 42% at 34% 26%,rgba(255,206,180,.22),rgba(255,206,180,0) 76%),
-    radial-gradient(64% 62% at 68% 80%,rgba(30,6,1,.7),rgba(30,6,1,0) 72%),
-    linear-gradient(148deg,#AE3F28 0%,#8E2716 40%,#631708 100%);
+    radial-gradient(120% 70% at 50% 0%,rgba(224,178,92,.16),rgba(224,178,92,0) 58%),
+    radial-gradient(90% 60% at 50% 108%,rgba(96,120,255,.14),rgba(96,120,255,0) 60%),
+    repeating-linear-gradient(112deg,rgba(255,255,255,.03) 0 1px,rgba(255,255,255,0) 1px 4px),
+    linear-gradient(165deg,#1C232E 0%,#0D1116 44%,#161C26 100%);
   box-shadow:
-    0 7px 11px -3px rgba(64,18,6,.55),
-    inset 0 1px 1px rgba(255,216,192,.22),
-    inset 0 -3px 6px rgba(34,6,1,.55);
-  filter:url(#cera);
-  display:grid;place-items:center;z-index:4;
-  transition:transform .55s var(--ease),opacity .45s ease;
+    inset 0 0 0 1px rgba(247,243,234,.10),
+    inset 0 1px 0 rgba(247,243,234,.22),
+    inset 0 -1px 0 rgba(0,0,0,.6);
 }
-/* la gota que se desborda: sin esto la cera parece un botón */
-.sobre__sello::after{
-  content:'';position:absolute;left:58%;top:56%;width:52%;height:46%;z-index:-1;
-  border-radius:56% 44% 52% 48%/48% 58% 42% 52%;
-  background:linear-gradient(150deg,#A63A24,#74200F);
-  transform:rotate(-22deg);
-  box-shadow:0 3px 5px -2px rgba(64,18,6,.5);
+.pack__aro{
+  position:absolute;inset:0;pointer-events:none;mix-blend-mode:color-dodge;opacity:.5;
+  background:conic-gradient(from 200deg at 50% 2%,rgba(120,200,255,.40),rgba(255,120,220,.34),rgba(255,214,120,.40),rgba(120,255,200,.34),rgba(120,200,255,.40));
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.95),rgba(0,0,0,.15) 46%,transparent 62%);
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.95),rgba(0,0,0,.15) 46%,transparent 62%);
 }
-/* el aro grabado y la firma en hueco */
-.sobre__sello::before{
-  content:'';position:absolute;inset:16%;border-radius:inherit;
-  box-shadow:inset 0 1px 1px rgba(255,216,192,.2),inset 0 -1px 2px rgba(30,6,1,.45);
+/* la lámina metalizada que recorre el sobre */
+.pack__brillo{
+  position:absolute;inset:-40%;pointer-events:none;mix-blend-mode:screen;opacity:0;
+  background:linear-gradient(112deg,rgba(255,255,255,0) 40%,rgba(255,255,255,.30) 48%,rgba(255,236,190,.18) 54%,rgba(255,255,255,0) 62%);
+  transform:translateX(-70%);transition:opacity .35s;
 }
-.sobre__sello span{
-  position:relative;font-size:clamp(.78rem,2.2vw,1rem);font-weight:600;letter-spacing:.09em;
-  color:rgba(255,232,212,.82);
-  text-shadow:0 1px 1px rgba(48,10,2,.75),0 -1px 0 rgba(255,240,225,.18);
+.pack:hover .pack__brillo{opacity:1;animation:barrido 1.3s var(--ease)}
+@keyframes barrido{from{transform:translateX(-70%)}to{transform:translateX(70%)}}
+/* las cartas que se adivinan dentro */
+.pack__naipe{
+  position:absolute;left:50%;top:23%;width:44%;aspect-ratio:.7;border-radius:8px;
+  background:linear-gradient(168deg,#1B2129,#0D1116);
+  box-shadow:inset 0 0 0 1px rgba(224,178,92,.30),inset 0 0 26px rgba(0,0,0,.6),0 10px 24px -12px rgba(0,0,0,.9);
+  transform-origin:50% 120%;
 }
-.sobre--abierto .sobre__solapa{transform:rotateX(-168deg);opacity:0;transition:transform 1s var(--ease),opacity .3s ease .45s}
-.sobre--abierto .sobre__sello{transform:translate(-50%,-55%) scale(1.4) rotate(-17deg);opacity:0}
+.pack__naipe:nth-child(1){transform:translateX(-50%) rotate(-15deg)}
+.pack__naipe:nth-child(2){transform:translateX(-50%) rotate(0deg);background:linear-gradient(168deg,#232A34,#12161C)}
+.pack__naipe:nth-child(3){transform:translateX(-50%) rotate(15deg)}
+.pack__naipe::after{
+  content:'';position:absolute;inset:10%;border-radius:5px;border:1px solid rgba(224,178,92,.34)
+}
+/* emblema */
+.pack__marca{
+  position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+}
+.pack__sello{
+  width:clamp(3.4rem,9vh,4.4rem);aspect-ratio:1;border-radius:50%;
+  display:grid;place-items:center;
+  background:
+    radial-gradient(circle at 34% 28%,rgba(255,255,255,.34),rgba(255,255,255,0) 48%),
+    linear-gradient(150deg,#E8C078,#A97C2A 62%,#6E4E15);
+  position:relative;
+  box-shadow:
+    0 12px 26px -10px rgba(0,0,0,.9),
+    0 0 0 3px rgba(224,178,92,.16),
+    0 0 0 4px rgba(0,0,0,.45),
+    inset 0 2px 0 rgba(255,255,255,.55),
+    inset 0 -4px 8px rgba(0,0,0,.45);
+  font-weight:700;font-size:clamp(.85rem,2.4vh,1.05rem);letter-spacing:.06em;color:#2A1C05;
+}
+.pack__sello::after{
+  content:'';position:absolute;inset:15%;border-radius:50%;
+  border:1px solid rgba(50,34,6,.5);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35);
+}
+.pack__serie{
+  font-size:.56rem;letter-spacing:.30em;text-transform:uppercase;color:var(--marfil-3);
+}
+/* etiqueta impresa abajo */
+.pack__pie{
+  position:absolute;left:0;right:0;bottom:clamp(1rem,2.6vh,1.6rem);
+  display:flex;flex-direction:column;align-items:center;gap:.34rem;
+  font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(247,243,234,.62);
+}
+.pack__pie b{color:var(--oro);font-weight:500}
+/* bordes engomados */
+.pack__cremallera{
+  position:absolute;left:0;right:0;height:11px;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(0,0,0,.28)),
+             repeating-linear-gradient(90deg,rgba(247,243,234,.24) 0 2px,rgba(247,243,234,.05) 2px 5px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(0,0,0,.55);
+}
+.pack__cremallera--arriba{top:0}
+.pack__cremallera--abajo{bottom:0;transform:scaleY(-1)}
+/* la tira que se rasga */
+.pack__tira{
+  position:absolute;left:0;right:0;top:0;height:14%;
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+  background:linear-gradient(180deg,#1C222C 0%,#12171F 70%,rgba(18,23,31,0) 100%);
+  clip-path:polygon(0 0,100% 0,100% 76%,93% 98%,86% 76%,79% 98%,72% 76%,65% 98%,58% 76%,51% 98%,44% 76%,37% 98%,30% 76%,23% 98%,16% 76%,9% 98%,2% 76%,0 76%);
+  transform-origin:top center;
+  transition:transform .5s var(--muelle),opacity .32s ease;
+  z-index:4;
+}
+.pack__tira span{
+  font-size:.6rem;letter-spacing:.32em;text-transform:uppercase;color:var(--marfil);
+  transform:translateY(-1px);text-indent:.32em;
+}
+.pack__tira::before{
+  content:'';position:absolute;left:0;right:0;top:0;height:9px;
+  background:repeating-linear-gradient(90deg,rgba(247,243,234,.32) 0 2px,rgba(247,243,234,.02) 2px 5px);
+  opacity:.85;
+}
+.pack__tira::after{
+  content:'';position:absolute;right:-9px;top:24%;width:19px;aspect-ratio:1;border-radius:50%;
+  background:#03050A;
+  box-shadow:inset 0 2px 4px rgba(0,0,0,.95),0 0 0 1px rgba(247,243,234,.55),0 0 18px rgba(0,0,0,.9);
+}
+.pack__tira i{
+  width:.3rem;height:.3rem;border-radius:50%;background:var(--oro);
+  box-shadow:0 0 10px rgba(224,178,92,.9);animation:late 2.4s infinite
+}
+@keyframes late{0%,100%{opacity:.55}50%{opacity:1}}
+/* el borde desgarrado que queda al abrir */
+.pack__desgarro{
+  position:absolute;left:0;right:0;top:0;height:13%;opacity:0;z-index:3;
+  background:linear-gradient(180deg,#2A313C 0%,#151A22 72%,rgba(21,26,34,0) 100%);
+  clip-path:polygon(0 0,100% 0,100% 44%,93% 78%,86% 44%,79% 78%,72% 44%,65% 78%,58% 44%,51% 78%,44% 44%,37% 78%,30% 44%,23% 78%,16% 44%,9% 78%,2% 44%,0 44%);
+  transition:opacity .3s ease .1s;
+}
+.pack__desgarro::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:2px;
+  background:rgba(224,178,92,.35);
+}
+/* estallido de luz */
+.fulgor{
+  position:absolute;left:50%;top:8%;width:60%;aspect-ratio:1;transform:translate(-50%,-50%) scale(.4);
+  background:radial-gradient(circle,rgba(255,248,232,.95),rgba(224,178,92,.55) 34%,rgba(224,178,92,0) 68%);
+  opacity:0;pointer-events:none;z-index:6;filter:blur(6px);
+}
+.pista{
+  margin:0;font-size:.58rem;letter-spacing:.34em;text-transform:uppercase;color:var(--marfil-3);
+  animation:respiraPista 3.4s ease-in-out infinite;
+}
+@keyframes respiraPista{0%,100%{opacity:.5}50%{opacity:1}}
 
-/* la etiqueta que se pega al sobre */
-.etiqueta{
-  position:absolute;right:clamp(-.4rem,-1vw,-1rem);bottom:clamp(-1.4rem,-2vw,-2rem);
-  transform:rotate(5deg);
-  display:inline-flex;align-items:center;gap:.45rem;text-decoration:none;
-  background:var(--crema);color:var(--oro-hondo,#8A5C12);
-  font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
-  padding:.5rem .8rem;border-radius:6px;
-  box-shadow:0 8px 18px -10px rgba(60,40,10,.55),0 1px 0 rgba(255,255,255,.9) inset;
-  transition:transform .3s var(--ease),box-shadow .3s;
+/* estado abierto */
+html.abierto .pack__tira{transform:translateY(-130%) rotate(-7deg);opacity:0}
+html.abierto .pack__desgarro{opacity:1}
+html.abierto .escena{animation:estallaPack .9s var(--ease) both}
+@keyframes estallaPack{
+  0%{transform:none;opacity:1}
+  38%{transform:scale(1.06);opacity:1}
+  100%{transform:scale(.86) translateY(-8%);opacity:0}
 }
-.etiqueta:hover{transform:rotate(1deg) translateY(-2px);box-shadow:0 12px 22px -10px rgba(60,40,10,.6),0 1px 0 rgba(255,255,255,.9) inset}
-.etiqueta i{width:.34rem;height:.34rem;border-radius:50%;background:#3E8E4F;animation:late 2.6s infinite}
-
-.portada__accion{display:flex;flex-direction:column;align-items:center;gap:.8rem}
-.boton{
-  appearance:none;border:0;cursor:pointer;font:inherit;
-  display:inline-flex;align-items:center;gap:.6rem;
-  background:var(--tinta);color:var(--crema);
-  padding:.8rem 1.45rem;border-radius:999px;min-height:46px;
-  font-size:.88rem;font-weight:500;letter-spacing:.02em;
-  box-shadow:inset 0 2px 0 rgba(255,255,255,.12),0 14px 24px -14px rgba(30,28,23,.85);
-  transition:transform .3s var(--ease),box-shadow .3s;
+html.abierto .fulgor{animation:fulgor .85s ease-out both}
+@keyframes fulgor{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.35)}
+  22%{opacity:1}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(2.6)}
 }
-.boton:hover{transform:translateY(-2px);box-shadow:inset 0 2px 0 rgba(255,255,255,.16),0 20px 28px -14px rgba(30,28,23,.85)}
-.boton:focus-visible{outline:2px solid var(--tinta);outline-offset:4px}
-.boton__punto{width:.46rem;height:.46rem;border-radius:50%;background:var(--oro);box-shadow:0 0 0 3px rgba(169,124,42,.22)}
-.portada__pista{margin:0;font-size:.78rem;color:var(--tinta-3);display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;justify-content:center;max-width:26rem}
-.portada__pista b{color:var(--oro);font-weight:500}
+html.abierto .pista{opacity:0;transition:opacity .3s}
+html.abierto .portada{height:0;min-height:0;padding:0;opacity:0;pointer-events:none}
+html.abierto .escena{pointer-events:none}
 
 /* ── las cartas ────────────────────────────────────────── */
-.cartas{position:relative;padding:clamp(2.4rem,6vw,5rem) clamp(1.1rem,4vw,2.6rem) clamp(2.6rem,6vw,5rem);scroll-margin-top:0}
-.cartas__cabeza{max-width:42rem;margin:0 auto clamp(1.5rem,3.2vw,2.4rem);display:flex;flex-direction:column;gap:.5rem;text-align:center}
-.cartas__ojo{margin:0;font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--tinta-3)}
-.cartas__titulo{margin:0;font-size:clamp(1.45rem,3.2vw,2rem);letter-spacing:-.035em;font-weight:500}
-.cartas__pie{margin:0;color:var(--tinta-2);font-size:.94rem;max-width:32rem;margin-inline:auto}
-
+.cartas{position:relative;z-index:2;outline:none;padding:clamp(2rem,5vh,3.4rem) clamp(1rem,3.5vw,2.4rem) clamp(3rem,8vh,5rem)}
+html.js:not(.abierto) .cartas{display:none}
+.cartas__ojo{
+  margin:0 auto clamp(1.4rem,3vh,2rem);max-width:80rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  font-size:.58rem;letter-spacing:.30em;text-transform:uppercase;color:var(--marfil-3);
+  border-bottom:1px solid var(--linea);padding-bottom:.9rem;
+}
+.cartas__ojo b{color:var(--oro);font-weight:500;letter-spacing:.2em}
 .rejilla{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,15rem),1fr));
-  gap:clamp(.85rem,2vw,1.4rem);max-width:74rem;margin:0 auto;align-items:start;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,17.5rem),1fr));
+  gap:clamp(.8rem,1.8vw,1.3rem);max-width:80rem;margin:0 auto;align-items:start;
 }
 
+@media (min-width:1060px){.rejilla{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .carta{
   position:relative;display:flex;flex-direction:column;text-decoration:none;color:inherit;
-  background:var(--crema);border-radius:var(--r);padding:.55rem .55rem .05rem;
-  box-shadow:var(--sombra);
+  border-radius:16px;padding:.5rem .5rem .05rem;
+  background:linear-gradient(168deg,#10141B 0%,#0A0D12 58%,#0D1117 100%);
+  box-shadow:inset 0 0 0 1px rgba(247,243,234,.08),inset 0 1px 0 rgba(247,243,234,.10),0 18px 34px -22px rgba(0,0,0,.95);
   transform:translateY(0) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
-  transition:transform .45s var(--ease),box-shadow .45s var(--ease);
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease),background .4s;
+  will-change:transform;
 }
-.carta:hover,.carta:focus-visible{transform:translateY(-7px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));box-shadow:var(--sombra-alta);z-index:3}
-.carta:focus-visible{outline:2px solid var(--tinta);outline-offset:5px}
-.carta:active{transform:translateY(-2px) scale(.994)}
+.carta:hover,.carta:focus-visible{
+  transform:translateY(-8px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+  box-shadow:
+    inset 0 0 0 1px rgba(247,243,234,.16),
+    0 0 0 1px color-mix(in srgb,var(--tono,#888) 55%,transparent),
+    0 30px 60px -26px color-mix(in srgb,var(--tono,#000) 70%,transparent),
+    0 0 70px -24px color-mix(in srgb,var(--tono,#000) 90%,transparent);
+  z-index:3;
+}
+.carta:focus-visible{outline:2px solid var(--oro);outline-offset:4px}
+.carta:active{transform:translateY(-2px) scale(.993)}
 
 .carta__ventana{
-  position:relative;overflow:hidden;border-radius:13px;aspect-ratio:1/1.04;
-  background:linear-gradient(158deg,color-mix(in srgb,var(--tono,#3A3A3A) 84%,#fff) 0%,var(--tono,#3A3A3A) 100%);
+  position:relative;overflow:hidden;border-radius:11px;aspect-ratio:1/1.03;
+  background:linear-gradient(158deg,color-mix(in srgb,var(--tono,#333) 88%,#fff) 0%,var(--tono,#333) 100%);
   isolation:isolate;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.35),inset 0 0 40px rgba(0,0,0,.35);
 }
 .carta__material{
   position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  mix-blend-mode:overlay;opacity:.62;
-  transform:scale(1.03);transition:transform .8s var(--ease),opacity .5s;
+  mix-blend-mode:overlay;opacity:.60;
+  transform:scale(1.04);transition:transform .9s var(--ease),opacity .5s;
 }
-.carta:hover .carta__material{transform:scale(1.08);opacity:.72}
-/* la portada del libro, tal cual: es la obra */
-.carta__material--obra{
-  mix-blend-mode:normal;opacity:1;object-fit:contain;padding:7% 7% 6%;
-  filter:drop-shadow(0 8px 16px rgba(0,0,0,.35));
-}
+.carta:hover .carta__material{transform:scale(1.1);opacity:.72}
 .carta__brillo{
-  position:absolute;inset:-45%;pointer-events:none;
-  background:linear-gradient(115deg,rgba(255,255,255,0) 42%,rgba(255,255,255,.5) 50%,rgba(255,255,255,0) 58%);
-  mix-blend-mode:screen;opacity:0;transform:translateX(-62%);transition:opacity .3s;
+  position:absolute;inset:-45%;pointer-events:none;mix-blend-mode:screen;opacity:0;transform:translateX(-62%);
+  background:linear-gradient(115deg,rgba(255,255,255,0) 42%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 58%);
+  transition:opacity .3s;
 }
-.carta:hover .carta__brillo{opacity:.9;animation:barrido 1.2s var(--ease)}
-@keyframes barrido{from{transform:translateX(-62%)}to{transform:translateX(62%)}}
-
-.carta__glifo{position:absolute;inset:0;display:grid;place-items:center;color:#fff;filter:drop-shadow(0 4px 14px rgba(0,0,0,.3))}
-/* velo bajo el glifo: lo que hace legible la marca sobre cualquier material */
+.carta:hover .carta__brillo{opacity:.85;animation:barridoCarta 1.2s var(--ease)}
+@keyframes barridoCarta{from{transform:translateX(-62%)}to{transform:translateX(62%)}}
+.carta__glifo{position:absolute;inset:0;display:grid;place-items:center;color:#fff;filter:drop-shadow(0 4px 16px rgba(0,0,0,.45))}
 .carta__glifo::before{
   content:'';position:absolute;inset:0;
-  background:radial-gradient(closest-side at 50% 50%,rgba(26,16,8,.32),rgba(26,16,8,0) 78%);
+  background:radial-gradient(closest-side at 50% 50%,rgba(0,0,0,.34),rgba(0,0,0,0) 78%);
 }
 .carta__glifo svg{position:relative;width:44%;height:44%}
 
-/* las raras llevan filete: se distinguen sin leer la etiqueta */
+.carta__pie{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.68rem .3rem .6rem}
+.carta__nombre{
+  font-size:.95rem;font-weight:500;letter-spacing:-.015em;line-height:1.16;color:var(--marfil);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.carta__rasgo{
+  flex:none;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;font-weight:500;
+  color:var(--marfil-2);background:rgba(247,243,234,.07);padding:.24rem .46rem;border-radius:999px;white-space:nowrap;
+}
+.carta__meta{
+  display:flex;align-items:center;justify-content:space-between;gap:.5rem;
+  border-top:1px solid var(--linea);margin:0 .3rem;padding:.42rem 0 .58rem;
+  font-size:.6rem;letter-spacing:.1em;color:var(--marfil-3);font-variant-numeric:tabular-nums;
+}
+.carta__rareza{display:inline-flex;align-items:center;gap:.32rem}
+.carta__rareza::before{content:'';width:.38rem;height:.38rem;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}
+.carta[data-rareza="rara"] .carta__rareza{color:#A18BFF}
+.carta[data-rareza="holo"] .carta__rareza{color:#6FD3E8}
+.carta[data-rareza="legendaria"] .carta__rareza{color:var(--oro)}
+
 .carta[data-rareza="rara"] .carta__ventana::before,
 .carta[data-rareza="holo"] .carta__ventana::before,
 .carta[data-rareza="legendaria"] .carta__ventana::before{
   content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:3;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.32);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.30);
 }
 .carta[data-rareza="legendaria"] .carta__ventana::before{
-  box-shadow:inset 0 0 0 1px rgba(255,236,190,.6),inset 0 0 26px rgba(255,214,140,.26);
+  box-shadow:inset 0 0 0 1px rgba(255,226,168,.65),inset 0 0 28px rgba(224,178,92,.30);
 }
-
-.carta__pie{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.7rem .3rem .65rem}
-.carta__nombre{font-size:.98rem;font-weight:600;letter-spacing:-.015em;line-height:1.16;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.carta__rasgo{
-  flex:none;font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;font-weight:500;
-  color:var(--tinta-2);background:rgba(30,28,23,.055);padding:.26rem .48rem;border-radius:999px;white-space:nowrap;
+.carta[data-rareza="legendaria"]{
+  background:linear-gradient(168deg,#1A1509 0%,#0C0A05 60%,#151007 100%);
 }
-.carta__meta{
-  display:flex;align-items:center;justify-content:space-between;gap:.5rem;
-  border-top:1px solid var(--linea);margin:0 .3rem;padding:.45rem 0 .6rem;
-  font-size:.63rem;letter-spacing:.06em;color:var(--tinta-3);font-variant-numeric:tabular-nums;
-}
-.carta__rareza{display:inline-flex;align-items:center;gap:.32rem}
-.carta__rareza::before{content:'';width:.4rem;height:.4rem;border-radius:50%;background:currentColor;opacity:.85}
-.carta[data-rareza="rara"] .carta__rareza{color:#6B4FBF}
-.carta[data-rareza="holo"] .carta__rareza{color:#2C6E8F}
-.carta[data-rareza="legendaria"] .carta__rareza{color:var(--oro)}
-
-.carta[data-rareza="holo"] .carta__ventana::after,
-.carta[data-rareza="legendaria"] .carta__ventana::after{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(128deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,0) 32%,rgba(255,240,200,.16) 62%,rgba(255,255,255,0) 100%);
-  mix-blend-mode:screen;
-}
-
 .carta__cinta{
-  position:absolute;top:.85rem;right:.85rem;z-index:2;display:inline-flex;align-items:center;gap:.38rem;
-  background:rgba(252,249,241,.95);color:#6A4A12;
-  font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
-  padding:.28rem .5rem;border-radius:999px;box-shadow:0 4px 12px -6px rgba(60,40,10,.5);
+  position:absolute;top:.8rem;right:.8rem;z-index:4;display:inline-flex;align-items:center;gap:.36rem;
+  background:rgba(10,12,16,.86);color:var(--oro);border:1px solid rgba(224,178,92,.35);
+  font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+  padding:.26rem .48rem;border-radius:999px;backdrop-filter:blur(6px);
 }
-.carta__cinta i{width:.32rem;height:.32rem;border-radius:50%;background:#3E8E4F;animation:late 2.6s infinite}
-@keyframes late{
-  0%{box-shadow:0 0 0 0 rgba(62,142,79,.55)}
-  70%{box-shadow:0 0 0 .36rem rgba(62,142,79,0)}
-  100%{box-shadow:0 0 0 0 rgba(62,142,79,0)}
-}
+.carta__cinta i{width:.3rem;height:.3rem;border-radius:50%;background:#57C27A;box-shadow:0 0 8px #57C27A;animation:late 2.4s infinite}
 
-.reparto .carta{animation:repartir .8s var(--ease) both;animation-delay:calc(var(--i,0) * 70ms)}
-@keyframes repartir{from{transform:translateY(2.4rem) rotate(-3deg) scale(.965);opacity:.5}to{transform:translateY(0) rotate(0) scale(1);opacity:1}}
+/* entrada en escena */
+html.abierto .carta{animation:reparte .85s var(--ease) both;animation-delay:calc(var(--i,0) * 70ms + 260ms)}
+@keyframes reparte{from{opacity:0;transform:translateY(46px) rotate(-4deg) scale(.94)}to{opacity:1;transform:none}}
 
-/* ── pie ───────────────────────────────────────────────── */
-.pie{
-  border-top:1px solid var(--linea);
-  padding:clamp(1.6rem,3.6vw,2.4rem) clamp(1.1rem,4vw,2.6rem);
-  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.9rem;
-  font-size:.78rem;color:var(--tinta-3);max-width:88rem;margin:0 auto;
-}
-.pie a{text-decoration:none;border-bottom:1px solid var(--linea);color:var(--tinta-2);transition:border-color .25s,color .25s}
-.pie a:hover{color:var(--tinta);border-color:var(--tinta)}
-.pie__corazon{color:#B4432C}
-
-/* ── móvil ─────────────────────────────────────────────── */
 @media (max-width:600px){
-  .barra{padding-bottom:.4rem}
-  .barra__nav{gap:.9rem;font-size:.66rem}
-  .barra__nav a{min-height:44px;display:inline-flex;align-items:center}
-  .portada{min-height:auto;padding-top:clamp(.4rem,2vh,1.2rem);justify-content:flex-start;gap:.85rem}
-  .portada__nombre{font-size:clamp(1.8rem,8.4vw,2.5rem)}
-  .escena{margin:.1rem 0 1.4rem}
-  .portada__accion{margin-top:.2rem}
-  .portada__pista{font-size:.72rem}
-  .rejilla{grid-template-columns:repeat(2,minmax(0,1fr));gap:.62rem}
-  .carta{padding:.38rem .38rem 0;border-radius:16px}
-  .carta__ventana{border-radius:11px;aspect-ratio:1/1.14}
-  .carta__pie{padding:.5rem .15rem .45rem;flex-direction:column;align-items:flex-start;gap:.25rem}
-  .carta__nombre{font-size:.82rem}
+  .rejilla{grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}
+  .carta{padding:.36rem .36rem 0;border-radius:14px}
+  .carta__ventana{border-radius:9px;aspect-ratio:1/1.12}
+  .carta__pie{padding:.5rem .14rem .45rem;flex-direction:column;align-items:flex-start;gap:.24rem}
+  .carta__nombre{font-size:.8rem}
   .carta__rasgo{display:none}
-  .carta__meta{font-size:.55rem;margin:0 .15rem;padding:.38rem 0 .45rem}
-  .carta__cinta{top:.5rem;right:.5rem;font-size:.45rem;padding:.2rem .38rem;letter-spacing:.1em}
-  .cartas{padding-top:2rem}
+  .carta__meta{font-size:.52rem;margin:0 .14rem;padding:.36rem 0 .44rem}
+  .carta__cinta{top:.45rem;right:.45rem;font-size:.42rem;padding:.18rem .36rem;letter-spacing:.1em}
+  .cartas__ojo{font-size:.52rem;letter-spacing:.22em}
+  .pack{height:clamp(17rem,52svh,24rem)}
 }
 @media (max-width:359px){.rejilla{grid-template-columns:1fr}}
 
@@ -393,72 +383,51 @@ svg{display:block}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 }
 
-.noscript{max-width:74rem;margin:0 auto 2.5rem;padding:1rem clamp(1.1rem,4vw,2.6rem)}
-.noscript ul{list-style:none;margin:.7rem 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.55rem}
-.noscript a{display:inline-block;padding:.5rem .85rem;border-radius:999px;background:var(--crema);text-decoration:none;box-shadow:var(--sombra);font-size:.9rem}
+.noscript{position:relative;z-index:2;padding:0 clamp(1rem,3.5vw,2.4rem) 3rem;max-width:80rem;margin:0 auto}
+.noscript ul{list-style:none;margin:.7rem 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.5rem}
+.noscript a{display:inline-block;padding:.5rem .85rem;border-radius:999px;border:1px solid var(--linea);text-decoration:none;font-size:.85rem;color:var(--marfil-2)}
 </style>
 </head>
 <body>
-<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
-  <defs>
-    <filter id="cera" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
-      <feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="3" seed="9" result="ruido"/>
-      <feDisplacementMap in="SourceGraphic" in2="ruido" scale="4" xChannelSelector="R" yChannelSelector="G"/>
-    </filter>
-  </defs>
-</svg>
-<a class="salto" href="#cartas">Saltar a las cartas</a>
-
-<header class="barra">
-  <a class="barra__firma" href="#portada">
-    <span class="barra__nombre">David Antizar</span>
-    <span class="barra__lugar">Madrid</span>
-  </a>
-  <nav class="barra__nav">
-    <a href="#cartas">Las cartas</a>
-    <a href="agorazein.html">La subasta</a>
-    <a href="mailto:dantizar@gmail.com">Escribir</a>
-  </nav>
-</header>
+<div class="ambiente" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
 
 <main>
   <section class="portada" id="portada">
-    <p class="portada__ojo">otra manera de mirar al mundo</p>
-    <h1 class="portada__nombre">Un sobre de <em>cartas</em></h1>
-
     <div class="escena">
-      <button class="sobre" id="sobre" type="button" aria-expanded="false" aria-controls="rejilla" aria-label="Abrir el sobre de cartas">
-        <span class="sobre__cuerpo"></span>
-        <span class="sobre__costura" aria-hidden="true"></span>
-        <span class="sobre__costura sobre__costura--d" aria-hidden="true"></span>
-        <span class="sobre__boca" aria-hidden="true"></span>
-        <span class="sobre__solapa" aria-hidden="true"></span>
-        <span class="sobre__sello" aria-hidden="true"><span>DA</span></span>
-      </button>
-      <a class="etiqueta" href="agorazein.html"><i aria-hidden="true"></i>1 legendaria en subasta</a>
-    </div>
-
-    <div class="portada__accion">
-      <button class="boton" id="abrir" type="button">
-        <span class="boton__punto" aria-hidden="true"></span>
-        <span id="abrir-texto">Abrir el sobre</span>
+      <canvas id="chispas" aria-hidden="true"></canvas>
+      <button class="pack" id="pack" type="button" aria-expanded="false" aria-controls="cartas" aria-label="Rasgar el sobre y ver las cartas">
+        <span class="pack__cuerpo">
+          <span class="pack__aro" aria-hidden="true"></span>
+          <span class="pack__brillo" aria-hidden="true"></span>
+          <span class="pack__naipe" aria-hidden="true"></span>
+          <span class="pack__naipe" aria-hidden="true"></span>
+          <span class="pack__naipe" aria-hidden="true"></span>
+          <span class="pack__marca" aria-hidden="true">
+            <span class="pack__sello">DA</span>
+            <span class="pack__serie">serie 01</span>
+          </span>
+          <span class="pack__pie" aria-hidden="true">
+            <span>8 cartas · <b>1 legendaria</b></span>
+            <span>subasta abierta</span>
+          </span>
+          <span class="pack__cremallera pack__cremallera--arriba" aria-hidden="true"></span>
+          <span class="pack__cremallera pack__cremallera--abajo" aria-hidden="true"></span>
+        </span>
+        <span class="pack__desgarro" aria-hidden="true"></span>
+        <span class="pack__tira" aria-hidden="true"><i></i><span>rasga</span></span>
+        <span class="fulgor" aria-hidden="true"></span>
       </button>
     </div>
   </section>
 
-  <section class="cartas" id="cartas">
-    <div class="cartas__cabeza">
-      <p class="cartas__ojo">el set completo</p>
-      <h2 class="cartas__titulo">Ocho cartas, ocho puertas</h2>
-      <p class="cartas__pie">Cada carta es una parte de lo que hago. Las comunes son las de siempre; la última no se compra, se puja.</p>
-    </div>
+  <section class="cartas" id="cartas" tabindex="-1">
+    <p class="cartas__ojo"><span>serie 01 — ocho cartas</span><b>una en subasta</b></p>
     <div class="rejilla" id="rejilla"></div>
   </section>
 </main>
 
 <noscript>
   <div class="noscript">
-    <strong>Las cartas:</strong>
     <ul>
       <li><a href="https://www.linkedin.com/in/davidantizar/">LinkedIn</a></li>
       <li><a href="https://www.instagram.com/DNtizar/">Instagram</a></li>
@@ -472,18 +441,13 @@ svg{display:block}
   </div>
 </noscript>
 
-<footer class="pie">
-  <span>Hecho con <span class="pie__corazon">❤️</span> por David Antizar</span>
-  <span><a href="mailto:dantizar@gmail.com">dantizar@gmail.com</a> · <a href="agorazein.html">martes 17N</a></span>
-</footer>
-
 <script>
-/* ══════════════════════════════════════════════════════════════
-   LAS CARTAS — aquí está todo.
-   Para añadir una sección: añade un objeto a este array y sale
-   su carta sola (el número y el total se recalculan).
+document.documentElement.classList.add('js');
+
+/* ══════════════════════════════════════════════════════════
+   LAS CARTAS — añade un objeto y sale su carta sola
    rareza: "comun" | "rara" | "holo" | "legendaria"
-   ══════════════════════════════════════════════════════════════ */
+   ══════════════════════════════════════════════════════════ */
 const GLIFOS = {
   linkedin:'<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM2.4 21h5.16V9.5H2.4V21zm8.1 0h5.16v-6.2c0-1.65.31-3.25 2.36-3.25 2.02 0 2.05 1.9 2.05 3.36V21h5.16v-7.1c0-4.48-.96-7.05-5.35-7.05-2.17 0-3.63 1.2-4.22 2.33h-.07V9.5h-4.95V21z"/></svg>',
   github:'<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>',
@@ -491,58 +455,35 @@ const GLIFOS = {
   instagram:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5.2"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.3" cy="6.7" r="1.05" fill="currentColor" stroke="none"/></svg>',
   correo:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="2.8" y="5.2" width="18.4" height="13.6" rx="2.4"/><path d="m3.6 6.7 8.4 6.3 8.4-6.3"/></svg>',
   kit72h:'<svg viewBox="0 0 24 24"><text x="12" y="16.2" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="10.2" font-weight="600" letter-spacing="-0.5" fill="currentColor">72h</text></svg>',
+  libro:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4.2 5.1A2.1 2.1 0 0 1 6.3 3h13.5v15.9H6.3a2.1 2.1 0 0 0-2.1 2.1V5.1Z"/><path d="M4.2 18.9V21h15.6"/><path d="M8.2 7.2h7"/></svg>',
   agora:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3.2 8.6V5.4h17.6v3.2a2.4 2.4 0 0 0 0 6v3.4H3.2v-3.4a2.4 2.4 0 0 0 0-6Z"/><path d="M14.4 7.4v1.4M14.4 11.3v1.4M14.4 15.2v1.4" stroke-linecap="round"/></svg>'
 };
 
 const SECCIONES = [
-  {
-    id:'linkedin', nombre:'LinkedIn', rasgo:'profesional',
+  { id:'linkedin', nombre:'LinkedIn', rasgo:'profesional',
     url:'https://www.linkedin.com/in/davidantizar/', ext:true,
-    tono:'#0B4A80', rareza:'comun', material:'linkedin',
-    alt:'Cubo de cristal azul cobalto'
-  },
-  {
-    id:'instagram', nombre:'Instagram', rasgo:'vida',
+    tono:'#1E6FC4', rareza:'comun', material:'linkedin', alt:'Cubo de cristal azul cobalto' },
+  { id:'instagram', nombre:'Instagram', rasgo:'vida',
     url:'https://www.instagram.com/DNtizar/', ext:true,
-    tono:'#8E2B63', rareza:'comun', material:'instagram',
-    alt:'Papel holográfico arrugado en rosa y violeta'
-  },
-  {
-    id:'x', nombre:'X', rasgo:'conversación',
+    tono:'#B0346F', rareza:'comun', material:'instagram', alt:'Papel holográfico arrugado' },
+  { id:'x', nombre:'X', rasgo:'conversación',
     url:'https://x.com/DNtizar', ext:true,
-    tono:'#2A2C35', rareza:'comun', material:'x',
-    alt:'Monolito de vidrio negro'
-  },
-  {
-    id:'correo', nombre:'Escríbeme', rasgo:'contacto',
+    tono:'#5A6070', rareza:'comun', material:'x', alt:'Monolito de vidrio negro' },
+  { id:'correo', nombre:'Escríbeme', rasgo:'contacto',
     url:'mailto:dantizar@gmail.com', ext:false,
-    tono:'#5B4630', rareza:'comun', material:'archivo', glifo:'correo',
-    alt:'Fajo de hojas de papel sepia'
-  },
-  {
-    id:'github', nombre:'GitHub', rasgo:'código',
+    tono:'#8A6A3E', rareza:'comun', material:'archivo', glifo:'correo', alt:'Fajo de hojas sepia' },
+  { id:'github', nombre:'GitHub', rasgo:'código',
     url:'https://github.com/Ntizar?tab=repositories', ext:true,
-    tono:'#333B47', rareza:'rara', material:'github',
-    alt:'Esfera de piedra grafito con un anillo de cromo'
-  },
-  {
-    id:'kit72h', nombre:'Kit72h', rasgo:'producto',
+    tono:'#4A5464', rareza:'rara', material:'github', alt:'Esfera de grafito con anillo de cromo' },
+  { id:'kit72h', nombre:'Kit72h', rasgo:'producto',
     url:'https://kit72h.com/', ext:true,
-    tono:'#A8112A', rareza:'rara', material:'kit72h',
-    alt:'Caja roja señal con franja crema'
-  },
-  {
-    id:'libro', nombre:'El poni de Von der Leyen', rasgo:'libro',
+    tono:'#C01630', rareza:'rara', material:'kit72h', alt:'Caja roja con franja crema' },
+  { id:'libro', nombre:'El poni de Von der Leyen', rasgo:'libro',
     url:'https://www.amazon.es/dp/B0CP8HS3TZ?tag=ntizar-21', ext:true,
-    tono:'#143A2E', rareza:'holo', material:'libro', obra:'assets/img/libro-poni.jpg',
-    alt:'Portada de El poni de Von der Leyen, de David Antizar'
-  },
-  {
-    id:'agora', nombre:'Una tarde con Agorazein', rasgo:'subasta',
+    tono:'#0E4230', rareza:'holo', material:'libro', alt:'Libro de tela verde con cantos de papel' },
+  { id:'agora', nombre:'Una tarde con Agorazein', rasgo:'subasta',
     url:'agorazein.html', ext:false,
-    tono:'#6B460B', rareza:'legendaria', material:'agora',
-    alt:'Fragmento de resina ámbar dorada', cinta:'subasta abierta'
-  }
+    tono:'#A8731B', rareza:'legendaria', material:'agora', alt:'Fragmento de resina ámbar', cinta:'subasta abierta' }
 ];
 
 const RAREZAS = { comun:'común', rara:'rara', holo:'holo rara', legendaria:'legendaria' };
@@ -551,16 +492,14 @@ const total = String(SECCIONES.length).padStart(2,'0');
 
 rejilla.innerHTML = SECCIONES.map((s,i) => {
   const num = String(i+1).padStart(2,'0');
-  const img = s.obra
-    ? `<img class="carta__material carta__material--obra" src="${s.obra}" alt="${s.alt}" width="313" height="500" loading="lazy" decoding="async">`
-    : `<img class="carta__material" src="assets/cartas/${s.material}.webp" alt="${s.alt}" width="720" height="720" loading="lazy" decoding="async">
-       <span class="carta__glifo" aria-hidden="true">${GLIFOS[s.glifo || s.material] || ''}</span>
-       <span class="carta__brillo" aria-hidden="true"></span>`;
   return `<a class="carta" data-rareza="${s.rareza}" data-id="${s.id}" style="--i:${i};--tono:${s.tono}"
-      href="${s.url}"${s.ext ? ' target="_blank" rel="noopener"' : ''}
-      aria-label="${s.nombre} — ${s.rasgo}">
+      href="${s.url}"${s.ext ? ' target="_blank" rel="noopener"' : ''} aria-label="${s.nombre} — ${s.rasgo}">
     ${s.cinta ? `<span class="carta__cinta"><i aria-hidden="true"></i>${s.cinta}</span>` : ''}
-    <span class="carta__ventana">${img}</span>
+    <span class="carta__ventana">
+      <img class="carta__material" src="assets/cartas/${s.material}.webp" alt="${s.alt}" width="720" height="720" loading="lazy" decoding="async">
+      <span class="carta__glifo" aria-hidden="true">${GLIFOS[s.glifo || s.material] || ''}</span>
+      <span class="carta__brillo" aria-hidden="true"></span>
+    </span>
     <span class="carta__pie">
       <span class="carta__nombre">${s.nombre}</span>
       <span class="carta__rasgo">${s.rasgo}</span>
@@ -572,68 +511,90 @@ rejilla.innerHTML = SECCIONES.map((s,i) => {
   </a>`;
 }).join('');
 
-/* ── el sobre ──────────────────────────────────────────── */
-const sobre = document.getElementById('sobre');
-const boton = document.getElementById('abrir');
-const textoBoton = document.getElementById('abrir-texto');
-const cartas = document.getElementById('cartas');
+/* ── el sobre: rasgar ─────────────────────────────────── */
+const pack = document.getElementById('pack');
+const raiz = document.documentElement;
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-function irACartas(){
-  cartas.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block:'start' });
+function rasgar(){
+  if (raiz.classList.contains('abierto')) return;
+  raiz.classList.add('abierto');
+  pack.setAttribute('aria-expanded','true');
+  chispas();
+  setTimeout(() => {
+    const sec = document.getElementById('cartas');
+    if (sec) sec.focus({ preventScroll:true });
+  }, reduce ? 60 : 1200);
 }
-function abrirSobre(){
-  if (!sobre.classList.contains('sobre--abierto')){
-    sobre.classList.add('sobre--abierto');
-    sobre.setAttribute('aria-expanded','true');
-    textoBoton.textContent = 'Ver las cartas';
-    setTimeout(() => rejilla.classList.add('reparto'), reduce ? 0 : 380);
-    setTimeout(irACartas, reduce ? 60 : 860);
-  } else {
-    irACartas();
-  }
-}
-sobre.addEventListener('click', abrirSobre);
-boton.addEventListener('click', abrirSobre);
+pack.addEventListener('click', rasgar);
 
-/* ── el sobre se inclina con el ratón: parece un objeto ── */
+/* inclinación del sobre con el puntero */
 if (matchMedia('(hover:hover) and (pointer:fine)').matches && !reduce){
   const escena = document.querySelector('.escena');
   escena.addEventListener('pointermove', (e) => {
-    const r = sobre.getBoundingClientRect();
-    sobre.style.setProperty('--ty', (((e.clientX - r.left) / r.width - .5) * 15).toFixed(2) + 'deg');
-    sobre.style.setProperty('--tx', (-((e.clientY - r.top) / r.height - .5) * 11).toFixed(2) + 'deg');
+    const r = pack.getBoundingClientRect();
+    pack.style.setProperty('--ty', (((e.clientX - r.left) / r.width - .5) * 16).toFixed(2) + 'deg');
+    pack.style.setProperty('--tx', (-((e.clientY - r.top) / r.height - .5) * 12).toFixed(2) + 'deg');
   });
   escena.addEventListener('pointerleave', () => {
-    sobre.style.removeProperty('--tx'); sobre.style.removeProperty('--ty');
+    pack.style.removeProperty('--tx'); pack.style.removeProperty('--ty');
   });
 }
 
-/* ── inclinación 3D con ratón ──────────────────────────── */
+/* inclinación de cada carta */
 if (matchMedia('(hover:hover) and (pointer:fine)').matches && !reduce){
   rejilla.addEventListener('pointermove', (e) => {
     const carta = e.target.closest('.carta');
     if (!carta) return;
     const r = carta.getBoundingClientRect();
-    carta.style.setProperty('--ry', (((e.clientX - r.left) / r.width - .5) * 7).toFixed(2) + 'deg');
-    carta.style.setProperty('--rx', (-((e.clientY - r.top) / r.height - .5) * 7).toFixed(2) + 'deg');
+    carta.style.setProperty('--ry', (((e.clientX - r.left) / r.width - .5) * 8).toFixed(2) + 'deg');
+    carta.style.setProperty('--rx', (-((e.clientY - r.top) / r.height - .5) * 8).toFixed(2) + 'deg');
   });
   rejilla.addEventListener('pointerleave', () => {
-    rejilla.querySelectorAll('.carta').forEach(c => {
-      c.style.removeProperty('--rx'); c.style.removeProperty('--ry');
-    });
+    rejilla.querySelectorAll('.carta').forEach(c => { c.style.removeProperty('--rx'); c.style.removeProperty('--ry'); });
   }, true);
 }
 
-/* ── dato vivo: repositorios de GitHub ─────────────────── */
-fetch('https://api.github.com/users/Ntizar')
-  .then(r => r.ok ? r.json() : null)
-  .then(d => {
-    if (!d || !d.public_repos) return;
-    const rasgo = rejilla.querySelector('[data-id="github"] .carta__rasgo');
-    if (rasgo) rasgo.textContent = d.public_repos + ' repos';
-  })
-  .catch(() => {});
+/* ── chispas de papel al rasgar ───────────────────────── */
+function chispas(){
+  const cv = document.getElementById('chispas');
+  if (!cv || reduce) return;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const caja = cv.parentElement.getBoundingClientRect();
+  cv.width = Math.round(caja.width * dpr); cv.height = Math.round(caja.height * dpr);
+  cv.style.width = caja.width + 'px'; cv.style.height = caja.height + 'px';
+  const ctx = cv.getContext('2d');
+  ctx.scale(dpr, dpr);
+  const W = caja.width, H = caja.height, cx = W/2, cy = H*0.08;
+  const COLORES = ['#E0B25C','#F7F3EA','#A8731B','#8FA3FF','#C05B8C','#57C27A'];
+  const piezas = Array.from({length: 84}, () => {
+    const a = -Math.PI/2 + (Math.random()-.5) * 2.5;
+    const v = 2.6 + Math.random() * 7.4;
+    return { x:cx, y:cy, vx:Math.cos(a)*v*(1+Math.random()), vy:Math.sin(a)*v,
+             g:.12+Math.random()*.1, w:2+Math.random()*5, h:2+Math.random()*7,
+             rot:Math.random()*6.28, vr:(Math.random()-.5)*.3,
+             c:COLORES[(Math.random()*COLORES.length)|0], vida:1 };
+  });
+  let t0 = performance.now();
+  (function paso(t){
+    const dt = Math.min((t - t0) / 16.67, 2.4); t0 = t;
+    ctx.clearRect(0,0,W,H);
+    let vivos = 0;
+    for (const p of piezas){
+      if (p.vida <= 0) continue;
+      p.vy += p.g * dt; p.x += p.vx*dt; p.y += p.vy*dt;
+      p.vx *= .995; p.rot += p.vr*dt; p.vida -= .0095*dt;
+      if (p.vida > 0){
+        vivos++;
+        ctx.save(); ctx.globalAlpha = Math.max(p.vida,0); ctx.fillStyle = p.c;
+        ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+        ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore();
+      }
+    }
+    if (vivos) requestAnimationFrame(paso);
+    else ctx.clearRect(0,0,W,H);
+  })(performance.now());
+}
 </script>
 </body>
 </html>

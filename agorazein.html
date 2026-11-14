@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Una tarde con Agorazein — subasta · David Antizar</title>
-<meta name="description" content="Subasta de una tarde: martes 17 de noviembre, de 18:00 a 00:00, concierto de Agorazein en Madrid y seis horas conmigo y mi gente. Sale por 50 €.">
-<meta name="theme-color" content="#F1EADB">
+<title>Una tarde con Agorazein — subasta</title>
+<meta name="description" content="Subasta de una tarde: martes 17 de noviembre, de 18:00 a 00:00, con la entrada del concierto de Agorazein incluida. Sale por 50 €. La puja cierra el lunes 16 a las 18:00.">
+<meta name="theme-color" content="#05070A">
 <link rel="canonical" href="https://davidantizar.com/agorazein.html">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Una tarde con Agorazein — subasta">
-<meta property="og:description" content="Martes 17N, de 18:00 a 00:00. Sale por 50 €. Una sola plaza.">
+<meta property="og:description" content="Martes 17N, de 18:00 a 00:00. Entrada incluida. Sale por 50 €. Una sola plaza.">
 <meta property="og:url" content="https://davidantizar.com/agorazein.html">
 <meta property="og:image" content="https://davidantizar.com/assets/img/og-cartas.jpg">
 <link rel="icon" href="assets/img/icono-app.svg" type="image/svg+xml">
@@ -22,236 +22,194 @@
 @font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url('assets/fonts/space-grotesk-700.woff2') format('woff2')}
 
 :root{
-  --papel:#F1EADB;
-  --crema:#FCF9F1;
-  --tinta:#1E1C17;
-  --tinta-2:#5E574A;
-  --tinta-3:#766E60;
-  --linea:rgba(30,28,23,.13);
-  --oro:#A97C2A;
-  --oro-hondo:#8A5C12;
-  --sombra:0 1px 1px rgba(46,36,20,.05),0 10px 20px -14px rgba(46,36,20,.30),0 34px 54px -44px rgba(46,36,20,.45);
-  --sombra-alta:0 2px 2px rgba(46,36,20,.06),0 18px 30px -16px rgba(46,36,20,.32),0 54px 70px -50px rgba(46,36,20,.5);
+  --negro:#05070A;
+  --marfil:#F7F3EA;
+  --marfil-2:rgba(247,243,234,.70);
+  --marfil-3:rgba(247,243,234,.42);
+  --oro:#E0B25C;
+  --oro-hondo:#A97C2A;
+  --linea:rgba(247,243,234,.10);
+  --panel:rgba(255,255,255,.035);
   --ease:cubic-bezier(.2,.75,.2,1);
 }
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html{-webkit-text-size-adjust:100%;background:var(--negro)}
 body{
-  margin:0;
-  background:
-    radial-gradient(120% 70% at 50% -6%, #FCF7EC 0%, rgba(252,247,236,0) 60%),
-    radial-gradient(85% 50% at 50% 112%, #E7DCC6 0%, rgba(231,220,198,0) 74%),
-    var(--papel);
-  color:var(--tinta);
+  margin:0;min-height:100%;overflow-x:hidden;
+  background:var(--negro);color:var(--marfil);
   font-family:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
-  font-size:17px;line-height:1.6;
-  -webkit-font-smoothing:antialiased;overflow-x:hidden;
-}
-body::after{
-  content:'';position:fixed;inset:0;z-index:9;pointer-events:none;opacity:.045;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode:multiply;
+  font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;
 }
 a{color:inherit}
 svg{display:block}
+.ambiente{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.ambiente span{position:absolute;border-radius:50%;filter:blur(80px)}
+.ambiente .a1{width:70vmax;height:70vmax;left:-16vmax;top:-26vmax;background:radial-gradient(circle,rgba(224,178,92,.16),rgba(224,178,92,0) 62%)}
+.ambiente .a2{width:58vmax;height:58vmax;right:-22vmax;bottom:-20vmax;background:radial-gradient(circle,rgba(150,86,220,.10),rgba(150,86,220,0) 64%)}
+body::after{
+  content:'';position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.055;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
 
-/* ── barra ── */
 .barra{
-  position:relative;z-index:6;display:flex;align-items:center;justify-content:space-between;
-  gap:1rem;flex-wrap:wrap;padding:clamp(.95rem,2.4vw,1.5rem) clamp(1.1rem,4vw,2.6rem);
-  max-width:82rem;margin:0 auto;
+  position:relative;z-index:5;max-width:80rem;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  padding:clamp(1rem,2.4vw,1.5rem) clamp(1rem,3.5vw,2.4rem);
+  border-bottom:1px solid var(--linea);
 }
-.barra__firma{display:flex;align-items:baseline;gap:.6rem;text-decoration:none}
-.barra__nombre{font-weight:600;letter-spacing:-.015em;font-size:.98rem}
-.barra__lugar{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--tinta-3)}
-.barra__nav{display:flex;align-items:center;gap:1.15rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-2)}
-.barra__nav a{text-decoration:none;padding:.5rem 0;border-bottom:1px solid transparent;transition:border-color .25s,color .25s}
-.barra__nav a:hover{color:var(--tinta);border-color:var(--tinta)}
+.barra a{font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;text-decoration:none;color:var(--marfil-3);transition:color .25s}
+.barra a:hover{color:var(--marfil)}
+.barra__vuelta{display:inline-flex;align-items:center;gap:.5rem}
+.barra__vuelta::before{content:'';width:1.1rem;height:1px;background:currentColor}
 
-/* ── la pieza: la carta, en grande ── */
+/* ── cabecera: la carta en grande ── */
 .dossier{
-  max-width:82rem;margin:0 auto;
-  padding:clamp(.5rem,2vw,2rem) clamp(1.1rem,4vw,2.6rem) clamp(2rem,5vw,4rem);
-  display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(1.6rem,4vw,3.2rem);
-  align-items:center;
+  position:relative;z-index:2;max-width:80rem;margin:0 auto;
+  padding:clamp(1.6rem,4vw,3rem) clamp(1rem,3.5vw,2.4rem) clamp(2rem,5vw,3.4rem);
+  display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(1.6rem,4vw,3rem);align-items:center;
 }
-@media (min-width:860px){
-  .dossier{grid-template-columns:minmax(0,22rem) minmax(0,1fr)}
-}
+@media (min-width:880px){.dossier{grid-template-columns:minmax(0,21rem) minmax(0,1fr)}}
 
 .carta-grande{
-  position:relative;display:flex;flex-direction:column;
-  background:var(--crema);border-radius:26px;padding:.85rem .85rem .1rem;
-  box-shadow:var(--sombra-alta);
-  transform:rotate(-1.2deg);
-  transition:transform .6s var(--ease);
-  max-width:24rem;margin:0 auto;width:100%;
+  position:relative;display:flex;flex-direction:column;width:100%;max-width:21rem;margin:0 auto;
+  border-radius:18px;padding:.5rem .5rem .05rem;
+  background:linear-gradient(168deg,#1C1608 0%,#0B0904 60%,#141008 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,226,168,.22),0 30px 70px -30px rgba(0,0,0,.95),0 0 90px -40px rgba(224,178,92,.6);
+  transform:rotate(-1deg);transition:transform .6s var(--ease)
 }
-.carta-grande:hover{transform:rotate(0deg) translateY(-6px)}
+.carta-grande:hover{transform:rotate(0) translateY(-6px)}
 .carta-grande__ventana{
-  position:relative;overflow:hidden;border-radius:18px;aspect-ratio:1/1.04;
+  position:relative;overflow:hidden;border-radius:13px;aspect-ratio:1/1.03;isolation:isolate;
   background:linear-gradient(158deg,#C08D2A 0%,#8A5C12 100%);
-  isolation:isolate;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.4),inset 0 0 50px rgba(0,0,0,.35);
 }
-.carta-grande__material{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  mix-blend-mode:overlay;opacity:.66;
-}
+.carta-grande__material{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;mix-blend-mode:overlay;opacity:.62}
 .carta-grande__ventana::after{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(128deg,rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 34%,rgba(255,238,190,.22) 64%,rgba(255,255,255,0) 100%);
-  mix-blend-mode:screen;
+  content:'';position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;
+  background:linear-gradient(128deg,rgba(255,255,255,.26) 0%,rgba(255,255,255,0) 34%,rgba(255,238,190,.2) 64%,rgba(255,255,255,0) 100%);
 }
-.carta-grande__glifo{position:absolute;inset:0;display:grid;place-items:center;color:#fff;filter:drop-shadow(0 5px 16px rgba(0,0,0,.36))}
-.carta-grande__glifo svg{width:44%;height:44%}
+.carta-grande__glifo{position:absolute;inset:0;display:grid;place-items:center;color:#fff;filter:drop-shadow(0 5px 18px rgba(0,0,0,.5))}
+.carta-grande__glifo::before{content:'';position:absolute;inset:0;background:radial-gradient(closest-side at 50% 50%,rgba(0,0,0,.34),rgba(0,0,0,0) 78%)}
+.carta-grande__glifo svg{position:relative;width:44%;height:44%}
 .carta-grande__cinta{
-  position:absolute;top:1.1rem;right:1.1rem;z-index:2;display:inline-flex;align-items:center;gap:.4rem;
-  background:rgba(252,249,241,.96);color:#6A4A12;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;
-  font-weight:600;padding:.3rem .55rem;border-radius:999px;box-shadow:0 4px 12px -6px rgba(60,40,10,.5);
+  position:absolute;top:.8rem;right:.8rem;z-index:4;display:inline-flex;align-items:center;gap:.36rem;
+  background:rgba(10,12,16,.86);color:var(--oro);border:1px solid rgba(224,178,92,.38);
+  font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+  padding:.26rem .48rem;border-radius:999px;backdrop-filter:blur(6px);
 }
-.carta-grande__cinta i{width:.34rem;height:.34rem;border-radius:50%;background:#3E8E4F;animation:late 2.6s infinite}
-@keyframes late{
-  0%{box-shadow:0 0 0 0 rgba(62,142,79,.55)}
-  70%{box-shadow:0 0 0 .38rem rgba(62,142,79,0)}
-  100%{box-shadow:0 0 0 0 rgba(62,142,79,0)}
-}
-.carta-grande__pie{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.9rem .5rem .8rem}
-.carta-grande__nombre{font-size:1.15rem;font-weight:600;letter-spacing:-.02em;line-height:1.15}
-.carta-grande__rasgo{
-  flex:none;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;font-weight:500;
-  color:var(--tinta-2);background:rgba(30,28,23,.055);padding:.28rem .52rem;border-radius:999px;
-}
-.carta-grande__meta{
-  display:flex;align-items:center;justify-content:space-between;
-  border-top:1px solid var(--linea);margin:0 .5rem;padding:.5rem 0 .7rem;
-  font-size:.68rem;letter-spacing:.06em;color:var(--tinta-3);font-variant-numeric:tabular-nums;
-}
-.carta-grande__rareza{display:inline-flex;align-items:center;gap:.34rem;color:var(--oro)}
-.carta-grande__rareza::before{content:'';width:.42rem;height:.42rem;border-radius:50%;background:currentColor}
+.carta-grande__cinta i{width:.3rem;height:.3rem;border-radius:50%;background:#57C27A;box-shadow:0 0 8px #57C27A;animation:late 2.4s infinite}
+@keyframes late{0%,100%{opacity:.55}50%{opacity:1}}
+.carta-grande__pie{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.75rem .45rem .65rem}
+.carta-grande__nombre{font-size:1rem;font-weight:500;letter-spacing:-.015em;line-height:1.15}
+.carta-grande__rasgo{flex:none;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:var(--marfil-2);background:rgba(247,243,234,.07);padding:.24rem .46rem;border-radius:999px}
+.carta-grande__meta{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--linea);margin:0 .45rem;padding:.42rem 0 .58rem;font-size:.6rem;letter-spacing:.1em;color:var(--marfil-3);font-variant-numeric:tabular-nums}
+.carta-grande__rareza{display:inline-flex;align-items:center;gap:.32rem;color:var(--oro)}
+.carta-grande__rareza::before{content:'';width:.38rem;height:.38rem;border-radius:50%;background:currentColor;box-shadow:0 0 9px currentColor}
 
 /* ── el texto ── */
 .expediente{max-width:34rem}
-.ojo{margin:0 0 .9rem;font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--tinta-3);display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.ojo{margin:0 0 .8rem;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--marfil-3)}
 .ojo b{color:var(--oro);font-weight:500}
-.titular{margin:0;font-size:clamp(2rem,5.4vw,3.1rem);line-height:1.02;letter-spacing:-.04em;font-weight:500}
-.titular span{display:block;color:var(--tinta-3);font-size:.44em;letter-spacing:.02em;margin-top:.55rem;font-weight:400;line-height:1.3}
-.entrada{margin:1.1rem 0 0;font-size:clamp(1rem,1.6vw,1.1rem);color:var(--tinta-2);max-width:31rem}
-.entrada strong{color:var(--tinta);font-weight:600}
+.titular{margin:0;font-size:clamp(1.9rem,5vw,2.9rem);line-height:1.02;letter-spacing:-.04em;font-weight:500}
+.titular span{display:block;margin-top:.6rem;font-size:.36em;line-height:1.35;letter-spacing:.01em;font-weight:400;color:var(--marfil-2)}
+.entrada{margin:1rem 0 0;font-size:1rem;color:var(--marfil-2);max-width:31rem}
+.entrada strong{color:var(--marfil);font-weight:500}
 
-/* cuenta atrás */
-.cuenta__rotulo{margin:1.6rem 0 0;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--tinta-3)}
+.cuenta__rotulo{margin:1.5rem 0 0;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:var(--marfil-3)}
 .cuenta{display:flex;gap:.5rem;margin:.5rem 0 0;flex-wrap:wrap}
 .cuenta__caja{
-  min-width:4.4rem;padding:.6rem .7rem;border-radius:14px;background:var(--crema);
-  box-shadow:var(--sombra);text-align:center;flex:1 1 4.4rem;max-width:7rem;
+  flex:1 1 4rem;max-width:6.4rem;padding:.55rem .6rem;border-radius:12px;
+  background:var(--panel);border:1px solid var(--linea);text-align:center;
 }
-.cuenta__num{display:block;font-size:clamp(1.4rem,3.4vw,1.9rem);font-weight:500;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1}
-.cuenta__et{display:block;margin-top:.32rem;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--tinta-3)}
-.cuenta__nota{margin:.7rem 0 0;font-size:.76rem;color:var(--tinta-3)}
-.cuenta__nota b{color:var(--tinta-2);font-weight:500}
+.cuenta__num{display:block;font-size:clamp(1.3rem,3.2vw,1.75rem);font-weight:500;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums;color:var(--oro)}
+.cuenta__et{display:block;margin-top:.3rem;font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:var(--marfil-3)}
 
-/* la puja */
 .puja{
-  margin:1.5rem 0 0;padding:1.1rem 1.2rem;border-radius:18px;background:var(--crema);
-  box-shadow:var(--sombra);border:1px solid rgba(169,124,42,.22);
+  margin:1.3rem 0 0;padding:1rem 1.1rem;border-radius:16px;
+  background:linear-gradient(150deg,rgba(224,178,92,.10),rgba(224,178,92,.02));
+  border:1px solid rgba(224,178,92,.24);
 }
 .puja__filo{display:flex;align-items:baseline;justify-content:space-between;gap:.8rem;flex-wrap:wrap}
-.puja__cifra{font-size:clamp(1.9rem,4.6vw,2.5rem);font-weight:500;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
-.puja__cifra small{font-size:.42em;letter-spacing:0;color:var(--tinta-3);margin-left:.15em}
-.puja__estado{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-3)}
-.puja__estado b{color:var(--oro-hondo);font-weight:600}
-.puja__nota{margin:.8rem 0 0;font-size:.84rem;color:var(--tinta-2)}
+.puja__cifra{font-size:clamp(1.8rem,4.4vw,2.3rem);font-weight:500;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.puja__cifra small{font-size:.4em;letter-spacing:.14em;text-transform:uppercase;color:var(--marfil-3);margin-right:.35em;vertical-align:middle}
+.puja__estado{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--marfil-3)}
+.puja__estado b{color:var(--oro);font-weight:600}
+.puja__nota{margin:.7rem 0 0;font-size:.82rem;color:var(--marfil-2)}
 
-.acciones{display:flex;gap:.6rem;flex-wrap:wrap;margin:1.4rem 0 0}
+.acciones{display:flex;gap:.55rem;flex-wrap:wrap;margin:1.2rem 0 0}
 .boton{
   appearance:none;border:0;cursor:pointer;font:inherit;text-decoration:none;
-  display:inline-flex;align-items:center;gap:.55rem;min-height:48px;
-  padding:.8rem 1.5rem;border-radius:999px;font-size:.9rem;font-weight:500;letter-spacing:.01em;
-  background:var(--tinta);color:var(--crema);
-  box-shadow:inset 0 2px 0 rgba(255,255,255,.12),0 14px 24px -14px rgba(30,28,23,.85);
-  transition:transform .3s var(--ease),box-shadow .3s;
+  display:inline-flex;align-items:center;justify-content:center;gap:.55rem;min-height:48px;
+  padding:.8rem 1.5rem;border-radius:999px;font-size:.86rem;font-weight:500;letter-spacing:.02em;
+  transition:transform .3s var(--ease),box-shadow .3s,border-color .3s;
 }
-.boton:hover{transform:translateY(-2px)}
-.boton:focus-visible{outline:2px solid var(--tinta);outline-offset:4px}
-.boton--oro{background:linear-gradient(150deg,#B0842F,#8A5C12);box-shadow:inset 0 2px 0 rgba(255,255,255,.2),0 14px 26px -14px rgba(138,92,18,.9)}
-.boton--fantasma{background:transparent;color:var(--tinta);box-shadow:inset 0 0 0 1px var(--linea)}
-.boton--fantasma:hover{box-shadow:inset 0 0 0 1px var(--tinta)}
+.boton--oro{background:linear-gradient(150deg,#EFC77E,#B98A31);color:#1B1204;
+  box-shadow:0 12px 28px -14px rgba(224,178,92,.9),inset 0 1px 0 rgba(255,255,255,.45)}
+.boton--oro:hover{transform:translateY(-2px);box-shadow:0 18px 34px -14px rgba(224,178,92,.95),inset 0 1px 0 rgba(255,255,255,.5)}
+.boton--fantasma{background:transparent;color:var(--marfil);box-shadow:inset 0 0 0 1px var(--linea)}
+.boton--fantasma:hover{box-shadow:inset 0 0 0 1px rgba(247,243,234,.45);transform:translateY(-2px)}
+.boton:focus-visible{outline:2px solid var(--oro);outline-offset:4px}
+.boton svg{width:1rem;height:1rem}
 
 /* ── bloques ── */
-.bloques{max-width:82rem;margin:0 auto;padding:0 clamp(1.1rem,4vw,2.6rem) clamp(2rem,5vw,4rem)}
-.seccion{margin:0 0 clamp(2rem,5vw,3.4rem)}
-.seccion__ojo{margin:0 0 .5rem;font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:var(--tinta-3)}
-.seccion__titulo{margin:0 0 1.2rem;font-size:clamp(1.3rem,2.6vw,1.7rem);letter-spacing:-.03em;font-weight:500}
-
-.plan{display:grid;grid-template-columns:minmax(0,1fr);gap:.7rem}
+.bloques{position:relative;z-index:2;max-width:80rem;margin:0 auto;padding:0 clamp(1rem,3.5vw,2.4rem) clamp(3rem,7vw,5rem)}
+.seccion{margin:0 0 clamp(2rem,4.5vw,3.2rem)}
+.seccion__ojo{margin:0 0 .5rem;font-size:.56rem;letter-spacing:.26em;text-transform:uppercase;color:var(--marfil-3)}
+.seccion__titulo{margin:0 0 1.1rem;font-size:clamp(1.2rem,2.4vw,1.55rem);letter-spacing:-.03em;font-weight:500}
+.plan{display:grid;grid-template-columns:minmax(0,1fr);gap:.6rem}
 @media (min-width:720px){.plan{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .plan__paso{
-  background:var(--crema);border-radius:18px;padding:1.1rem 1.2rem;box-shadow:var(--sombra);
-  display:flex;flex-direction:column;gap:.35rem;
+  background:var(--panel);border:1px solid var(--linea);border-radius:14px;padding:1rem 1.1rem;
+  display:flex;flex-direction:column;gap:.3rem;
 }
-.plan__hora{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--oro);font-weight:600}
-.plan__que{margin:0;font-size:1.02rem;font-weight:600;letter-spacing:-.015em}
-.plan__det{margin:0;font-size:.88rem;color:var(--tinta-2);line-height:1.5}
-
-.duo{display:grid;grid-template-columns:minmax(0,1fr);gap:.7rem}
+.plan__hora{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--oro);font-weight:600}
+.plan__que{margin:0;font-size:.98rem;font-weight:500;letter-spacing:-.015em}
+.plan__det{margin:0;font-size:.86rem;color:var(--marfil-2);line-height:1.5}
+.duo{display:grid;grid-template-columns:minmax(0,1fr);gap:.6rem}
 @media (min-width:720px){.duo{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.ficha{background:var(--crema);border-radius:18px;padding:1.2rem 1.3rem;box-shadow:var(--sombra)}
-.ficha h3{margin:0 0 .7rem;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--tinta-3);font-weight:600}
-.lista{margin:0;padding:0;list-style:none;display:grid;gap:.55rem}
-.lista li{display:flex;gap:.6rem;font-size:.92rem;color:var(--tinta-2);line-height:1.45}
-.lista li::before{content:'';flex:none;width:.42rem;height:.42rem;margin-top:.45rem;border-radius:50%;background:currentColor;opacity:.5}
-.lista--si li::before{background:#3E8E4F;opacity:1}
-.lista--no li::before{background:#B4432C;opacity:.9}
-
-.reglas{counter-reset:r;display:grid;gap:.6rem;margin:0;padding:0;list-style:none;max-width:44rem}
+.ficha{background:var(--panel);border:1px solid var(--linea);border-radius:14px;padding:1.1rem 1.2rem}
+.ficha h3{margin:0 0 .65rem;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--marfil-3);font-weight:600}
+.lista{margin:0;padding:0;list-style:none;display:grid;gap:.5rem}
+.lista li{display:flex;gap:.6rem;font-size:.9rem;color:var(--marfil-2);line-height:1.45}
+.lista li::before{content:'';flex:none;width:.36rem;height:.36rem;margin-top:.5rem;border-radius:50%;background:currentColor;opacity:.55}
+.lista--si li::before{background:#57C27A;opacity:1;box-shadow:0 0 7px rgba(87,194,122,.8)}
+.lista--no li::before{background:#C05B5B;opacity:1}
+.reglas{counter-reset:r;display:grid;gap:.55rem;margin:0;padding:0;list-style:none;max-width:44rem}
 .reglas li{
-  counter-increment:r;display:flex;gap:.85rem;align-items:flex-start;
-  background:var(--crema);border-radius:14px;padding:.85rem 1rem;box-shadow:var(--sombra);font-size:.92rem;color:var(--tinta-2)
+  counter-increment:r;display:flex;gap:.8rem;align-items:flex-start;
+  background:var(--panel);border:1px solid var(--linea);border-radius:12px;padding:.8rem .95rem;
+  font-size:.89rem;color:var(--marfil-2);
 }
 .reglas li::before{
-  content:counter(r);flex:none;width:1.5rem;height:1.5rem;border-radius:50%;
-  display:grid;place-items:center;background:rgba(169,124,42,.14);color:var(--oro-hondo);
-  font-size:.7rem;font-weight:600;font-variant-numeric:tabular-nums;
+  content:counter(r);flex:none;width:1.4rem;height:1.4rem;border-radius:50%;
+  display:grid;place-items:center;background:rgba(224,178,92,.14);color:var(--oro);
+  font-size:.66rem;font-weight:600;font-variant-numeric:tabular-nums;
 }
-.reglas li b{color:var(--tinta);font-weight:600}
-
+.reglas li b{color:var(--marfil);font-weight:500}
 .cierre{
-  max-width:44rem;background:var(--crema);border-radius:22px;padding:clamp(1.3rem,3vw,2rem);
-  box-shadow:var(--sombra-alta);border:1px solid rgba(169,124,42,.2);
+  max-width:44rem;padding:clamp(1.2rem,3vw,1.8rem);border-radius:18px;
+  background:linear-gradient(160deg,rgba(224,178,92,.09),rgba(255,255,255,.02));
+  border:1px solid rgba(224,178,92,.22);
+  box-shadow:0 30px 70px -50px rgba(224,178,92,.8);
 }
-.cierre h2{margin:0 0 .5rem;font-size:clamp(1.2rem,2.4vw,1.5rem);letter-spacing:-.03em;font-weight:500}
-.cierre p{margin:0 0 1rem;color:var(--tinta-2);font-size:.95rem}
-.menudo{margin:1.1rem 0 0;font-size:.76rem;color:var(--tinta-3);line-height:1.55}
-
-.pie{
-  border-top:1px solid var(--linea);padding:clamp(1.6rem,3.6vw,2.4rem) clamp(1.1rem,4vw,2.6rem);
-  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.9rem;
-  font-size:.78rem;color:var(--tinta-3);max-width:82rem;margin:0 auto;
-}
-.pie a{text-decoration:none;border-bottom:1px solid var(--linea);color:var(--tinta-2)}
-.pie__corazon{color:#B4432C}
-
+.cierre h2{margin:0 0 .4rem;font-size:clamp(1.15rem,2.2vw,1.4rem);letter-spacing:-.03em;font-weight:500}
+.cierre p{margin:0 0 .9rem;color:var(--marfil-2);font-size:.92rem}
+.menudo{margin:1rem 0 0;font-size:.74rem;color:var(--marfil-3);line-height:1.55}
 @media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 }
 @media (max-width:600px){
-  .carta-grande{max-width:19rem;transform:none}
+  .carta-grande{max-width:16.5rem;transform:none}
   .cuenta__caja{max-width:none}
 }
 </style>
 </head>
 <body>
+<div class="ambiente" aria-hidden="true"><span class="a1"></span><span class="a2"></span></div>
 
 <header class="barra">
-  <a class="barra__firma" href="index.html">
-    <span class="barra__nombre">David Antizar</span>
-    <span class="barra__lugar">Madrid</span>
-  </a>
-  <nav class="barra__nav">
-    <a href="index.html">Las cartas</a>
-    <a href="#pujar">Pujar</a>
-  </nav>
+  <a class="barra__vuelta" href="index.html">las cartas</a>
+  <a href="#pujar">pujar</a>
 </header>
 
 <main>
@@ -277,30 +235,32 @@ svg{display:block}
     <div class="expediente">
       <p class="ojo">legendaria · una sola plaza · <b>martes 17 de noviembre</b></p>
       <h1 class="titular">Subasto mi tarde del martes
-        <span>Empieza en 50 €. Se lleva seis horas conmigo y mi gente: Agorazein, una mesa cerca de Goya y conversación de la buena.</span>
+        <span>Sale por 50 €. Se lleva seis horas conmigo y mi gente, y la entrada del concierto de Agorazein va incluida.</span>
       </h1>
-      <p class="entrada">De <strong>18:00 a 00:00</strong>. Hay un concierto de Agorazein en Madrid, cerca de Goya, y alrededor una gente que hace cosas raras e interesantes para ganarse la vida. Se viene <strong>una persona</strong>: la puja más alta.</p>
+      <p class="entrada">De <strong>18:00 a 00:00</strong>, en Madrid, cerca de Goya. Alrededor, gente que hace cosas raras e interesantes para ganarse la vida. Se viene <strong>una persona</strong>: la puja más alta.</p>
 
-      <p class="cuenta__rotulo">Las pujas cierran en</p>
+      <p class="cuenta__rotulo">la puja cierra en</p>
       <div class="cuenta" id="cuenta" aria-live="polite">
         <div class="cuenta__caja"><span class="cuenta__num" data-d>--</span><span class="cuenta__et">días</span></div>
         <div class="cuenta__caja"><span class="cuenta__num" data-h>--</span><span class="cuenta__et">horas</span></div>
         <div class="cuenta__caja"><span class="cuenta__num" data-m>--</span><span class="cuenta__et">min</span></div>
         <div class="cuenta__caja"><span class="cuenta__num" data-s>--</span><span class="cuenta__et">seg</span></div>
       </div>
-      <p class="cuenta__nota" id="nota-cierre">Las pujas cierran el <b>martes 17 a las 17:00</b>, una hora antes de empezar.</p>
 
       <div class="puja">
         <div class="puja__filo">
-          <p class="puja__cifra" id="cifra"><small>desde</small> 50 €</p>
+          <p class="puja__cifra" id="cifra"><small>desde</small>50 €</p>
           <p class="puja__estado" id="estado">Sin pujas todavía</p>
         </div>
         <p class="puja__nota" id="puja-nota">La primera puja entra a 50 €. Después, de 5 en 5.</p>
       </div>
 
       <div class="acciones" id="pujar">
-        <a class="boton boton--oro" id="btn-pujar" href="mailto:dantizar@gmail.com">Pujar por correo</a>
-        <a class="boton boton--fantasma" href="https://x.com/DNtizar" target="_blank" rel="noopener">Pujar por DM en X</a>
+        <a class="boton boton--oro" id="btn-pujar" href="https://x.com/DNtizar">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg>
+          Pujar por DM en X
+        </a>
+        <a class="boton boton--fantasma" id="btn-correo" href="mailto:dantizar@gmail.com">o por correo</a>
       </div>
     </div>
   </section>
@@ -319,7 +279,7 @@ svg{display:block}
         <article class="plan__paso">
           <span class="plan__hora">el concierto</span>
           <p class="plan__que">Agorazein</p>
-          <p class="plan__det">Vamos en grupo y no te suelto. Si hay que hacer cola, se hace cola hablando.</p>
+          <p class="plan__det">Vamos en grupo y no te suelto. Tu entrada va incluida en la puja.</p>
         </article>
         <article class="plan__paso">
           <span class="plan__hora">hasta las 00:00</span>
@@ -334,16 +294,15 @@ svg{display:block}
         <div class="ficha">
           <h3>Qué te llevas</h3>
           <ul class="lista lista--si">
+            <li><strong>La entrada del concierto</strong>, incluida en la puja.</li>
             <li>Mi tarde entera: de 18:00 a 00:00, sin mirar el reloj.</li>
             <li>Mi gente: gente que mola, con trabajos que dan conversación.</li>
             <li>El plan montado: dónde, cuándo y con quién.</li>
-            <li>Conversación de la buena, de la que no se puede comprar… salvo aquí.</li>
           </ul>
         </div>
         <div class="ficha">
           <h3>Qué no entra</h3>
           <ul class="lista lista--no">
-            <li>La entrada del concierto: cada uno la suya.</li>
             <li>Consumiciones, cena y transporte.</li>
             <li>Una segunda plaza: es una sola y la ocupa una persona.</li>
             <li>Factura, IVA ni gaitas: esto es entre particulares.</li>
@@ -357,53 +316,49 @@ svg{display:block}
       <h2 class="seccion__titulo">Cómo funciona la subasta</h2>
       <ol class="reglas">
         <li>Se sale por <b>50 €</b> y cada puja sube como mínimo <b>5 €</b>.</li>
-        <li>Cierra el <b>martes 17 de noviembre a las 17:00</b> (hora de Madrid).</li>
-        <li>Gana la <b>puja más alta recibida por escrito</b> antes del cierre: email o mensaje directo. En caso de empate, la que llegó antes.</li>
+        <li>Cierra el <b>lunes 16 de noviembre a las 18:00</b>, 24 horas antes del concierto.</li>
+        <li>Gana la <b>puja más alta recibida por escrito</b> antes del cierre: mensaje directo en X o correo. En caso de empate, la que llegó antes.</li>
         <li>Pago el mismo día, <b>Bizum o efectivo</b>. Si no aparece el pago, pasa al siguiente.</li>
-        <li>Si el concierto se cancela o yo no puedo ir, <b>te devuelvo la puja</b> y se acabó el drama.</li>
+        <li>Si el concierto se cancela o yo no puedo ir, <b>te devuelvo la puja</b>.</li>
         <li>Si te sale algo y no puedes venir, avísame cuanto antes y hablamos.</li>
       </ol>
     </section>
 
     <section class="seccion cierre">
       <h2>¿Pujas?</h2>
-      <p>Escribe tu importe y te contesto yo mismo. El marcador de aquí arriba lo actualizo a mano: la puja que vale es la que me llega escrita.</p>
+      <p>Un mensaje directo en X con tu importe y te contesto yo mismo. El marcador de aquí arriba lo actualizo a mano: la puja que vale es la que me llega escrita.</p>
       <div class="acciones">
-        <a class="boton boton--oro" id="btn-pujar-2" href="mailto:dantizar@gmail.com">Pujar por correo</a>
-        <a class="boton boton--fantasma" href="https://www.instagram.com/DNtizar/" target="_blank" rel="noopener">Por Instagram</a>
+        <a class="boton boton--oro" id="btn-pujar-2" href="https://x.com/DNtizar">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg>
+          Pujar por DM en X
+        </a>
       </div>
-      <p class="menudo">Una nota honesta: esto es una tarde, no un servicio. No incluye nada más de lo que pone aquí arriba y no hay devoluciones después del concierto. Si tienes cualquier duda, pregunta antes de pujar — respondo rápido.</p>
+      <p class="menudo">Una nota honesta: esto es una tarde, no un servicio. Incluye lo que pone arriba y nada más. Si tienes cualquier duda, pregunta antes de pujar: respondo rápido.</p>
     </section>
 
   </div>
 </main>
 
-<footer class="pie">
-  <span>Hecho con <span class="pie__corazon">❤️</span> por David Antizar</span>
-  <span><a href="index.html">Volver a las cartas</a> · <a href="mailto:dantizar@gmail.com">dantizar@gmail.com</a></span>
-</footer>
-
 <script>
-/* ══════════════════════════════════════════════════════════════
-   LA SUBASTA — todo lo que se toca está aquí
-   ══════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════
+   LA SUBASTA — lo que se toca está aquí
+   ══════════════════════════════════════════════════════════ */
 const SUBASTA = {
   salida: 50,               // € de partida
   incremento: 5,            // € mínimos por puja
-  mejor: null,              // mejor puja actual en € (null = todavía ninguna)
-  pujas: 0,                 // número de pujas recibidas
-  cierra: '2026-11-17T17:00:00+01:00',
+  mejor: null,              // mejor puja actual en € (null = ninguna todavía)
+  pujas: 0,                 // pujas recibidas
+  cierra: '2026-11-16T18:00:00+01:00',   // lunes, 24 h antes
   empieza: '2026-11-17T18:00:00+01:00',
+  dm: 'https://x.com/DNtizar',
   email: 'dantizar@gmail.com',
   asunto: 'Pujo por la tarde del 17N',
-  cuerpo: 'Hola David:\n\nPujo ___ € por la tarde del martes 17 de noviembre (Agorazein).\n\nMe llamo: \nMi teléfono: \n\nUn saludo.'
+  cuerpo: 'Hola David:\n\nPujo ___ € por la tarde del martes 17 de noviembre (Agorazein, entrada incluida).\n\nMe llamo: \nMi usuario de X: \n\nUn saludo.'
 };
 
-/* ── cuenta atrás ── */
 const cierre = new Date(SUBASTA.cierra).getTime();
 const inicio = new Date(SUBASTA.empieza).getTime();
 const cajas = { d: document.querySelector('[data-d]'), h: document.querySelector('[data-h]'), m: document.querySelector('[data-m]'), s: document.querySelector('[data-s]') };
-const notaCierre = document.getElementById('nota-cierre');
 const estado = document.getElementById('estado');
 const cifra = document.getElementById('cifra');
 const pujaNota = document.getElementById('puja-nota');
@@ -416,13 +371,13 @@ function pintarCuenta(){
     if (!cerrada){
       cerrada = true;
       Object.keys(cajas).forEach(k => { if (cajas[k]) cajas[k].textContent = '00'; });
-      notaCierre.innerHTML = 'La subasta está <b>cerrada</b>. Gracias a quien haya pujado.';
+      document.querySelector('.cuenta__rotulo').innerHTML = 'la subasta está <b>cerrada</b>';
       estado.innerHTML = '<b>Subasta cerrada</b>';
       pujaNota.textContent = 'La puja más alta que llegó antes de la hora se lleva la tarde.';
-      document.querySelectorAll('#btn-pujar, #btn-pujar-2').forEach(b => {
+      document.querySelectorAll('#btn-pujar, #btn-pujar-2, #btn-correo').forEach(b => {
         b.textContent = 'La subasta ya cerró';
         b.removeAttribute('href');
-        b.style.opacity = '.55';
+        b.style.opacity = '.5';
         b.style.pointerEvents = 'none';
       });
     }
@@ -433,27 +388,21 @@ function pintarCuenta(){
   cajas.h.textContent = dos(Math.floor(seg % 86400 / 3600));
   cajas.m.textContent = dos(Math.floor(seg % 3600 / 60));
   cajas.s.textContent = dos(seg % 60);
-
-  if (Date.now() >= inicio){
-    notaCierre.innerHTML = 'El plan ya ha empezado, pero la subasta sigue abierta hasta el cierre.';
-  }
 }
 
-/* ── estado de la puja ── */
 if (SUBASTA.mejor && SUBASTA.mejor > 0){
-  cifra.innerHTML = '<small>mejor puja</small> ' + SUBASTA.mejor + ' €';
+  cifra.innerHTML = '<small>mejor puja</small>' + SUBASTA.mejor + ' €';
   estado.innerHTML = SUBASTA.pujas + (SUBASTA.pujas === 1 ? ' puja recibida' : ' pujas recibidas');
   pujaNota.textContent = 'La siguiente puja mínima es de ' + (SUBASTA.mejor + SUBASTA.incremento) + ' €.';
 } else {
-  cifra.innerHTML = '<small>desde</small> ' + SUBASTA.salida + ' €';
+  cifra.innerHTML = '<small>desde</small>' + SUBASTA.salida + ' €';
   estado.textContent = 'Sin pujas todavía';
   pujaNota.textContent = 'La primera puja entra a ' + SUBASTA.salida + ' €. Después, de ' + SUBASTA.incremento + ' en ' + SUBASTA.incremento + '.';
 }
 
-/* ── el email, ya escrito ── */
-const enlace = 'mailto:' + SUBASTA.email + '?subject=' + encodeURIComponent(SUBASTA.asunto) + '&body=' + encodeURIComponent(SUBASTA.cuerpo);
-document.querySelectorAll('#btn-pujar, #btn-pujar-2').forEach(b => b.setAttribute('href', enlace));
-document.getElementById('btn-pujar-2').textContent = 'Pujar por correo';
+document.getElementById('btn-correo').setAttribute('href',
+  'mailto:' + SUBASTA.email + '?subject=' + encodeURIComponent(SUBASTA.asunto) + '&body=' + encodeURIComponent(SUBASTA.cuerpo));
+document.querySelectorAll('#btn-pujar, #btn-pujar-2').forEach(b => b.setAttribute('href', SUBASTA.dm));
 
 pintarCuenta();
 setInterval(pintarCuenta, 1000);
