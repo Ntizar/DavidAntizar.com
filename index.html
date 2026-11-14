@@ -443,6 +443,51 @@ html.abierto .carta[data-rareza="legendaria"] .carta__destello{
   .escena{animation:none}
   .pack__reflejo,.pack__arte-giro{animation:none;opacity:.18}
 }
+
+/* ── la apertura: luz, no purpurina ── */
+.fulgor{
+  position:absolute;left:50%;top:9%;width:86%;aspect-ratio:1;
+  transform:translate(-50%,-50%) scale(.25);
+  background:radial-gradient(circle,rgba(255,253,246,1) 0%,rgba(210,190,255,.75) 26%,rgba(140,180,255,.35) 48%,rgba(140,180,255,0) 72%);
+  opacity:0;pointer-events:none;z-index:9;filter:blur(10px);
+}
+html.abierto .fulgor{animation:fulgor .95s cubic-bezier(.2,.7,.2,1) both}
+@keyframes fulgor{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.25)}
+  14%{opacity:1;transform:translate(-50%,-50%) scale(1.05)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(2.1)}
+}
+/* la onda: el aire que empuja el sobre al abrirse */
+.onda{
+  position:absolute;left:50%;top:11%;width:44%;aspect-ratio:1;z-index:8;pointer-events:none;
+  border-radius:50%;border:1px solid rgba(255,250,240,.85);
+  box-shadow:0 0 24px rgba(190,200,255,.7),inset 0 0 24px rgba(255,255,255,.5);
+  opacity:0;transform:translate(-50%,-50%) scale(.2);
+}
+html.abierto .onda{animation:onda 1s ease-out both}
+html.abierto .onda:nth-of-type(2){animation-delay:.12s}
+@keyframes onda{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}
+  12%{opacity:.9}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(2.5)}
+}
+/* el haz que sale del desgarro */
+.rayo{
+  position:absolute;left:50%;top:0;width:34%;height:74%;z-index:7;pointer-events:none;
+  transform:translate(-50%,-40%) scaleY(.3);transform-origin:top center;
+  background:linear-gradient(180deg,rgba(255,252,244,.9),rgba(200,190,255,.40) 34%,rgba(160,180,255,0) 78%);
+  clip-path:polygon(38% 0,62% 0,100% 100%,0 100%);
+  filter:blur(7px);opacity:0;
+}
+html.abierto .rayo{animation:rayo .8s ease-out both}
+@keyframes rayo{
+  0%{opacity:0;transform:translate(-50%,-40%) scaleY(.25)}
+  18%{opacity:.95;transform:translate(-50%,-46%) scaleY(1)}
+  100%{opacity:0;transform:translate(-50%,-52%) scaleY(1.15)}
+}
+@media (prefers-reduced-motion:reduce){
+  .fulgor,.onda,.rayo{display:none}
+}
 </style>
 </head>
 <body>
@@ -451,7 +496,6 @@ html.abierto .carta[data-rareza="legendaria"] .carta__destello{
 <main>
   <section class="portada" id="portada">
     <div class="escena">
-      <canvas id="chispas" aria-hidden="true"></canvas>
       <button class="pack" id="pack" type="button" aria-expanded="false" aria-controls="cartas" aria-label="Tirar de la pestaña para abrir el sobre y ver las cartas">
         <span class="pack__cuerpo">
           <span class="pack__aro" aria-hidden="true"></span>
@@ -470,6 +514,8 @@ html.abierto .carta[data-rareza="legendaria"] .carta__destello{
         <span class="pack__tira" aria-hidden="true"></span>
         <span class="pack__lengueta" aria-hidden="true"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6M6 12l6-6 6 6"/></svg></b></span>
         <span class="fulgor" aria-hidden="true"></span>
+        <span class="onda" aria-hidden="true"></span>
+        <span class="rayo" aria-hidden="true"></span>
       </button>
     </div>
   </section>
@@ -576,7 +622,6 @@ function rasgar(){
   if (raiz.classList.contains('abierto')) return;
   raiz.classList.add('abierto');
   pack.setAttribute('aria-expanded','true');
-  chispas();
   setTimeout(() => {
     const sec = document.getElementById('cartas');
     if (sec) sec.focus({ preventScroll:true });
@@ -667,46 +712,6 @@ if (matchMedia('(hover:hover) and (pointer:fine)').matches && !reduce){
   }, true);
 }
 
-/* ── chispas de papel al rasgar ───────────────────────── */
-function chispas(){
-  const cv = document.getElementById('chispas');
-  if (!cv || reduce) return;
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  const caja = cv.parentElement.getBoundingClientRect();
-  cv.width = Math.round(caja.width * dpr); cv.height = Math.round(caja.height * dpr);
-  cv.style.width = caja.width + 'px'; cv.style.height = caja.height + 'px';
-  const ctx = cv.getContext('2d');
-  ctx.scale(dpr, dpr);
-  const W = caja.width, H = caja.height, cx = W/2, cy = H*0.08;
-  const COLORES = ['#E0B25C','#F7F3EA','#A8731B','#8FA3FF','#C05B8C','#57C27A'];
-  const piezas = Array.from({length: 84}, () => {
-    const a = -Math.PI/2 + (Math.random()-.5) * 2.5;
-    const v = 2.6 + Math.random() * 7.4;
-    return { x:cx, y:cy, vx:Math.cos(a)*v*(1+Math.random()), vy:Math.sin(a)*v,
-             g:.12+Math.random()*.1, w:2+Math.random()*5, h:2+Math.random()*7,
-             rot:Math.random()*6.28, vr:(Math.random()-.5)*.3,
-             c:COLORES[(Math.random()*COLORES.length)|0], vida:1 };
-  });
-  let t0 = performance.now();
-  (function paso(t){
-    const dt = Math.min((t - t0) / 16.67, 2.4); t0 = t;
-    ctx.clearRect(0,0,W,H);
-    let vivos = 0;
-    for (const p of piezas){
-      if (p.vida <= 0) continue;
-      p.vy += p.g * dt; p.x += p.vx*dt; p.y += p.vy*dt;
-      p.vx *= .995; p.rot += p.vr*dt; p.vida -= .0095*dt;
-      if (p.vida > 0){
-        vivos++;
-        ctx.save(); ctx.globalAlpha = Math.max(p.vida,0); ctx.fillStyle = p.c;
-        ctx.translate(p.x,p.y); ctx.rotate(p.rot);
-        ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore();
-      }
-    }
-    if (vivos) requestAnimationFrame(paso);
-    else ctx.clearRect(0,0,W,H);
-  })(performance.now());
-}
 </script>
 </body>
 </html>
