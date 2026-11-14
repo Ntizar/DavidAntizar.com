@@ -26,6 +26,11 @@
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/img/icono-touch.png">
+<!-- fuentes: se piden YA (las de las cartas viven dentro de un display:none y llegarían con el clic) -->
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/space-grotesk-400.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/space-grotesk-500.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/space-grotesk-600.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/space-grotesk-700.woff2" crossorigin>
 <style>
 @font-face{font-family:'Space Grotesk';font-style:normal;font-weight:300;font-display:swap;src:url('assets/fonts/space-grotesk-300.woff2') format('woff2')}
 @font-face{font-family:'Space Grotesk';font-style:normal;font-weight:400;font-display:swap;src:url('assets/fonts/space-grotesk-400.woff2') format('woff2')}
@@ -61,9 +66,10 @@ body{
 a{color:inherit}
 svg{display:block}
 
-/* luz ambiente */
+/* luz ambiente — el degradado radial ya se apaga solo: el blur(70px) de tres capas de
+   64vmax era rasterizar media pantalla tres veces por frame sin aportar nada */
 .ambiente{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.ambiente span{position:absolute;border-radius:50%;filter:blur(70px);animation:respira 14s ease-in-out infinite}
+.ambiente span{position:absolute;border-radius:50%;animation:respira 14s ease-in-out infinite}
 .ambiente .a1{width:64vmax;height:64vmax;left:50%;top:-30vmax;transform:translateX(-50%);
   background:radial-gradient(circle,rgba(224,178,92,.13),rgba(224,178,92,0) 64%)}
 .ambiente .a2{width:52vmax;height:52vmax;right:-18vmax;top:14vh;
@@ -84,14 +90,14 @@ body::after{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:clamp(1.2rem,3vh,2.2rem);
   padding:clamp(1rem,4vh,2rem);
-  transition:opacity .55s ease, height .7s var(--ease) .25s, padding .7s var(--ease) .25s;
+  transition:opacity .5s ease;
   overflow:hidden;
 }
 .escena{position:relative;display:flex;align-items:center;justify-content:center}
 .escena::before{
   content:'';position:absolute;left:50%;top:50%;width:150%;aspect-ratio:1;transform:translate(-50%,-50%);
-  background:radial-gradient(circle,rgba(224,178,92,.16),rgba(224,178,92,0) 62%);
-  filter:blur(30px);pointer-events:none;
+  background:radial-gradient(circle,rgba(224,178,92,.16),rgba(224,178,92,.06) 36%,rgba(224,178,92,0) 62%);
+  pointer-events:none;
 }
 #chispas{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:5}
 
@@ -103,8 +109,11 @@ body::after{
   transform-style:preserve-3d;
   -webkit-tap-highlight-color:transparent;
   transition:transform .45s var(--ease);
-  filter:drop-shadow(0 42px 55px rgba(0,0,0,.72));
 }
+/* sin drop-shadow en el padre: un `filter` sobre un elemento con preserve-3d lo aplana
+   (adiós inclinación 3D real) y además se re-rasteriza en cada frame del seguimiento del
+   puntero. La sombra va en el cuerpo, que es quien la proyecta */
+.pack.siguiendo{transition:none}
 .pack:active{cursor:grabbing}
 .pack:hover{transform:rotate(-.4deg) rotateX(calc(3deg + var(--tx,0deg))) rotateY(var(--ty,0deg)) translateY(-6px)}
 .pack:focus-visible{outline:2px solid var(--oro);outline-offset:12px;border-radius:18px}
@@ -118,7 +127,9 @@ body::after{
   box-shadow:
     inset 0 0 0 1px rgba(255,255,255,.75),
     inset 0 2px 0 #fff,
-    inset 0 -2px 0 rgba(88,96,110,.45);
+    inset 0 -2px 0 rgba(88,96,110,.45),
+    0 40px 52px -18px rgba(0,0,0,.82),
+    0 10px 22px -10px rgba(0,0,0,.6);
 }
 /* la irisación de la lámina */
 .pack__aro{
@@ -146,8 +157,7 @@ body::after{
 /* el halo del portal: lo que lo funde con la lámina en vez de pegarlo */
 .pack__arte::after{
   content:'';position:absolute;inset:-14%;z-index:-1;pointer-events:none;
-  background:radial-gradient(closest-side at 50% 50%,rgba(150,110,255,.55),rgba(90,150,255,.28) 55%,rgba(90,150,255,0) 78%);
-  filter:blur(16px);
+  background:radial-gradient(closest-side at 50% 50%,rgba(150,110,255,.55),rgba(90,150,255,.14) 46%,rgba(90,150,255,.05) 62%,rgba(90,150,255,0) 78%);
 }
 .pack__arte img{
   width:100%;height:100%;object-fit:cover;display:block;
@@ -222,7 +232,16 @@ html.abierto .fulgor{animation:fulgor .85s ease-out both}
   100%{opacity:0;transform:translate(-50%,-50%) scale(2.6)}
 }
 html.abierto .pista{opacity:0;transition:opacity .3s}
-html.abierto .portada{height:0;min-height:0;padding:0;opacity:0;pointer-events:none}
+/* la portada sale de flujo (NO colapsa en alto): si colapsara, reflowearía justo
+   debajo del reveal y las cartas se verían deslizarse mientras entran, además de
+   recortar el fulgor y la onda a media animación */
+html.abierto .portada{
+  position:absolute;left:0;right:0;top:0;z-index:6;
+  height:100svh;pointer-events:none;
+}
+/* y cuando el estallido ya terminó, fuera del árbol: nada de animaciones infinitas
+   ni de capas enormes con blur trabajando de fondo mientras se ven las cartas */
+html.cerrado .portada{display:none}
 html.abierto .escena{pointer-events:none}
 
 /* ── las cartas ────────────────────────────────────────── */
@@ -249,8 +268,11 @@ html.js:not(.abierto) .cartas{display:none}
   box-shadow:inset 0 0 0 1px rgba(247,243,234,.08),inset 0 1px 0 rgba(247,243,234,.10),0 18px 34px -22px rgba(0,0,0,.95);
   transform:translateY(0) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
   transition:transform .45s var(--ease),box-shadow .45s var(--ease),background .4s;
-  will-change:transform;
 }
+/* mientras el puntero la está inclinando, sin transición: con .45s el giro va 450ms por
+   detrás del ratón y se siente pastoso. will-change solo al usarla, no 8 capas fijas */
+.carta.siguiendo{transition:box-shadow .45s var(--ease),background .4s}
+.carta:hover,.carta:focus-visible{will-change:transform}
 .carta:hover,.carta:focus-visible{
   transform:translateY(-8px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
   box-shadow:
@@ -554,6 +576,13 @@ html.abierto .rayo{animation:rayo .8s ease-out both}
 <script>
 document.documentElement.classList.add('js');
 
+/* las fuentes de las cartas (500/600/700) viven en un subárbol display:none, así que el
+   navegador no las pide hasta abrir: se fuerzan AHORA para que el reveal no cambie de letra */
+if (document.fonts && document.fonts.load) {
+  ['500 16px "Space Grotesk"','600 16px "Space Grotesk"','700 16px "Space Grotesk"']
+    .forEach(f => document.fonts.load(f).catch(() => {}));
+}
+
 /* ══════════════════════════════════════════════════════════
    LAS CARTAS — añade un objeto y sale su carta sola
    rareza: "comun" | "rara" | "holo" | "legendaria"
@@ -608,7 +637,7 @@ rejilla.innerHTML = SECCIONES.map((s,i) => {
     <span class="carta__dorso" aria-hidden="true"></span>
     <span class="carta__destello" aria-hidden="true"></span>
     <span class="carta__ventana">
-      <img class="carta__material" src="assets/cartas/${s.material}.webp" alt="${s.alt}" width="720" height="720" loading="lazy" decoding="async">
+      <img class="carta__material" src="assets/cartas/${s.material}.webp" alt="${s.alt}" width="720" height="720" decoding="async">
       <span class="carta__glifo" aria-hidden="true">${GLIFOS[s.glifo || s.material] || ''}</span>
       <span class="carta__brillo" aria-hidden="true"></span>
     </span>
@@ -636,18 +665,22 @@ function rasgar(){
     const sec = document.getElementById('cartas');
     if (sec) sec.focus({ preventScroll:true });
   }, reduce ? 60 : 1200);
+  /* el estallido dura ~1.9s (la legendaria es la última): cuando acaba, la portada
+     sale del árbol y deja de haber capas y animaciones corriendo de fondo */
+  setTimeout(() => raiz.classList.add('cerrado'), reduce ? 700 : 1900);
 }
 pack.addEventListener('click', rasgar);
 
-/* el reflejo sigue al puntero */
+/* las ocho láminas se decodifican ANTES de abrir: sin esto llegan en el clic, dentro de
+   un contenedor display:none, y las cartas salen vacías y luego "aparecen" */
+const laminas = [...rejilla.querySelectorAll('img.carta__material')];
+const calentar = () => laminas.forEach(img => { if (img.decode) img.decode().catch(() => {}); });
+if (document.readyState === 'complete') calentar();
+else addEventListener('load', calentar, { once:true });
+
+/* el reflejo sigue al puntero (dentro del mismo rAF que la inclinación: un solo
+   cálculo por frame en vez de tres escrituras de estilo por evento) */
 const luzPack = document.querySelector('.pack__luz');
-if (luzPack && matchMedia('(hover:hover) and (pointer:fine)').matches && !reduce){
-  pack.addEventListener('pointermove', (e) => {
-    const r = pack.getBoundingClientRect();
-    luzPack.style.setProperty('--mx', Math.round((e.clientX - r.left) / r.width * 100) + '%');
-    luzPack.style.setProperty('--my', Math.round((e.clientY - r.top) / r.height * 100) + '%');
-  });
-}
 
 /* tirar de la pestaña hacia arriba (además del clic) */
 const tira = document.querySelector('.pack__tira');
@@ -695,30 +728,66 @@ if (tira){
   });
 }
 
-/* inclinación del sobre con el puntero */
+/* inclinación del sobre con el puntero — 1 cálculo por frame (rAF), sin transición
+   mientras se sigue, y el rect se cachea: leerlo en cada pointermove forzaba layout */
 if (matchMedia('(hover:hover) and (pointer:fine)').matches && !reduce){
   const escena = document.querySelector('.escena');
+  let r = pack.getBoundingClientRect(), pend = null, raf = 0;
+  const pintar = () => {
+    raf = 0;
+    if (!pend) return;
+    const { x, y } = pend; pend = null;
+    pack.style.setProperty('--ty', (((x - r.left) / r.width - .5) * 16).toFixed(2) + 'deg');
+    pack.style.setProperty('--tx', (-((y - r.top) / r.height - .5) * 12).toFixed(2) + 'deg');
+    if (luzPack){
+      luzPack.style.setProperty('--mx', Math.round((x - r.left) / r.width * 100) + '%');
+      luzPack.style.setProperty('--my', Math.round((y - r.top) / r.height * 100) + '%');
+    }
+  };
+  escena.addEventListener('pointerenter', () => {
+    r = pack.getBoundingClientRect();
+    pack.classList.add('siguiendo');
+  });
   escena.addEventListener('pointermove', (e) => {
-    const r = pack.getBoundingClientRect();
-    pack.style.setProperty('--ty', (((e.clientX - r.left) / r.width - .5) * 16).toFixed(2) + 'deg');
-    pack.style.setProperty('--tx', (-((e.clientY - r.top) / r.height - .5) * 12).toFixed(2) + 'deg');
+    pend = { x: e.clientX, y: e.clientY };
+    if (!raf) raf = requestAnimationFrame(pintar);
   });
   escena.addEventListener('pointerleave', () => {
+    pack.classList.remove('siguiendo');
+    pend = null;
     pack.style.removeProperty('--tx'); pack.style.removeProperty('--ty');
   });
 }
 
-/* inclinación de cada carta */
+/* inclinación de cada carta — la que se abandona se endereza sola (antes se quedaba
+   torcida hasta salir de la rejilla entera) */
 if (matchMedia('(hover:hover) and (pointer:fine)').matches && !reduce){
+  let actual = null, r = null, pend = null, raf = 0;
+  const enderezar = (c) => {
+    c.classList.remove('siguiendo');
+    c.style.removeProperty('--rx'); c.style.removeProperty('--ry');
+  };
+  const pintar = () => {
+    raf = 0;
+    if (!pend || !actual) return;
+    const { x, y } = pend; pend = null;
+    actual.style.setProperty('--ry', (((x - r.left) / r.width - .5) * 8).toFixed(2) + 'deg');
+    actual.style.setProperty('--rx', (-((y - r.top) / r.height - .5) * 8).toFixed(2) + 'deg');
+  };
   rejilla.addEventListener('pointermove', (e) => {
-    const carta = e.target.closest('.carta');
+    const carta = e.target.closest ? e.target.closest('.carta') : null;
     if (!carta) return;
-    const r = carta.getBoundingClientRect();
-    carta.style.setProperty('--ry', (((e.clientX - r.left) / r.width - .5) * 8).toFixed(2) + 'deg');
-    carta.style.setProperty('--rx', (-((e.clientY - r.top) / r.height - .5) * 8).toFixed(2) + 'deg');
+    if (carta !== actual){
+      if (actual) enderezar(actual);
+      actual = carta; r = carta.getBoundingClientRect();
+      carta.classList.add('siguiendo');
+    }
+    pend = { x: e.clientX, y: e.clientY };
+    if (!raf) raf = requestAnimationFrame(pintar);
   });
   rejilla.addEventListener('pointerleave', () => {
-    rejilla.querySelectorAll('.carta').forEach(c => { c.style.removeProperty('--rx'); c.style.removeProperty('--ry'); });
+    if (actual) { enderezar(actual); actual = null; }
+    pend = null;
   }, true);
 }
 
