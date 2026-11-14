@@ -460,8 +460,8 @@ html.abierto .fulgor{animation:fulgor .95s cubic-bezier(.2,.7,.2,1) both}
 /* la onda: el aire que empuja el sobre al abrirse */
 .onda{
   position:absolute;left:50%;top:11%;width:44%;aspect-ratio:1;z-index:8;pointer-events:none;
-  border-radius:50%;border:1px solid rgba(255,250,240,.85);
-  box-shadow:0 0 24px rgba(190,200,255,.7),inset 0 0 24px rgba(255,255,255,.5);
+  border-radius:50%;border:2px solid rgba(255,252,246,1);
+  box-shadow:0 0 34px rgba(200,210,255,.9),inset 0 0 30px rgba(255,255,255,.75);
   opacity:0;transform:translate(-50%,-50%) scale(.2);
 }
 html.abierto .onda{animation:onda 1s ease-out both}
@@ -476,8 +476,8 @@ html.abierto .onda:nth-of-type(2){animation-delay:.12s}
   position:absolute;left:50%;top:0;width:34%;height:74%;z-index:7;pointer-events:none;
   transform:translate(-50%,-40%) scaleY(.3);transform-origin:top center;
   background:linear-gradient(180deg,rgba(255,252,244,.9),rgba(200,190,255,.40) 34%,rgba(160,180,255,0) 78%);
-  clip-path:polygon(38% 0,62% 0,100% 100%,0 100%);
-  filter:blur(7px);opacity:0;
+  clip-path:polygon(36% 0,64% 0,100% 100%,0 100%);
+  filter:blur(4px);opacity:0;
 }
 html.abierto .rayo{animation:rayo .8s ease-out both}
 @keyframes rayo{
