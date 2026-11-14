@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="David Antizar">
+  <defs>
+    <linearGradient id="fondo" x1="0" y1="0" x2=".8" y2="1">
+      <stop offset="0" stop-color="#232C3E"/><stop offset=".55" stop-color="#0B0F17"/><stop offset="1" stop-color="#04060A"/>
+    </linearGradient>
+    <linearGradient id="oro" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFF6DC"/><stop offset=".45" stop-color="#E0B25C"/><stop offset="1" stop-color="#8A611C"/>
+    </linearGradient>
+    <linearGradient id="plata" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9AA3B4"/><stop offset=".22" stop-color="#FFFFFF"/><stop offset=".5" stop-color="#CBD1DC"/><stop offset=".78" stop-color="#FFFFFF"/><stop offset="1" stop-color="#8B93A2"/>
+    </linearGradient>
+    <radialGradient id="portal" cx=".42" cy=".36" r=".74">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset=".26" stop-color="#E3D2FF"/>
+      <stop offset=".58" stop-color="#6A6AFF"/>
+      <stop offset="1" stop-color="#070A14"/>
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#fondo)"/>
+  <rect x="16" y="7" width="32" height="50" rx="4" fill="url(#plata)"/>
+  <rect x="18" y="13" width="28" height="40" rx="2.5" fill="#070A10" stroke="url(#oro)" stroke-width="1.8"/>
+  <circle cx="32" cy="33" r="11" fill="url(#portal)"/>
+  <ellipse cx="28" cy="28.6" rx="3.4" ry="2.3" fill="#FFFFFF" opacity=".6"/>
+  <path d="M16 9.6h32M16 54.4h32" stroke="#05070A" stroke-opacity=".55" stroke-width="1.1"/>
+</svg>

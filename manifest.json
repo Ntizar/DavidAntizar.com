@@ -1,16 +1,31 @@
 {
-  "name": "David Antizar — otra manera de mirar al mundo",
-  "short_name": "D. Antizar",
-  "description": "La web de David Antizar como un Windows Phone: LinkedIn, Instagram, X, Kit72h y GitHub en Live Tiles.",
+  "name": "David Antizar — un sobre de cartas",
+  "short_name": "Cartas",
+  "description": "Ocho cartas, ocho puertas: LinkedIn, Instagram, X, correo, GitHub, Kit72h, el libro y una subasta.",
   "lang": "es",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#000000",
-  "theme_color": "#000000",
+  "background_color": "#05070A",
+  "theme_color": "#05070A",
   "icons": [
-    { "src": "assets/img/icono-app.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
-    { "src": "assets/img/icono-touch.png", "sizes": "180x180", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "assets/img/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/img/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/img/icono-touch.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
   ]
 }
