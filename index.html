@@ -235,6 +235,7 @@ html.js:not(.abierto) .cartas{display:none}
   position:relative;display:flex;flex-direction:column;text-decoration:none;color:inherit;
   border-radius:16px;padding:.5rem .5rem .05rem;
   background:linear-gradient(168deg,#10141B 0%,#0A0D12 58%,#0D1117 100%);
+  overflow:hidden;
   box-shadow:inset 0 0 0 1px rgba(247,243,234,.08),inset 0 1px 0 rgba(247,243,234,.10),0 18px 34px -22px rgba(0,0,0,.95);
   transform:translateY(0) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
   transition:transform .45s var(--ease),box-shadow .45s var(--ease),background .4s;
@@ -319,8 +320,60 @@ html.js:not(.abierto) .cartas{display:none}
 .carta__cinta i{width:.3rem;height:.3rem;border-radius:50%;background:#57C27A;box-shadow:0 0 8px #57C27A;animation:late 2.4s infinite}
 
 /* entrada en escena */
-html.abierto .carta{animation:reparte .85s var(--ease) both;animation-delay:calc(var(--i,0) * 70ms + 260ms)}
-@keyframes reparte{from{opacity:0;transform:translateY(46px) rotate(-4deg) scale(.94)}to{opacity:1;transform:none}}
+/* ── la apertura, por beats: salen, se voltean una a una y la rara hace pausa ── */
+html.abierto .carta{
+  animation-name:reparte;
+  animation-duration:.86s;
+  animation-timing-function:var(--ease);
+  animation-fill-mode:both;
+  animation-delay:calc(var(--i,0) * 95ms + 240ms);
+}
+@keyframes reparte{
+  0%{opacity:0;transform:translateY(46px) rotateY(74deg) rotate(-3deg) scale(.9)}
+  40%{opacity:1}
+  100%{opacity:1;transform:none}
+}
+/* el dorso: la carta sale de espaldas y se gira */
+.carta__dorso{
+  position:absolute;inset:0;z-index:5;border-radius:inherit;pointer-events:none;
+  background:
+    radial-gradient(60% 46% at 50% 30%,rgba(224,178,92,.14),rgba(224,178,92,0) 70%),
+    linear-gradient(160deg,#171C24 0%,#0A0C11 62%,#12161D 100%);
+  box-shadow:inset 0 0 0 1px rgba(224,178,92,.38),inset 0 0 0 6px rgba(10,12,17,.9);
+  display:grid;place-items:center;opacity:0;
+}
+.carta__dorso::before{
+  content:'DA';font-size:.7rem;font-weight:700;letter-spacing:.14em;color:rgba(224,178,92,.75);
+  border:1px solid rgba(224,178,92,.35);border-radius:50%;
+  width:1.7rem;aspect-ratio:1;display:grid;place-items:center;
+}
+html.abierto .carta__dorso{
+  animation-name:dorsoFuera;animation-duration:.86s;animation-fill-mode:both;
+  animation-delay:calc(var(--i,0) * 95ms + 240ms);animation-timing-function:linear;
+}
+@keyframes dorsoFuera{0%,40%{opacity:1}56%,100%{opacity:0}}
+/* la legendaria llega la última y con flash */
+html.abierto .carta[data-rareza="legendaria"]{
+  animation-delay:calc(var(--i,0) * 95ms + 520ms);
+  animation-duration:1.05s;
+}
+html.abierto .carta[data-rareza="legendaria"] .carta__dorso{
+  animation-delay:calc(var(--i,0) * 95ms + 520ms);
+}
+.carta__destello{
+  position:absolute;inset:-30%;z-index:6;pointer-events:none;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,240,200,.95),rgba(224,178,92,.55) 32%,rgba(224,178,92,0) 66%);
+  mix-blend-mode:screen;opacity:0;
+}
+html.abierto .carta[data-rareza="legendaria"] .carta__destello{
+  animation:destelloRaro 1.5s ease-out both;
+  animation-delay:calc(var(--i,0) * 95ms + 1200ms);
+}
+@keyframes destelloRaro{0%{opacity:0;transform:scale(.4)}18%{opacity:.95}100%{opacity:0;transform:scale(1.5)}}
+@media (prefers-reduced-motion:reduce){
+  html.abierto .carta,html.abierto .carta__dorso,html.abierto .carta__destello{animation:none!important;opacity:1}
+  .carta__dorso{display:none}
+}
 
 @media (max-width:600px){
   .rejilla{grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}
@@ -344,6 +397,52 @@ html.abierto .carta{animation:reparte .85s var(--ease) both;animation-delay:calc
 .noscript{position:relative;z-index:2;padding:0 clamp(1rem,3.5vw,2.4rem) 3rem;max-width:80rem;margin:0 auto}
 .noscript ul{list-style:none;margin:.7rem 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.5rem}
 .noscript a{display:inline-block;padding:.5rem .85rem;border-radius:999px;border:1px solid var(--linea);text-decoration:none;font-size:.85rem;color:var(--marfil-2)}
+
+/* ── capa de efectos: lo que lo hace parecer un objeto ── */
+.escena{animation:flota 9s ease-in-out infinite}
+@keyframes flota{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+/* el reflejo que sigue al ratón: la señal de que es lámina */
+.pack__luz{
+  position:absolute;inset:0;z-index:3;border-radius:12px;pointer-events:none;
+  background:radial-gradient(40% 46% at var(--mx,30%) var(--my,16%),
+    rgba(255,255,255,.85),rgba(255,255,255,.16) 46%,rgba(255,255,255,0) 74%);
+  mix-blend-mode:screen;opacity:.5;transition:opacity .35s;
+}
+.pack:hover .pack__luz{opacity:.9}
+/* un reflejo que pasa solo cada pocos segundos */
+.pack__reflejo{
+  position:absolute;inset:-40%;pointer-events:none;mix-blend-mode:screen;opacity:0;
+  background:linear-gradient(112deg,rgba(255,255,255,0) 44%,rgba(255,255,255,.7) 50%,rgba(255,255,255,0) 56%);
+  animation:reflejoAuto 7s ease-in-out infinite;
+}
+@keyframes reflejoAuto{
+  0%,58%{opacity:0;transform:translateX(-75%)}
+  68%{opacity:.85}
+  100%{opacity:0;transform:translateX(75%)}
+}
+/* el portal gira: dos copias mezcladas en screen */
+.pack__arte-giro{
+  position:absolute;inset:-8%;width:116%;height:116%;object-fit:cover;
+  opacity:.34;mix-blend-mode:screen;animation:giraPortal 64s linear infinite;
+  -webkit-mask-image:radial-gradient(closest-side,#000 42%,transparent 76%);
+  mask-image:radial-gradient(closest-side,#000 42%,transparent 76%);
+}
+@keyframes giraPortal{to{transform:rotate(360deg)}}
+/* cremalleras con dientes redondeados */
+.pack__cremallera{
+  height:13px;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.95) 0 2px,rgba(146,154,168,.55) 2px 4px);
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.9),inset 0 -2px 2px rgba(60,68,84,.45);
+}
+.pack__tira::before{
+  content:'';position:absolute;left:0;right:0;top:0;height:12px;z-index:1;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.95) 0 2px,rgba(146,154,168,.5) 2px 4px);
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.9),inset 0 -1px 0 rgba(90,98,112,.4);
+}
+@media (prefers-reduced-motion:reduce){
+  .escena{animation:none}
+  .pack__reflejo,.pack__arte-giro{animation:none;opacity:.18}
+}
 </style>
 </head>
 <body>
@@ -356,9 +455,11 @@ html.abierto .carta{animation:reparte .85s var(--ease) both;animation-delay:calc
       <button class="pack" id="pack" type="button" aria-expanded="false" aria-controls="cartas" aria-label="Tirar de la pestaña para abrir el sobre y ver las cartas">
         <span class="pack__cuerpo">
           <span class="pack__aro" aria-hidden="true"></span>
+          <span class="pack__luz" aria-hidden="true"></span>
+          <span class="pack__reflejo" aria-hidden="true"></span>
           <span class="pack__brillo" aria-hidden="true"></span>
           <span class="pack__serie">serie 01</span>
-          <span class="pack__arte"><img src="assets/cartas/pack-portal.webp" alt="Portal cósmico violeta y azul" width="760" height="760" decoding="async"></span>
+          <span class="pack__arte"><img src="assets/cartas/pack-portal.webp" alt="Portal cósmico violeta y azul" width="760" height="760" decoding="async"><img class="pack__arte-giro" src="assets/cartas/pack-portal.webp" alt="" aria-hidden="true" width="760" height="760" decoding="async"></span>
           <span class="pack__pie" aria-hidden="true">
             <span>8 cartas · 1 legendaria</span>
             <b>tira de la pestaña ↑</b>
@@ -389,7 +490,7 @@ html.abierto .carta{animation:reparte .85s var(--ease) both;animation-delay:calc
       <li><a href="https://github.com/Ntizar?tab=repositories">GitHub</a></li>
       <li><a href="https://kit72h.com/">Kit72h</a></li>
       <li><a href="https://www.amazon.es/dp/B0CP8HS3TZ?tag=ntizar-21">El poni de Von der Leyen</a></li>
-      <li><a href="agorazein.html">La subasta del 17N</a></li>
+      <li><a href="subasta.html">La subasta del 17N</a></li>
     </ul>
   </div>
 </noscript>
@@ -434,8 +535,8 @@ const SECCIONES = [
   { id:'libro', nombre:'El poni de Von der Leyen', rasgo:'libro',
     url:'https://www.amazon.es/dp/B0CP8HS3TZ?tag=ntizar-21', ext:true,
     tono:'#0E4230', rareza:'holo', material:'libro', alt:'Libro de tela verde con cantos de papel' },
-  { id:'agora', nombre:'Una tarde con Agorazein', rasgo:'subasta',
-    url:'agorazein.html', ext:false,
+  { id:'agora', nombre:'Una tarde conmigo y mis colegas', rasgo:'subasta',
+    url:'subasta.html', ext:false,
     tono:'#A8731B', rareza:'legendaria', material:'agora', alt:'Fragmento de resina ámbar', cinta:'subasta abierta' }
 ];
 
@@ -448,6 +549,8 @@ rejilla.innerHTML = SECCIONES.map((s,i) => {
   return `<a class="carta" data-rareza="${s.rareza}" data-id="${s.id}" style="--i:${i};--tono:${s.tono}"
       href="${s.url}"${s.ext ? ' target="_blank" rel="noopener"' : ''} aria-label="${s.nombre} — ${s.rasgo}">
     ${s.cinta ? `<span class="carta__cinta"><i aria-hidden="true"></i>${s.cinta}</span>` : ''}
+    <span class="carta__dorso" aria-hidden="true"></span>
+    <span class="carta__destello" aria-hidden="true"></span>
     <span class="carta__ventana">
       <img class="carta__material" src="assets/cartas/${s.material}.webp" alt="${s.alt}" width="720" height="720" loading="lazy" decoding="async">
       <span class="carta__glifo" aria-hidden="true">${GLIFOS[s.glifo || s.material] || ''}</span>
@@ -480,6 +583,16 @@ function rasgar(){
   }, reduce ? 60 : 1200);
 }
 pack.addEventListener('click', rasgar);
+
+/* el reflejo sigue al puntero */
+const luzPack = document.querySelector('.pack__luz');
+if (luzPack && matchMedia('(hover:hover) and (pointer:fine)').matches && !reduce){
+  pack.addEventListener('pointermove', (e) => {
+    const r = pack.getBoundingClientRect();
+    luzPack.style.setProperty('--mx', Math.round((e.clientX - r.left) / r.width * 100) + '%');
+    luzPack.style.setProperty('--my', Math.round((e.clientY - r.top) / r.height * 100) + '%');
+  });
+}
 
 /* tirar de la pestaña hacia arriba (además del clic) */
 const tira = document.querySelector('.pack__tira');
