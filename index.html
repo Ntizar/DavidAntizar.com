@@ -3,15 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>David Antizar — Windows Phone</title>
-<meta name="description" content="La web de David Antizar como un Windows Phone: LinkedIn, Instagram, X, Kit72h, GitHub y su libro en Live Tiles de cristal.">
-<meta name="theme-color" content="#05070a">
+<title>David Antizar — un sobre de cartas</title>
+<meta name="description" content="La web de David Antizar como un sobre de cartas: cada carta abre una puerta. LinkedIn, Instagram, X, GitHub, Kit72h, su libro y una legendaria en subasta.">
+<meta name="theme-color" content="#F1EADB">
 <link rel="canonical" href="https://davidantizar.com/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="David Antizar — Windows Phone">
-<meta property="og:description" content="Live Tiles de cristal: LinkedIn, Instagram, X, Kit72h, GitHub y el libro.">
+<meta property="og:title" content="David Antizar — un sobre de cartas">
+<meta property="og:description" content="Ocho cartas dentro. Cada una abre una puerta. La última está en subasta.">
 <meta property="og:url" content="https://davidantizar.com/">
-<meta property="og:image" content="https://davidantizar.com/assets/img/icono-touch.png">
+<meta property="og:image" content="https://davidantizar.com/assets/img/og-cartas.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="assets/img/icono-app.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/img/icono-touch.png">
@@ -22,883 +23,617 @@
 @font-face{font-family:'Space Grotesk';font-style:normal;font-weight:600;font-display:swap;src:url('assets/fonts/space-grotesk-600.woff2') format('woff2')}
 @font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url('assets/fonts/space-grotesk-700.woff2') format('woff2')}
 
+/* ─────────────────────────────────────────────────────────────
+   davidantizar.com · un sobre de cartas
+   Sin dependencias, sin red, todo aquí dentro.
+   ───────────────────────────────────────────────────────────── */
+
 :root{
-  /* eclipse — vacío, espacio, marfil, champán */
-  --vacio:#05070a;
-  --espacio:#0b0e12;
-  --pizarra:#30383f;
-  --niebla:#8c969d;
-  --plata:#b7bfc3;
-  --marfil:#f6f2e9;
-  --champan:#d8c4a8;
-  --rosa:#c9ac9d;
-  --ambar:#eeb35a;
-  --acento:var(--champan);
-  --tinta:var(--marfil);
-  --tinta-2:rgba(246,242,233,.74);
-  --tinta-3:rgba(246,242,233,.56);
-  --g:11px;
-  --barra:26px;
-  --fuente:'Space Grotesk','Segoe UI Variable Text','Segoe UI',Roboto,system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+  --papel:#F1EADB;
+  --crema:#FCF9F1;
+  --tinta:#1E1C17;
+  --tinta-2:#5E574A;
+  --tinta-3:#766E60;
+  --linea:rgba(30,28,23,.13);
+  --oro:#A97C2A;
+  --r:20px;
+  --sombra:0 1px 1px rgba(46,36,20,.05),0 10px 20px -14px rgba(46,36,20,.30),0 34px 54px -44px rgba(46,36,20,.45);
+  --sombra-alta:0 2px 2px rgba(46,36,20,.06),0 18px 30px -16px rgba(46,36,20,.32),0 54px 70px -50px rgba(46,36,20,.5);
+  --ease:cubic-bezier(.2,.75,.2,1);
 }
 *,*::before,*::after{box-sizing:border-box}
-html{background:#05070a;overflow-x:hidden}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{
-  margin:0;min-height:100%;overflow-x:hidden;
-  font-family:var(--fuente);color:var(--tinta);
-  background:#05070a;
-  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-  overscroll-behavior-y:none;
+  margin:0;min-height:100%;
+  background:
+    radial-gradient(120% 78% at 50% -8%, #FCF7EC 0%, rgba(252,247,236,0) 62%),
+    radial-gradient(90% 58% at 50% 118%, #E7DCC6 0%, rgba(231,220,198,0) 72%),
+    var(--papel);
+  color:var(--tinta);
+  font-family:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:17px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
 }
 body::after{
-  content:'';position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.16;
-  mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:140px 140px;
+  content:'';position:fixed;inset:0;z-index:9;pointer-events:none;opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply;
 }
 a{color:inherit}
+svg{display:block}
 
-/* mientras el bloqueo manda, la página no existe: ni asoma ni scrollea */
-html.js:not(.abierto){overflow:hidden;height:100%}
-html.js:not(.abierto) body{height:100%;overflow:hidden}
-html.js:not(.abierto) .inicio{opacity:0;visibility:hidden}
-.inicio{transition:opacity .4s ease .3s}
+.salto{position:absolute;left:-9999px;top:0;z-index:30;background:var(--tinta);color:var(--crema);padding:.7rem 1.1rem;border-radius:0 0 12px 0;font-size:.85rem}
+.salto:focus{left:0}
 
-/* ---------- ambiente: el vacío, visto desde dentro ---------- */
-.ambiente{
-  position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;
-  background:
-    radial-gradient(120% 78% at 50% -12%, rgba(140,150,157,.10), transparent 64%),
-    radial-gradient(110% 72% at 50% 118%, rgba(216,196,168,.055), transparent 66%),
-    radial-gradient(60% 44% at 12% 22%, rgba(48,56,63,.16), transparent 72%);
-}
-.ambiente span{position:absolute;border-radius:50%;filter:blur(40px);pointer-events:none}
-.ambiente .a1{
-  width:92vmax;height:92vmax;left:50%;top:-58vmax;transform:translateX(-50%);
-  background:radial-gradient(circle,rgba(246,242,233,.075) 0%,rgba(246,242,233,.018) 40%,rgba(246,242,233,0) 66%);
-}
-.ambiente .a2{
-  width:60vmax;height:60vmax;right:-30vmax;bottom:-24vmax;
-  background:radial-gradient(circle,rgba(216,196,168,.075) 0%,rgba(216,196,168,0) 68%);
-}
-.ambiente .a3,.ambiente .a4,.ambiente .a5{display:none}
-/* ---------- barra de estado ---------- */
+/* ── barra ─────────────────────────────────────────────── */
 .barra{
-  position:fixed;inset:0 0 auto 0;height:var(--barra);z-index:40;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 14px;font-size:11px;letter-spacing:.02em;pointer-events:none;
+  position:relative;z-index:6;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  padding:clamp(.95rem,2.4vw,1.5rem) clamp(1.1rem,4vw,2.6rem);
+  max-width:90rem;margin:0 auto;
 }
-.barra__lado{display:flex;align-items:center;gap:6px}
-.barra__red{font-weight:600;font-size:10px;opacity:.9}
-.barra__hora{font-variant-numeric:tabular-nums;font-weight:600;font-size:11px}
-html:not(.abierto) .barra__hora{visibility:hidden}
-.barra svg{display:block;fill:currentColor}
-/* en un móvil de verdad la barra de estado ya existe: la falsa sobra en el bloqueo */
-@media (max-width:640px){html:not(.abierto) .barra{display:none}}
+.barra__firma{display:flex;align-items:baseline;gap:.6rem;text-decoration:none}
+.barra__nombre{font-weight:600;letter-spacing:-.015em;font-size:.98rem}
+.barra__lugar{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--tinta-3)}
+.barra__nav{display:flex;align-items:center;gap:1.15rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-2)}
+.barra__nav a{text-decoration:none;padding:.5rem 0;border-bottom:1px solid transparent;transition:border-color .25s,color .25s}
+.barra__nav a:hover,.barra__nav a:focus-visible{color:var(--tinta);border-color:var(--tinta)}
 
-/* ---------- bloqueo + lector de iris ---------- */
-.bloqueo{
-  position:fixed;inset:0;z-index:30;
-  height:100vh;height:-webkit-fill-available;height:100dvh;
-  display:flex;flex-direction:column;align-items:center;
-  padding:calc(var(--barra) + 8px) 26px calc(26px + env(safe-area-inset-bottom));
-  background:
-    radial-gradient(58% 40% at 50% 56%, rgba(246,242,233,.06), transparent 72%),
-    radial-gradient(70% 46% at 84% 6%, rgba(140,150,157,.13), transparent 70%),
-    radial-gradient(130% 26% at 50% 104%, rgba(216,196,168,.12), transparent 74%),
-    #05070a;
-  transition:transform .62s cubic-bezier(.2,.7,.25,1), opacity .42s ease;
+/* ── portada: el sobre ─────────────────────────────────── */
+.portada{
+  position:relative;
+  min-height:calc(100svh - 5rem);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:clamp(.9rem,2vw,1.5rem);
+  padding:0 clamp(1.1rem,4vw,2rem) clamp(2.2rem,5vw,3.6rem);
+  text-align:center;
 }
-.abierto .bloqueo{transform:translateY(-101%);opacity:0;pointer-events:none}
-.bloqueo__reloj{width:100%;max-width:462px;margin:5vh 0 0}
-.bloqueo__hora{
-  margin:0;font-size:clamp(62px,21vw,104px);line-height:.92;
-  font-weight:300;letter-spacing:-.03em;font-variant-numeric:tabular-nums;
-  text-shadow:0 0 46px rgba(246,242,233,.16);
-}
-.bloqueo__fecha{margin:14px 0 0;font-size:clamp(15px,4.4vw,19px);font-weight:300;color:var(--tinta-2)}
-.bloqueo__fecha::first-letter{text-transform:uppercase}
-.bloqueo__firma{
-  position:absolute;left:0;right:0;bottom:calc(18px + env(safe-area-inset-bottom));
-  margin:0;text-align:center;font-size:9.5px;letter-spacing:.42em;text-transform:uppercase;
-  color:rgba(246,242,233,.34);text-indent:.42em;
-}
+.portada__ojo{margin:0;font-size:clamp(.66rem,1.5vw,.76rem);letter-spacing:.28em;text-transform:uppercase;color:var(--tinta-3)}
+.portada__nombre{margin:0;font-size:clamp(1.9rem,6.4vw,3.6rem);line-height:1;letter-spacing:-.045em;font-weight:500}
+.portada__nombre em{font-style:normal;color:var(--oro)}
 
-/* grupo del lector: centrado exacto en la pantalla */
-.bloqueo__grupo{
-  position:absolute;left:50%;top:calc(50% + 16px);transform:translate(-50%,-50%);
-  display:flex;flex-direction:column;align-items:center;gap:18px;width:max-content;max-width:100%;
+.escena{position:relative;perspective:1500px;perspective-origin:50% 26%;margin:clamp(.2rem,1.2vw,.9rem) 0;display:flex;justify-content:center}
+/* sombra de contacto: lo que pega el sobre a la mesa */
+.escena::after{
+  content:'';position:absolute;left:50%;bottom:-1rem;width:min(27rem,70vw);height:1.6rem;
+  transform:translateX(-50%);border-radius:50%;
+  background:radial-gradient(50% 50% at 50% 50%,rgba(74,54,28,.34),rgba(74,54,28,0) 68%);
+  filter:blur(5px);pointer-events:none;
 }
-.lector{
-  display:flex;flex-direction:column;align-items:center;
-  background:none;border:0;padding:0;color:inherit;font:inherit;cursor:pointer;
+.sobre{
+  position:relative;display:block;
+  width:min(33rem,86vw);aspect-ratio:1.52;
+  border:0;padding:0;background:none;cursor:pointer;
+  transform:rotate(-1.7deg) rotateX(calc(6deg + var(--tx,0deg))) rotateY(var(--ty,0deg));
+  transform-style:preserve-3d;
   -webkit-tap-highlight-color:transparent;
+  transition:transform .4s var(--ease);
 }
-.lector:focus-visible{outline:none}
-.lector:focus-visible .lector__disco{filter:brightness(1.15)}
-.lector:focus-visible .eclipse .progreso{opacity:1;stroke-dashoffset:0;stroke:var(--marfil)}
-
-.lector__disco{
-  position:relative;width:min(76vw,272px);aspect-ratio:1;border-radius:50%;
-  display:grid;place-items:center;background:none;
-  transition:transform .55s cubic-bezier(.2,.7,.25,1), filter .5s ease;
+.sobre:hover{transform:rotate(-.6deg) rotateX(calc(6deg + var(--tx,0deg))) rotateY(var(--ty,0deg)) translateY(-4px)}
+.sobre:focus-visible{outline:2px solid var(--tinta);outline-offset:14px;border-radius:12px}
+.sobre__cuerpo{
+  position:absolute;inset:0;border-radius:10px;
+  background:linear-gradient(167deg,#FEFBF4 0%,#F8F2E4 40%,#E9DCC4 74%,#DFD0B4 100%);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 -2px 6px rgba(120,98,64,.16),
+    inset 2px 0 5px rgba(255,255,255,.5),
+    inset 0 0 64px rgba(150,125,85,.14),
+    0 3px 0 #DFD2B8,
+    0 5px 7px -2px rgba(110,88,54,.3);
 }
-.lector:active .lector__disco{transform:scale(.992)}
-.lector:hover .lector__disco{filter:brightness(1.07)}
-
-/* ---------- el eclipse: vacío, anillo roto, corona ---------- */
-.eclipse{width:100%;height:100%;display:block;overflow:visible}
-.eclipse .halo{animation:respiraHalo 9s ease-in-out infinite}
-.eclipse .disco{fill:url(#gradDisco)}
-.eclipse .limbo-calido{fill:none;stroke:rgba(216,196,168,.26);stroke-width:.6}
-.eclipse .anillo{fill:none;stroke:url(#gradAnillo);stroke-width:1.15;stroke-linecap:round;filter:url(#ondula);stroke-dasharray:118 26 41 13 92 31 57 19;stroke-dashoffset:34}
-.eclipse .corona-rayos,.eclipse .corona-plumas{transform-box:fill-box;transform-origin:center}
-.eclipse .corona-rayos line{stroke-linecap:round}
-.eclipse .corona-plumas path{fill:rgba(246,242,233,.40)}
-.eclipse .progreso{
-  fill:none;stroke:url(#gradProgreso);stroke-width:1.1;stroke-linecap:round;
-  stroke-dasharray:527.8;stroke-dashoffset:527.8;
-  transform:rotate(-90deg);transform-origin:120px 120px;opacity:0;
+/* el grano del papel */
+.sobre__cuerpo::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:.22;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='190' height='190'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.62' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='190' height='190' filter='url(%23p)'/%3E%3C/svg%3E");
 }
-.eclipse__giro{transform-box:view-box;transform-origin:120px 120px;animation:giraLento 210s linear infinite}
-@keyframes giraLento{to{transform:rotate(360deg)}}
-@keyframes respiraHalo{0%,100%{opacity:.80}50%{opacity:1}}
-
-.aviso{
-  margin:0 0 6px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;
-  color:rgba(246,242,233,.62);text-align:center;transition:color .3s ease;
-  animation:respira 4.4s ease-in-out infinite;
+/* el interior: al abrir, la solapa se va y aparece la cavidad con las cartas */
+.sobre__boca{
+  position:absolute;left:0;right:0;top:0;height:63%;
+  clip-path:polygon(0 0,100% 0,50% 100%,50% 100%);
+  background:linear-gradient(180deg,#C9B996 0%,#DCCFB2 34%,#EDE4CE 78%,#F4EDDA 100%);
+  box-shadow:inset 0 18px 20px -12px rgba(58,42,18,.65),inset 0 -3px 8px -3px rgba(255,255,255,.8);
+  transition:clip-path .9s var(--ease);
+  display:grid;place-items:center;overflow:hidden;
 }
-@keyframes respira{0%,100%{opacity:.55}50%{opacity:1}}
-
-/* estados: alinear el horizonte */
-.escaneando .eclipse__giro{animation-duration:16s}
-.escaneando .eclipse .corona-rayos{animation:pulsoCorona 1.25s ease-in-out infinite}
-.escaneando .eclipse .progreso{opacity:1;animation:progresa 1.78s linear forwards}
-.escaneando .aviso{color:var(--marfil);animation:none;letter-spacing:.30em}
-.escaneando .lector__disco{filter:brightness(1.14)}
-.verificado .eclipse .progreso{opacity:1;stroke-dashoffset:0;stroke:var(--marfil)}
-.verificado .eclipse .corona-rayos{animation:floreceCorona 1.15s ease-out forwards}
-.verificado .aviso{color:var(--champan);animation:none}
-@keyframes pulsoCorona{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.035)}}
-@keyframes floreceCorona{0%{opacity:.6;transform:scale(1)}55%{opacity:1;transform:scale(1.095)}100%{opacity:.96;transform:scale(1.03)}}
-@keyframes progresa{from{stroke-dashoffset:527.8}to{stroke-dashoffset:0}}
-
-/* ---------- inicio ---------- */
-.inicio{
-  position:relative;z-index:1;
-  width:100%;max-width:462px;margin:0 auto;
-  min-height:100dvh;display:flex;flex-direction:column;
-  padding:calc(var(--barra) + 16px) 16px calc(20px + env(safe-area-inset-bottom));
+.sobre--abierto .sobre__boca{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
+/* el fajo de cartas que hay dentro */
+.sobre__boca::before{
+  content:'';width:72%;height:70%;transform:translateY(8%) rotate(-.8deg);border-radius:4px;
+  background:linear-gradient(168deg,#FFFDF6 0%,#FBF5E6 60%,#F2E9D4 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(168,146,108,.55),
+    inset 0 0 0 4px rgba(255,255,255,.7),
+    0 4px 0 -1px #F6EEDA, 0 5px 0 -1px rgba(150,128,92,.45),
+    0 8px 0 -2px #F4EBD6, 0 9px 0 -2px rgba(150,128,92,.4),
+    0 12px 0 -3px #F1E8D2, 0 13px 0 -3px rgba(150,128,92,.35),
+    0 18px 26px -10px rgba(60,44,20,.45);
+  opacity:0;transition:opacity .45s ease .5s;
 }
-/* ---------- escritorio: la malla llena el lienzo ---------- */
-@media (min-width:640px){
-  .inicio{max-width:600px}
+.sobre--abierto .sobre__boca::before{opacity:1}
+/* el labio: la sombra que da el borde de arriba sobre lo que hay dentro */
+.sobre__boca::after{
+  content:'';position:absolute;left:0;right:0;top:0;height:2px;
+  background:linear-gradient(180deg,#FFFDF6,#E2D5BA);
 }
-
-.cabecera{margin:0 0 16px;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
-.cabecera__nombre{margin:0;font-size:20px;font-weight:600;letter-spacing:.01em}
-.cabecera__rol{margin:0;font-size:12px;font-weight:400;color:rgba(246,242,233,.78);letter-spacing:.02em}
-.cabecera__punto{
-  width:9px;height:9px;background:#05070a;border-radius:50%;flex:0 0 auto;transform:translateY(-3px);
-  box-shadow:0 0 0 1px rgba(246,242,233,.55), 0 0 12px rgba(246,242,233,.35);
+/* las costuras del dorso: dos pliegues que van de las esquinas al pico */
+.sobre__costura{
+  position:absolute;bottom:0;left:0;width:56%;height:1px;
+  background:linear-gradient(90deg,rgba(126,102,66,.30),rgba(126,102,66,.04));
+  transform-origin:left bottom;transform:rotate(-25.9deg);pointer-events:none;
 }
-
-.rejilla{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--g);grid-auto-rows:min-content}
-.rejilla{margin-bottom:auto}
-
-/* ---------- fichas: Metro, color oficial de cada marca ---------- */
-.ficha{
-  --glow:246,242,233;
-  position:relative;display:block;text-decoration:none;color:#fff;
-  outline:none;-webkit-tap-highlight-color:transparent;border-radius:2px;
-  transition:transform .16s ease, filter .25s ease;
+.sobre__costura--d{
+  left:auto;right:0;transform-origin:right bottom;transform:rotate(25.9deg);
+  background:linear-gradient(270deg,rgba(126,102,66,.30),rgba(126,102,66,.04));
 }
-.ficha:active{transform:scale(.978)}
-.ficha:focus-visible{outline:2px solid var(--acento);outline-offset:3px}
-.ficha--ancha{grid-column:span 4;aspect-ratio:358/167}
-.ficha--media{grid-column:span 2;aspect-ratio:1/1}
-@media (min-width:520px){.ficha--ancha{aspect-ratio:430/196}}
-
-.ficha__cara{
-  position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;
-  padding:14px 15px;overflow:hidden;border-radius:inherit;
-  background:#0b0e12;isolation:isolate;
-  border:1px solid var(--borde-ficha,rgba(246,242,233,.12));
-  box-shadow:inset 0 1px 0 rgba(246,242,233,.09), 0 1px 0 rgba(0,0,0,.35);
-  transition:opacity .38s ease, transform .42s cubic-bezier(.2,.7,.3,1), box-shadow .3s ease, border-color .3s ease;
+.sobre__solapa{
+  position:absolute;left:0;right:0;top:0;height:63%;
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  background:linear-gradient(178deg,#FEFCF6 0%,#F7F0E1 52%,#EADFC9 100%);
+  filter:drop-shadow(0 2px 2px rgba(90,70,40,.22));
+  transform-origin:top center;
+  transition:transform 1s var(--ease),opacity .28s ease;
+  backface-visibility:hidden;
 }
-/* el color de marca, atenuado por la luz del eclipse */
-.ficha__cara::before{
-  content:'';position:absolute;inset:0;z-index:0;background:var(--fondo-ficha,#151a1f);
-  filter:saturate(1.06) brightness(1.04) contrast(1.03);
-}
-/* luz rasante: la corona entra por arriba, el vacío por abajo */
-.ficha__cara::after{
-  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(140% 100% at 14% -10%, rgba(246,242,233,.17), rgba(246,242,233,0) 58%),
-    linear-gradient(180deg, rgba(7,9,12,0) 34%, rgba(7,9,12,.46) 100%);
-}
-.ficha:hover .ficha__cara{
-  border-color:rgba(var(--glow),.45);
-  box-shadow:inset 0 1px 0 rgba(246,242,233,.16), 0 0 0 1px rgba(var(--glow),.12), 0 14px 46px -10px rgba(var(--glow),.55);
-}
-.ficha__cara--detras{opacity:0;transform:translateY(5px);pointer-events:none}
-.ficha.girada .ficha__cara--detras{opacity:1;transform:none}
-.ficha.girada .ficha__cara--frente{opacity:0;transform:translateY(-5px)}
-
-.ficha__marca{display:flex;align-items:center;gap:8px;min-height:32px;position:relative;z-index:1}
-.ficha__marca svg{display:block;fill:#fff}
-.ficha__texto{position:relative;z-index:1;display:block}
-.ficha__titulo,.ficha__meta{display:block}
-.ficha__titulo{margin:0;font-weight:400;letter-spacing:-.005em;line-height:1.06;font-size:clamp(17px,4.5vw,20px)}
-.ficha__meta{margin:6px 0 0;font-size:13px;font-weight:500;color:rgba(255,255,255,.82);letter-spacing:.005em}
-.ficha--media .ficha__titulo{font-size:clamp(16px,4.2vw,18px)}
-.ficha--ancha .ficha__cara{flex-direction:row;align-items:center;justify-content:flex-start;gap:16px;padding:15px 16px}
-.ficha--ancha .ficha__marca{min-height:0;flex:0 0 auto}
-.ficha--ancha .ficha__texto{min-width:0;padding-right:34px}
-.ficha--ancha .ficha__titulo{font-size:clamp(21px,5.4vw,25px)}
-.ficha--ancha .marca-72{font-size:38px}
-.ficha__grande{margin:0;font-weight:600;line-height:.86;letter-spacing:-.03em;font-size:clamp(36px,12vw,52px);font-variant-numeric:tabular-nums}
-.ficha__cifra{font-size:clamp(30px,10vw,44px)}
-.ficha__flecha{position:absolute;right:14px;bottom:12px;font-size:11px;letter-spacing:.06em;color:rgba(255,255,255,.7);z-index:1}
-
-/* el alma: el glifo de la marca, gigante y respirando detrás del texto */
-.ficha__alma{
-  position:absolute;right:-12px;bottom:-26px;z-index:0;
-  font-size:130px;font-weight:700;line-height:1;letter-spacing:-.05em;
-  opacity:.1;color:#fff;pointer-events:none;
-  transition:transform .6s cubic-bezier(.2,.7,.3,1), opacity .4s ease;
-}
-.ficha__alma svg{width:1em;height:1em;display:block;fill:currentColor}
-.ficha:hover .ficha__alma{transform:translate(-10px,-10px) scale(1.06);opacity:.17}
-.f-linkedin .ficha__alma{color:#7ab5e8;font-size:100px;right:2px;bottom:-34px}
-.f-github .ficha__alma{color:#0d1117;font-size:180px;opacity:.07;right:-34px;bottom:-58px}
-.f-x .ficha__alma{font-size:170px;opacity:.08;right:-8px;bottom:-56px}
-.f-instagram .ficha__alma{font-size:150px;opacity:.13;right:-18px;bottom:-44px}
-.f-kit .ficha__alma{color:#e8e0cf;font-size:92px;opacity:.09;right:-4px;bottom:-20px}
-
-/* marcas en texto */
-.marca-in{
-  display:inline-grid;place-items:center;width:52px;height:52px;border-radius:9px;
-  background:#fff;color:#0a66c2;font-size:29px;font-weight:700;letter-spacing:-.01em;line-height:1;
-  box-shadow:0 2px 12px rgba(0,0,0,.3);
-}
-.marca-72{font-size:26px;font-weight:700;letter-spacing:-.03em;line-height:1}
-
-/* color oficial, a la luz de la misma corona */
-.f-linkedin{--fondo-ficha:#0a66c2}
-.f-github{--fondo-ficha:#181717}
-.f-x{--fondo-ficha:#000}
-.f-instagram{--fondo-ficha:linear-gradient(45deg,#4f5bd5 0%,#962fbf 26%,#d62976 52%,#fa7e1e 78%,#feda75 100%)}
-.f-kit{--fondo-ficha:#0E0C09}
-.f-kit .ficha__titulo{color:#e8e0cf}
-.f-kit .ficha__cara{border-color:rgba(232,224,207,.14)}
-.f-kit .marca-72{color:#e8e0cf}
-.f-kit .ficha__flecha{color:rgba(232,224,207,.7)}
-.f-kit .ficha__meta{
-  background:rgba(218,41,28,.24);color:#ffb4ad;padding:3px 10px;display:inline-block;
-  border-radius:2px;letter-spacing:.03em;
-}
-.f-libro{--fondo-ficha:#18222e}
-.f-libro .ficha__meta{color:#ff9900}
-/* el color de cada marca enciende su halo */
-.f-linkedin{--glow:10,102,194}
-.f-github{--glow:190,220,255}
-.f-github .ficha__titulo{color:#0d1117}
-.f-github .ficha__meta{color:rgba(13,17,23,.68)}
-.f-github .ficha__marca svg{fill:#0d1117}
-.f-github .ficha__cara{border-color:rgba(13,17,23,.15)}
-.f-x{--glow:235,235,235}
-.f-instagram{--glow:214,41,118}
-.f-kit{--glow:255,80,60}
-.f-libro{--glow:255,153,0}
-
-/* el libro: la ficha es el escaparate */
-.ficha__portada{
-  position:absolute;right:12px;top:50%;z-index:1;
-  height:calc(100% - 26px);aspect-ratio:313/500;
-  transform:translateY(-50%) rotate(-1deg);
-  border-radius:1px;overflow:hidden;
-  box-shadow:0 14px 28px -10px rgba(0,0,0,.85), 0 0 0 1px rgba(246,242,233,.24), 0 0 46px -6px rgba(255,153,0,.32);
-  transition:transform .5s cubic-bezier(.2,.7,.25,1), box-shadow .5s ease;
-}
-.ficha__portada img{width:100%;height:100%;object-fit:cover;display:block}
-/* lomo: la sombra que convierte el recorte en objeto */
-.ficha__portada::before{
-  content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
-  background:linear-gradient(90deg, rgba(0,0,0,.55), rgba(0,0,0,.10) 5%, rgba(246,242,233,.10) 6.5%, rgba(0,0,0,0) 9%);
-}
-.ficha__portada::after{
+.sobre__solapa::after{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,rgba(7,9,12,.28),rgba(7,9,12,0) 30%);
+  background:linear-gradient(148deg,rgba(255,255,255,.7),rgba(255,255,255,0) 44%);
+  clip-path:polygon(0 0,100% 0,50% 100%);
 }
-.ficha:hover .ficha__portada{
-  transform:translateY(-50%) rotate(0deg) scale(1.03);
-  box-shadow:0 16px 30px -10px rgba(0,0,0,.9), 0 0 0 1px rgba(246,242,233,.4), 0 0 62px -6px rgba(255,153,0,.55);
-}
-.f-libro .ficha__cara{padding-right:calc(30% + 10px)}
-.f-libro .ficha__marca{display:none}
-.f-libro .ficha__texto{padding-right:0}
-.f-libro .ficha__flecha{right:calc(30% + 14px);left:auto;bottom:12px;color:rgba(246,242,233,.82)}
-.f-libro .ficha__titulo{font-size:clamp(18px,4.8vw,22px);letter-spacing:-.015em;line-height:1.12;font-weight:700}
-.f-libro .ficha__cara--detras{padding-right:20px}
-
-/* ajustes por marca: color pleno, la corona ya da la luz */
-.f-instagram .ficha__cara::before{filter:saturate(1.12) brightness(1.02)}
-.f-github .ficha__cara::before{filter:none;background:#f6f8fa}
-.f-x .ficha__cara::before{filter:none;background:#000}
-.f-x .ficha__cara{border-color:rgba(246,242,233,.2)}
-.f-x .ficha__cara::after{
+/* sello de cera: irregular por el filtro #cera */
+.sobre__sello{
+  position:absolute;left:50%;top:63%;width:clamp(4rem,12.5%,5.4rem);aspect-ratio:1;
+  transform:translate(-50%,-55%);
+  border-radius:47% 53% 49% 51%/51% 47% 53% 49%;
   background:
-    radial-gradient(130% 95% at 18% -12%, rgba(246,242,233,.26), rgba(246,242,233,0) 62%),
-    linear-gradient(180deg, rgba(7,9,12,0) 44%, rgba(7,9,12,.42) 100%);
+    radial-gradient(46% 42% at 34% 26%,rgba(255,206,180,.22),rgba(255,206,180,0) 76%),
+    radial-gradient(64% 62% at 68% 80%,rgba(30,6,1,.7),rgba(30,6,1,0) 72%),
+    linear-gradient(148deg,#AE3F28 0%,#8E2716 40%,#631708 100%);
+  box-shadow:
+    0 7px 11px -3px rgba(64,18,6,.55),
+    inset 0 1px 1px rgba(255,216,192,.22),
+    inset 0 -3px 6px rgba(34,6,1,.55);
+  filter:url(#cera);
+  display:grid;place-items:center;z-index:4;
+  transition:transform .55s var(--ease),opacity .45s ease;
 }
-.f-github .ficha__cara::after{
-  background:
-    radial-gradient(130% 95% at 18% -12%, rgba(255,255,255,.55), rgba(255,255,255,0) 62%),
-    linear-gradient(180deg, rgba(255,255,255,0) 40%, rgba(13,17,23,.07) 100%);
+/* la gota que se desborda: sin esto la cera parece un botón */
+.sobre__sello::after{
+  content:'';position:absolute;left:58%;top:56%;width:52%;height:46%;z-index:-1;
+  border-radius:56% 44% 52% 48%/48% 58% 42% 52%;
+  background:linear-gradient(150deg,#A63A24,#74200F);
+  transform:rotate(-22deg);
+  box-shadow:0 3px 5px -2px rgba(64,18,6,.5);
+}
+/* el aro grabado y la firma en hueco */
+.sobre__sello::before{
+  content:'';position:absolute;inset:16%;border-radius:inherit;
+  box-shadow:inset 0 1px 1px rgba(255,216,192,.2),inset 0 -1px 2px rgba(30,6,1,.45);
+}
+.sobre__sello span{
+  position:relative;font-size:clamp(.78rem,2.2vw,1rem);font-weight:600;letter-spacing:.09em;
+  color:rgba(255,232,212,.82);
+  text-shadow:0 1px 1px rgba(48,10,2,.75),0 -1px 0 rgba(255,240,225,.18);
+}
+.sobre--abierto .sobre__solapa{transform:rotateX(-168deg);opacity:0;transition:transform 1s var(--ease),opacity .3s ease .45s}
+.sobre--abierto .sobre__sello{transform:translate(-50%,-55%) scale(1.4) rotate(-17deg);opacity:0}
+
+/* la etiqueta que se pega al sobre */
+.etiqueta{
+  position:absolute;right:clamp(-.4rem,-1vw,-1rem);bottom:clamp(-1.4rem,-2vw,-2rem);
+  transform:rotate(5deg);
+  display:inline-flex;align-items:center;gap:.45rem;text-decoration:none;
+  background:var(--crema);color:var(--oro-hondo,#8A5C12);
+  font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+  padding:.5rem .8rem;border-radius:6px;
+  box-shadow:0 8px 18px -10px rgba(60,40,10,.55),0 1px 0 rgba(255,255,255,.9) inset;
+  transition:transform .3s var(--ease),box-shadow .3s;
+}
+.etiqueta:hover{transform:rotate(1deg) translateY(-2px);box-shadow:0 12px 22px -10px rgba(60,40,10,.6),0 1px 0 rgba(255,255,255,.9) inset}
+.etiqueta i{width:.34rem;height:.34rem;border-radius:50%;background:#3E8E4F;animation:late 2.6s infinite}
+
+.portada__accion{display:flex;flex-direction:column;align-items:center;gap:.8rem}
+.boton{
+  appearance:none;border:0;cursor:pointer;font:inherit;
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:var(--tinta);color:var(--crema);
+  padding:.8rem 1.45rem;border-radius:999px;min-height:46px;
+  font-size:.88rem;font-weight:500;letter-spacing:.02em;
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.12),0 14px 24px -14px rgba(30,28,23,.85);
+  transition:transform .3s var(--ease),box-shadow .3s;
+}
+.boton:hover{transform:translateY(-2px);box-shadow:inset 0 2px 0 rgba(255,255,255,.16),0 20px 28px -14px rgba(30,28,23,.85)}
+.boton:focus-visible{outline:2px solid var(--tinta);outline-offset:4px}
+.boton__punto{width:.46rem;height:.46rem;border-radius:50%;background:var(--oro);box-shadow:0 0 0 3px rgba(169,124,42,.22)}
+.portada__pista{margin:0;font-size:.78rem;color:var(--tinta-3);display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;justify-content:center;max-width:26rem}
+.portada__pista b{color:var(--oro);font-weight:500}
+
+/* ── las cartas ────────────────────────────────────────── */
+.cartas{position:relative;padding:clamp(2.4rem,6vw,5rem) clamp(1.1rem,4vw,2.6rem) clamp(2.6rem,6vw,5rem);scroll-margin-top:0}
+.cartas__cabeza{max-width:42rem;margin:0 auto clamp(1.5rem,3.2vw,2.4rem);display:flex;flex-direction:column;gap:.5rem;text-align:center}
+.cartas__ojo{margin:0;font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--tinta-3)}
+.cartas__titulo{margin:0;font-size:clamp(1.45rem,3.2vw,2rem);letter-spacing:-.035em;font-weight:500}
+.cartas__pie{margin:0;color:var(--tinta-2);font-size:.94rem;max-width:32rem;margin-inline:auto}
+
+.rejilla{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,15rem),1fr));
+  gap:clamp(.85rem,2vw,1.4rem);max-width:74rem;margin:0 auto;align-items:start;
 }
 
-/* entrada tras desbloquear: emergen del vacío */
-.abierto .ficha{animation:entra .8s cubic-bezier(.16,.8,.24,1) both;animation-delay:calc(var(--i,0) * 72ms + 100ms)}
-@keyframes entra{from{opacity:0;transform:translateY(20px) scale(.968);filter:blur(8px)}to{opacity:1;transform:none;filter:blur(0)}}
+.carta{
+  position:relative;display:flex;flex-direction:column;text-decoration:none;color:inherit;
+  background:var(--crema);border-radius:var(--r);padding:.55rem .55rem .05rem;
+  box-shadow:var(--sombra);
+  transform:translateY(0) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease);
+}
+.carta:hover,.carta:focus-visible{transform:translateY(-7px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));box-shadow:var(--sombra-alta);z-index:3}
+.carta:focus-visible{outline:2px solid var(--tinta);outline-offset:5px}
+.carta:active{transform:translateY(-2px) scale(.994)}
 
-/* el destello del horizonte al cruzar */
-.destello{
-  position:fixed;inset:0;z-index:38;pointer-events:none;opacity:0;
-  background:radial-gradient(circle at 50% 52%, rgba(246,242,233,.92), rgba(246,242,233,.18) 26%, rgba(246,242,233,0) 58%);
+.carta__ventana{
+  position:relative;overflow:hidden;border-radius:13px;aspect-ratio:1/1.04;
+  background:linear-gradient(158deg,color-mix(in srgb,var(--tono,#3A3A3A) 84%,#fff) 0%,var(--tono,#3A3A3A) 100%);
+  isolation:isolate;
+}
+.carta__material{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  mix-blend-mode:overlay;opacity:.62;
+  transform:scale(1.03);transition:transform .8s var(--ease),opacity .5s;
+}
+.carta:hover .carta__material{transform:scale(1.08);opacity:.72}
+/* la portada del libro, tal cual: es la obra */
+.carta__material--obra{
+  mix-blend-mode:normal;opacity:1;object-fit:contain;padding:7% 7% 6%;
+  filter:drop-shadow(0 8px 16px rgba(0,0,0,.35));
+}
+.carta__brillo{
+  position:absolute;inset:-45%;pointer-events:none;
+  background:linear-gradient(115deg,rgba(255,255,255,0) 42%,rgba(255,255,255,.5) 50%,rgba(255,255,255,0) 58%);
+  mix-blend-mode:screen;opacity:0;transform:translateX(-62%);transition:opacity .3s;
+}
+.carta:hover .carta__brillo{opacity:.9;animation:barrido 1.2s var(--ease)}
+@keyframes barrido{from{transform:translateX(-62%)}to{transform:translateX(62%)}}
+
+.carta__glifo{position:absolute;inset:0;display:grid;place-items:center;color:#fff;filter:drop-shadow(0 4px 14px rgba(0,0,0,.3))}
+/* velo bajo el glifo: lo que hace legible la marca sobre cualquier material */
+.carta__glifo::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(closest-side at 50% 50%,rgba(26,16,8,.32),rgba(26,16,8,0) 78%);
+}
+.carta__glifo svg{position:relative;width:44%;height:44%}
+
+/* las raras llevan filete: se distinguen sin leer la etiqueta */
+.carta[data-rareza="rara"] .carta__ventana::before,
+.carta[data-rareza="holo"] .carta__ventana::before,
+.carta[data-rareza="legendaria"] .carta__ventana::before{
+  content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:3;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.32);
+}
+.carta[data-rareza="legendaria"] .carta__ventana::before{
+  box-shadow:inset 0 0 0 1px rgba(255,236,190,.6),inset 0 0 26px rgba(255,214,140,.26);
+}
+
+.carta__pie{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.7rem .3rem .65rem}
+.carta__nombre{font-size:.98rem;font-weight:600;letter-spacing:-.015em;line-height:1.16;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.carta__rasgo{
+  flex:none;font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;font-weight:500;
+  color:var(--tinta-2);background:rgba(30,28,23,.055);padding:.26rem .48rem;border-radius:999px;white-space:nowrap;
+}
+.carta__meta{
+  display:flex;align-items:center;justify-content:space-between;gap:.5rem;
+  border-top:1px solid var(--linea);margin:0 .3rem;padding:.45rem 0 .6rem;
+  font-size:.63rem;letter-spacing:.06em;color:var(--tinta-3);font-variant-numeric:tabular-nums;
+}
+.carta__rareza{display:inline-flex;align-items:center;gap:.32rem}
+.carta__rareza::before{content:'';width:.4rem;height:.4rem;border-radius:50%;background:currentColor;opacity:.85}
+.carta[data-rareza="rara"] .carta__rareza{color:#6B4FBF}
+.carta[data-rareza="holo"] .carta__rareza{color:#2C6E8F}
+.carta[data-rareza="legendaria"] .carta__rareza{color:var(--oro)}
+
+.carta[data-rareza="holo"] .carta__ventana::after,
+.carta[data-rareza="legendaria"] .carta__ventana::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(128deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,0) 32%,rgba(255,240,200,.16) 62%,rgba(255,255,255,0) 100%);
   mix-blend-mode:screen;
 }
-.abierto .destello{animation:estalla 1.35s ease-out forwards}
-@keyframes estalla{0%{opacity:0}14%{opacity:.62}46%{opacity:.16}100%{opacity:0}}
 
-@media (min-width:900px){
-  .inicio{max-width:1440px;padding:calc(var(--barra) + 40px) 48px calc(40px + env(safe-area-inset-bottom));justify-content:center}
-  .rejilla{gap:16px;grid-template-columns:repeat(4,1fr);margin-bottom:0}
-  .ficha--ancha{grid-column:span 2;aspect-ratio:auto;height:100%}
-  .ficha--media{grid-column:span 1}
-  .cabecera{margin:0 0 28px}
-  .cabecera__nombre{font-size:34px}
-  .cabecera__rol{font-size:15px}
-  .cabecera__punto{width:11px;height:11px}
-  .ficha__cara{padding:20px 22px}
-  .ficha--ancha .ficha__cara{gap:20px;padding:22px 24px}
-  .ficha__titulo{font-size:24px}
-  .ficha--media .ficha__titulo{font-size:23px}
-  .ficha--ancha .ficha__titulo{font-size:29px}
-  .ficha__meta{font-size:15px}
-  .marca-in{width:64px;height:64px;font-size:36px}
-  .ficha__alma{font-size:210px;right:-20px;bottom:-42px}
-  .f-linkedin .ficha__alma{font-size:150px;bottom:-52px}
-  .f-github .ficha__alma{font-size:300px;right:-56px;bottom:-92px}
-  .f-x .ficha__alma{font-size:280px;bottom:-88px}
-  .f-instagram .ficha__alma{font-size:250px;bottom:-72px}
-  .f-kit .ficha__alma{font-size:150px;bottom:-32px}
-  .f-libro .ficha__cara--detras{padding-right:24px}
-  .marca-72{font-size:40px}
-  .ficha--ancha .marca-72{font-size:56px}
-  .ficha__grande{font-size:clamp(46px,4.6vw,84px)}
-  .ficha__cifra{font-size:clamp(40px,4vw,64px)}
-  .ficha__flecha{font-size:12px}
-  .ficha__marca svg{width:42px;height:42px}
-  .f-libro .ficha__titulo{font-size:clamp(20px,2vw,26px)}
-
-  /* el eclipse, protagonista detrás de la malla */
-  .ambiente .a1{width:64vmax;height:64vmax;top:-30vmax;opacity:.9}
-  .ambiente .a2{width:52vmax;height:52vmax;right:-18vmax;bottom:-16vmax;opacity:.85}
-  .ambiente::before{
-    content:'';position:absolute;left:50%;top:54%;width:132vmin;height:132vmin;
-    transform:translate(-50%,-50%);border-radius:50%;
-    background:radial-gradient(circle,
-      rgba(246,242,233,0) 0 34%,
-      rgba(246,242,233,.14) 35%,
-      rgba(246,242,233,.05) 40%,
-      rgba(216,196,168,.028) 52%,
-      rgba(238,179,90,.012) 60%,
-      rgba(246,242,233,0) 68%);
-    filter:blur(2px);
-  }
-
-  /* bloqueo en pantalla grande */
-  .bloqueo__reloj{max-width:562px;margin-top:6vh}
-  .bloqueo__hora{font-size:clamp(84px,10vw,148px)}
-  .bloqueo__fecha{font-size:clamp(17px,2vw,22px)}
-  .lector__disco{width:min(34vw,360px)}
-  .bloqueo__grupo{top:calc(50% + 24px)}
+.carta__cinta{
+  position:absolute;top:.85rem;right:.85rem;z-index:2;display:inline-flex;align-items:center;gap:.38rem;
+  background:rgba(252,249,241,.95);color:#6A4A12;
+  font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
+  padding:.28rem .5rem;border-radius:999px;box-shadow:0 4px 12px -6px rgba(60,40,10,.5);
 }
-/* ---------- escritorio: la ficha se inclina hacia el cursor ---------- */
-@media (hover:hover) and (pointer:fine){
-  .ficha{transition:transform .28s cubic-bezier(.2,.7,.3,1), filter .25s ease}
-  .ficha:hover{transform:perspective(720px) rotateX(2.4deg) rotateY(-2.6deg) scale(1.012)}
-  .ficha:active{transform:perspective(720px) rotateX(0deg) rotateY(0deg) scale(.985)}
+.carta__cinta i{width:.32rem;height:.32rem;border-radius:50%;background:#3E8E4F;animation:late 2.6s infinite}
+@keyframes late{
+  0%{box-shadow:0 0 0 0 rgba(62,142,79,.55)}
+  70%{box-shadow:0 0 0 .36rem rgba(62,142,79,0)}
+  100%{box-shadow:0 0 0 0 rgba(62,142,79,0)}
 }
 
-/* ---------- detalles vivos ---------- */
-.cabecera__punto{animation:pulsoPunto 3.2s ease-in-out infinite}
-@keyframes pulsoPunto{
-  0%,100%{box-shadow:0 0 0 1px rgba(246,242,233,.55), 0 0 10px rgba(238,179,90,.25)}
-  50%{box-shadow:0 0 0 1px rgba(238,179,90,.8), 0 0 18px rgba(238,179,90,.55)}
+.reparto .carta{animation:repartir .8s var(--ease) both;animation-delay:calc(var(--i,0) * 70ms)}
+@keyframes repartir{from{transform:translateY(2.4rem) rotate(-3deg) scale(.965);opacity:.5}to{transform:translateY(0) rotate(0) scale(1);opacity:1}}
+
+/* ── pie ───────────────────────────────────────────────── */
+.pie{
+  border-top:1px solid var(--linea);
+  padding:clamp(1.6rem,3.6vw,2.4rem) clamp(1.1rem,4vw,2.6rem);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.9rem;
+  font-size:.78rem;color:var(--tinta-3);max-width:88rem;margin:0 auto;
 }
-.aviso{color:rgba(238,179,90,.75)}
+.pie a{text-decoration:none;border-bottom:1px solid var(--linea);color:var(--tinta-2);transition:border-color .25s,color .25s}
+.pie a:hover{color:var(--tinta);border-color:var(--tinta)}
+.pie__corazon{color:#B4432C}
+
+/* ── móvil ─────────────────────────────────────────────── */
+@media (max-width:600px){
+  .barra{padding-bottom:.4rem}
+  .barra__nav{gap:.9rem;font-size:.66rem}
+  .barra__nav a{min-height:44px;display:inline-flex;align-items:center}
+  .portada{min-height:auto;padding-top:clamp(.4rem,2vh,1.2rem);justify-content:flex-start;gap:.85rem}
+  .portada__nombre{font-size:clamp(1.8rem,8.4vw,2.5rem)}
+  .escena{margin:.1rem 0 1.4rem}
+  .portada__accion{margin-top:.2rem}
+  .portada__pista{font-size:.72rem}
+  .rejilla{grid-template-columns:repeat(2,minmax(0,1fr));gap:.62rem}
+  .carta{padding:.38rem .38rem 0;border-radius:16px}
+  .carta__ventana{border-radius:11px;aspect-ratio:1/1.14}
+  .carta__pie{padding:.5rem .15rem .45rem;flex-direction:column;align-items:flex-start;gap:.25rem}
+  .carta__nombre{font-size:.82rem}
+  .carta__rasgo{display:none}
+  .carta__meta{font-size:.55rem;margin:0 .15rem;padding:.38rem 0 .45rem}
+  .carta__cinta{top:.5rem;right:.5rem;font-size:.45rem;padding:.2rem .38rem;letter-spacing:.1em}
+  .cartas{padding-top:2rem}
+}
+@media (max-width:359px){.rejilla{grid-template-columns:1fr}}
 
 @media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 }
+
+.noscript{max-width:74rem;margin:0 auto 2.5rem;padding:1rem clamp(1.1rem,4vw,2.6rem)}
+.noscript ul{list-style:none;margin:.7rem 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.55rem}
+.noscript a{display:inline-block;padding:.5rem .85rem;border-radius:999px;background:var(--crema);text-decoration:none;box-shadow:var(--sombra);font-size:.9rem}
 </style>
-<script>document.documentElement.classList.add('js')</script>
-<noscript><style>.bloqueo{display:none!important}</style></noscript>
 </head>
 <body>
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+  <defs>
+    <filter id="cera" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="3" seed="9" result="ruido"/>
+      <feDisplacementMap in="SourceGraphic" in2="ruido" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+<a class="salto" href="#cartas">Saltar a las cartas</a>
 
-<div class="ambiente" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span><span class="a4"></span><span class="a5"></span></div>
-<div class="destello" aria-hidden="true"></div>
+<header class="barra">
+  <a class="barra__firma" href="#portada">
+    <span class="barra__nombre">David Antizar</span>
+    <span class="barra__lugar">Madrid</span>
+  </a>
+  <nav class="barra__nav">
+    <a href="#cartas">Las cartas</a>
+    <a href="agorazein.html">La subasta</a>
+    <a href="mailto:dantizar@gmail.com">Escribir</a>
+  </nav>
+</header>
 
-<!-- barra de estado -->
-<div class="barra" aria-hidden="true">
-  <span class="barra__lado">
-    <svg width="15" height="11" viewBox="0 0 15 11"><rect x="0" y="7" width="2.4" height="4" rx=".5"/><rect x="4" y="5" width="2.4" height="6" rx=".5"/><rect x="8" y="2.6" width="2.4" height="8.4" rx=".5"/><rect x="12" y="0" width="2.4" height="11" rx=".5" opacity=".35"/></svg>
-    <span class="barra__red">4G</span>
-  </span>
-  <span class="barra__lado">
-    <svg width="20" height="10" viewBox="0 0 20 10"><rect x=".5" y=".5" width="16" height="9" rx="1.6" fill="none" stroke="currentColor" stroke-opacity=".55"/><rect x="2" y="2" width="11.4" height="6" rx=".8"/><rect x="17.6" y="3.4" width="1.8" height="3.2" rx=".7"/></svg>
-    <span class="barra__hora" data-hora>--:--</span>
-  </span>
-</div>
+<main>
+  <section class="portada" id="portada">
+    <p class="portada__ojo">otra manera de mirar al mundo</p>
+    <h1 class="portada__nombre">Un sobre de <em>cartas</em></h1>
 
-<!-- bloqueo con lector de iris -->
-<section class="bloqueo" id="bloqueo" aria-label="Pantalla de bloqueo">
-  <div class="bloqueo__reloj">
-    <p class="bloqueo__hora" data-hora-grande>--:--</p>
-    <p class="bloqueo__fecha" data-fecha>cargando fecha</p>
-  </div>
+    <div class="escena">
+      <button class="sobre" id="sobre" type="button" aria-expanded="false" aria-controls="rejilla" aria-label="Abrir el sobre de cartas">
+        <span class="sobre__cuerpo"></span>
+        <span class="sobre__costura" aria-hidden="true"></span>
+        <span class="sobre__costura sobre__costura--d" aria-hidden="true"></span>
+        <span class="sobre__boca" aria-hidden="true"></span>
+        <span class="sobre__solapa" aria-hidden="true"></span>
+        <span class="sobre__sello" aria-hidden="true"><span>DA</span></span>
+      </button>
+      <a class="etiqueta" href="agorazein.html"><i aria-hidden="true"></i>1 legendaria en subasta</a>
+    </div>
 
-  <div class="bloqueo__grupo">
-  <button class="lector" id="lector" type="button" aria-label="Entrar al sistema leyendo el iris">
-    <span class="lector__disco">
-      <svg class="eclipse" viewBox="0 0 240 240" aria-hidden="true">
-        <defs>
-          <radialGradient id="gradDisco" cx="46%" cy="40%" r="62%">
-            <stop offset="0%" stop-color="#0c1015"/>
-            <stop offset="52%" stop-color="#07090c"/>
-            <stop offset="100%" stop-color="#020304"/>
-          </radialGradient>
-          <radialGradient id="gradHalo" gradientUnits="userSpaceOnUse" cx="120" cy="120" r="120">
-            <stop offset="0%" stop-color="#07090c"/>
-            <stop offset="41%" stop-color="#07090c"/>
-            <stop offset="43%" stop-color="rgba(246,242,233,.95)"/>
-            <stop offset="45.5%" stop-color="rgba(246,242,233,.46)"/>
-            <stop offset="53%" stop-color="rgba(231,224,210,.20)"/>
-            <stop offset="64%" stop-color="rgba(216,196,168,.085)"/>
-            <stop offset="80%" stop-color="rgba(140,150,157,.03)"/>
-            <stop offset="100%" stop-color="rgba(7,9,12,0)"/>
-          </radialGradient>
-          <linearGradient id="gradAnillo" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#f6f2e9" stop-opacity=".95"/>
-            <stop offset="36%" stop-color="#d8c4a8" stop-opacity=".72"/>
-            <stop offset="68%" stop-color="#f6f2e9" stop-opacity=".52"/>
-            <stop offset="100%" stop-color="#c9ac9d" stop-opacity=".78"/>
-          </linearGradient>
-          <linearGradient id="gradProgreso" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#f6f2e9"/>
-            <stop offset="60%" stop-color="#e7e0d2"/>
-            <stop offset="100%" stop-color="#d8c4a8"/>
-          </linearGradient>
-          <filter id="ondula" x="-30%" y="-30%" width="160%" height="160%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.013 0.034" numOctaves="2" seed="11" result="r"/>
-            <feDisplacementMap in="SourceGraphic" in2="r" scale="7" xChannelSelector="R" yChannelSelector="G"/>
-          </filter>
-          <filter id="resplandor" x="-40%" y="-40%" width="180%" height="180%">
-            <feGaussianBlur stdDeviation="1.6" result="b"/>
-            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-          <filter id="plumaSuave" x="-45%" y="-45%" width="190%" height="190%">
-            <feGaussianBlur stdDeviation="7"/>
-          </filter>
-        </defs>
+    <div class="portada__accion">
+      <button class="boton" id="abrir" type="button">
+        <span class="boton__punto" aria-hidden="true"></span>
+        <span id="abrir-texto">Abrir el sobre</span>
+      </button>
+    </div>
+  </section>
 
-        <!-- corona difusa -->
-        <circle class="halo" cx="120" cy="120" r="120" fill="url(#gradHalo)"/>
-
-        <!-- plumas y filamentos: los dibuja el script -->
-        <g class="eclipse__giro">
-          <g class="corona-plumas" filter="url(#plumaSuave)"></g>
-          <g class="corona-rayos" filter="url(#resplandor)"></g>
-        </g>
-
-        <!-- el vacío y su anillo roto (el disco tapa los tramos que caen dentro) -->
-        <circle class="anillo" cx="120" cy="120" r="54"/>
-        <circle class="disco" cx="120" cy="120" r="51.5"/>
-        <circle class="limbo-calido" cx="120" cy="120" r="52.6"/>
-
-        <!-- progreso del alineamiento -->
-        <circle class="progreso" cx="120" cy="120" r="84"/>
-      </svg>
-    </span>
-  </button>
-  <p class="aviso" id="texto-lector">Pulsa para entrar al sistema</p>
-  </div>
-
-  <p class="bloqueo__firma" aria-hidden="true">David Antizar</p>
-</section>
-
-<!-- inicio -->
-<main class="inicio" id="inicio">
-  <header class="cabecera">
-    <span class="cabecera__punto" aria-hidden="true"></span>
-    <h1 class="cabecera__nombre">David Antizar</h1>
-    <p class="cabecera__rol">otra manera de mirar al mundo</p>
-  </header>
-
-  <div class="rejilla">
-
-    <!-- LinkedIn -->
-    <a class="ficha ficha--ancha f-linkedin" href="https://www.linkedin.com/in/davidantizar/" target="_blank" rel="noopener" data-viva style="--i:0">
-      <span class="ficha__cara ficha__cara--frente">
-        <span class="ficha__marca"><span class="marca-in">in</span></span>
-        <span class="ficha__texto">
-          <span class="ficha__titulo">LinkedIn</span>
-          <span class="ficha__meta">@davidantizar</span>
-        </span>
-      </span>
-        <span class="ficha__alma" aria-hidden="true">in</span>
-      <span class="ficha__cara ficha__cara--detras">
-        <span class="ficha__marca"><span class="marca-in">in</span></span>
-        <span class="ficha__texto">
-          <span class="ficha__titulo">Perfil profesional</span>
-          <span class="ficha__meta">linkedin.com/in/davidantizar</span>
-        </span>
-        <span class="ficha__flecha">ABRIR ↗</span>
-      </span>
-    </a>
-
-    <!-- GitHub -->
-    <a class="ficha ficha--media f-github" href="https://github.com/Ntizar?tab=repositories" target="_blank" rel="noopener" data-viva style="--i:1">
-      <span class="ficha__cara ficha__cara--frente">
-        <span class="ficha__marca">
-          <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-        </span>
-        <span class="ficha__texto">
-          <span class="ficha__titulo">GitHub</span>
-          <span class="ficha__meta">@Ntizar</span>
-        </span>
-      </span>
-        <span class="ficha__alma" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span>
-      <span class="ficha__cara ficha__cara--detras">
-        <span class="ficha__marca"><span class="ficha__grande ficha__cifra" data-gh-num>—</span></span>
-        <span class="ficha__texto">
-          <span class="ficha__titulo">repositorios</span>
-          <span class="ficha__meta">último: <span data-gh-ultimo>github.com/Ntizar</span></span>
-        </span>
-        <span class="ficha__flecha">ABRIR ↗</span>
-      </span>
-    </a>
-
-    <!-- X -->
-    <a class="ficha ficha--media f-x" href="https://x.com/DNtizar" target="_blank" rel="noopener" data-viva style="--i:2">
-      <span class="ficha__cara ficha__cara--frente">
-        <span class="ficha__marca">
-          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </span>
-        <span class="ficha__texto">
-          <span class="ficha__titulo">X</span>
-          <span class="ficha__meta">@DNtizar</span>
-        </span>
-      </span>
-        <span class="ficha__alma" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></span>
-      <span class="ficha__cara ficha__cara--detras">
-        <span class="ficha__marca">
-          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </span>
-        <span class="ficha__texto">
-          <span class="ficha__titulo">Sígueme</span>
-          <span class="ficha__meta">x.com/DNtizar</span>
-        </span>
-        <span class="ficha__flecha">ABRIR ↗</span>
-      </span>
-    </a>
-
-    <!-- Instagram -->
-    <a class="ficha ficha--media f-instagram" href="https://www.instagram.com/DNtizar/" target="_blank" rel="noopener" data-viva style="--i:3" data-instagram>
-      <span class="ficha__cara ficha__cara--frente">
-        <span class="ficha__marca">
-          <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.899.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678a6.162 6.162 0 100 12.324 6.162 6.162 0 100-12.324zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405a1.441 1.441 0 01-2.88 0 1.44 1.44 0 012.88 0z"/></svg>
-        </span>
-        <span class="ficha__texto">
-          <span class="ficha__titulo">Instagram</span>
-          <span class="ficha__meta" data-ig-meta>@DNtizar</span>
-        </span>
-      </span>
-        <span class="ficha__alma" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.899.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678a6.162 6.162 0 100 12.324 6.162 6.162 0 100-12.324zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405a1.441 1.441 0 01-2.88 0 1.44 1.44 0 012.88 0z"/></svg></span>
-      <span class="ficha__cara ficha__cara--detras">
-        <span class="ficha__marca">
-          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.899.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678a6.162 6.162 0 100 12.324 6.162 6.162 0 100-12.324zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405a1.441 1.441 0 01-2.88 0 1.44 1.44 0 012.88 0z"/></svg>
-        </span>
-        <span class="ficha__texto">
-          <span class="ficha__titulo">Instagram</span>
-          <span class="ficha__meta" data-ig-meta>@DNtizar</span>
-        </span>
-        <span class="ficha__flecha">ABRIR ↗</span>
-      </span>
-    </a>
-
-    <!-- Kit72h -->
-    <a class="ficha ficha--media f-kit" href="https://kit72h.com/" target="_blank" rel="noopener" data-viva style="--i:4">
-      <span class="ficha__cara ficha__cara--frente">
-        <span class="ficha__marca"><span class="marca-72">72h</span></span>
-        <span class="ficha__texto">
-          <span class="ficha__titulo">Kit72h</span>
-          <span class="ficha__meta">kits · Amazon</span>
-        </span>
-      </span>
-        <span class="ficha__alma" aria-hidden="true">72H</span>
-      <span class="ficha__cara ficha__cara--detras">
-        <span class="ficha__marca"><span class="marca-72">72h</span></span>
-        <span class="ficha__texto">
-          <span class="ficha__titulo">20 kits</span>
-          <span class="ficha__meta">kit72h.com</span>
-        </span>
-        <span class="ficha__flecha">ABRIR ↗</span>
-      </span>
-    </a>
-
-    <!-- Libro -->
-    <a class="ficha ficha--ancha f-libro" href="https://www.amazon.es/dp/B0CP8HS3TZ?tag=ntizar-21" target="_blank" rel="noopener nofollow" data-viva style="--i:5">
-      <span class="ficha__cara ficha__cara--frente">
-        <span class="ficha__portada"><img src="assets/img/libro-poni.jpg" alt="Portada de El poni de Von der Leyen" width="313" height="500" loading="lazy" decoding="async"></span>
-        <span class="ficha__marca">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M4 4.5h5.2c1.5 0 2.8 1.2 2.8 2.7V20c0-1.2-1-2.2-2.3-2.2H4z"/><path d="M20 4.5h-5.2c-1.5 0-2.8 1.2-2.8 2.7V20c0-1.2 1-2.2 2.3-2.2H20z"/></svg>
-        </span>
-        <span class="ficha__texto">
-          <span class="ficha__titulo">El poni de Von der Leyen</span>
-          <span class="ficha__meta">mi libro · Amazon</span>
-        </span>
-      </span>
-      <span class="ficha__cara ficha__cara--detras">
-        <span class="ficha__marca">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M4 4.5h5.2c1.5 0 2.8 1.2 2.8 2.7V20c0-1.2-1-2.2-2.3-2.2H4z"/><path d="M20 4.5h-5.2c-1.5 0-2.8 1.2-2.8 2.7V20c0-1.2 1-2.2 2.3-2.2H20z"/></svg>
-        </span>
-        <span class="ficha__texto">
-          <span class="ficha__titulo">La teoría de los hipersónicos</span>
-          <span class="ficha__meta">leerlo en Amazon</span>
-        </span>
-        <span class="ficha__flecha">COMPRAR ↗</span>
-      </span>
-    </a>
-
-  </div>
+  <section class="cartas" id="cartas">
+    <div class="cartas__cabeza">
+      <p class="cartas__ojo">el set completo</p>
+      <h2 class="cartas__titulo">Ocho cartas, ocho puertas</h2>
+      <p class="cartas__pie">Cada carta es una parte de lo que hago. Las comunes son las de siempre; la última no se compra, se puja.</p>
+    </div>
+    <div class="rejilla" id="rejilla"></div>
+  </section>
 </main>
 
+<noscript>
+  <div class="noscript">
+    <strong>Las cartas:</strong>
+    <ul>
+      <li><a href="https://www.linkedin.com/in/davidantizar/">LinkedIn</a></li>
+      <li><a href="https://www.instagram.com/DNtizar/">Instagram</a></li>
+      <li><a href="https://x.com/DNtizar">X</a></li>
+      <li><a href="mailto:dantizar@gmail.com">Escríbeme</a></li>
+      <li><a href="https://github.com/Ntizar?tab=repositories">GitHub</a></li>
+      <li><a href="https://kit72h.com/">Kit72h</a></li>
+      <li><a href="https://www.amazon.es/dp/B0CP8HS3TZ?tag=ntizar-21">El poni de Von der Leyen</a></li>
+      <li><a href="agorazein.html">La subasta del 17N</a></li>
+    </ul>
+  </div>
+</noscript>
+
+<footer class="pie">
+  <span>Hecho con <span class="pie__corazon">❤️</span> por David Antizar</span>
+  <span><a href="mailto:dantizar@gmail.com">dantizar@gmail.com</a> · <a href="agorazein.html">martes 17N</a></span>
+</footer>
+
 <script>
-(function(){
-  'use strict';
+/* ══════════════════════════════════════════════════════════════
+   LAS CARTAS — aquí está todo.
+   Para añadir una sección: añade un objeto a este array y sale
+   su carta sola (el número y el total se recalculan).
+   rareza: "comun" | "rara" | "holo" | "legendaria"
+   ══════════════════════════════════════════════════════════════ */
+const GLIFOS = {
+  linkedin:'<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM2.4 21h5.16V9.5H2.4V21zm8.1 0h5.16v-6.2c0-1.65.31-3.25 2.36-3.25 2.02 0 2.05 1.9 2.05 3.36V21h5.16v-7.1c0-4.48-.96-7.05-5.35-7.05-2.17 0-3.63 1.2-4.22 2.33h-.07V9.5h-4.95V21z"/></svg>',
+  github:'<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>',
+  x:'<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg>',
+  instagram:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5.2"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.3" cy="6.7" r="1.05" fill="currentColor" stroke="none"/></svg>',
+  correo:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="2.8" y="5.2" width="18.4" height="13.6" rx="2.4"/><path d="m3.6 6.7 8.4 6.3 8.4-6.3"/></svg>',
+  kit72h:'<svg viewBox="0 0 24 24"><text x="12" y="16.2" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="10.2" font-weight="600" letter-spacing="-0.5" fill="currentColor">72h</text></svg>',
+  agora:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3.2 8.6V5.4h17.6v3.2a2.4 2.4 0 0 0 0 6v3.4H3.2v-3.4a2.4 2.4 0 0 0 0-6Z"/><path d="M14.4 7.4v1.4M14.4 11.3v1.4M14.4 15.2v1.4" stroke-linecap="round"/></svg>'
+};
 
-  var raiz = document.documentElement;
-  var bloqueo = document.getElementById('bloqueo');
-  var lector = document.getElementById('lector');
-  var texto = document.getElementById('texto-lector');
-
-  /* ---------- el eclipse: plumas y filamentos (se dibujan aquí) ---------- */
-  var rayos = document.querySelector('.corona-rayos');
-  var plumas = document.querySelector('.corona-plumas');
-  if (rayos && !rayos.childNodes.length) {
-    var NS = 'http://www.w3.org/2000/svg';
-    var semilla = 20261104;
-    function azar(){ semilla = (semilla * 1103515245 + 12345) & 0x7fffffff; return semilla / 0x7fffffff; }
-    var CX = 120, CY = 120, R = 53;
-
-    /* plumas: dos lóbulos diagonales (la X de la imagen) y velos suaves */
-    var velos = [
-      [0.72, 108, 30, .34], [0.72 + Math.PI, 100, 26, .30],
-      [0.10, 76, 15, .20], [Math.PI + 0.24, 82, 17, .22],
-      [1.95, 64, 10, .16], [4.45, 68, 12, .16], [5.55, 56, 9, .12]
-    ];
-    for (var p = 0; p < velos.length; p++) {
-      var a = velos[p][0], largo = velos[p][1], ancho = velos[p][2], op = velos[p][3];
-      var ix = CX + Math.cos(a) * (R + 2), iy = CY + Math.sin(a) * (R + 2);
-      var ox = CX + Math.cos(a) * (R + largo), oy = CY + Math.sin(a) * (R + largo);
-      var midR = R + largo * 0.5, pm = a + Math.PI / 2, pn = a - Math.PI / 2;
-      var c1x = CX + Math.cos(a) * midR + Math.cos(pm) * ancho;
-      var c1y = CY + Math.sin(a) * midR + Math.sin(pm) * ancho;
-      var c2x = CX + Math.cos(a) * midR + Math.cos(pn) * ancho;
-      var c2y = CY + Math.sin(a) * midR + Math.sin(pn) * ancho;
-      var el = document.createElementNS(NS, 'path');
-      el.setAttribute('d',
-        'M' + ix.toFixed(1) + ' ' + iy.toFixed(1) +
-        'Q' + c1x.toFixed(1) + ' ' + c1y.toFixed(1) + ' ' + ox.toFixed(1) + ' ' + oy.toFixed(1) +
-        'Q' + c2x.toFixed(1) + ' ' + c2y.toFixed(1) + ' ' + ix.toFixed(1) + ' ' + iy.toFixed(1) + 'Z');
-      el.setAttribute('fill', 'rgba(246,242,233,' + op + ')');
-      plumas.appendChild(el);
-    }
-
-    /* filamentos: 360 radios finos, más largos en los lóbulos */
-    for (var k = 0; k < 360; k++) {
-      var ang = (k / 360) * Math.PI * 2 + (azar() - 0.5) * 0.022;
-      var lobulo = Math.pow(Math.abs(Math.cos(ang - 0.72)), 3.0);
-      var largo2 = (9 + 74 * Math.pow(azar(), 1.7)) * (0.24 + 0.98 * lobulo);
-      var r1 = R + 0.4 + azar() * 1.8;
-      var r2 = r1 + largo2;
-      var op2 = (0.025 + 0.30 * azar()) * (0.30 + 0.70 * lobulo) * (0.55 + 0.55 * Math.cos(ang - 3.5));
-      var col = azar() > 0.74 ? 'rgba(231,224,210,' : 'rgba(246,242,233,';
-      var x1 = CX + Math.cos(ang) * r1, y1 = CY + Math.sin(ang) * r1;
-      var x2 = CX + Math.cos(ang) * r2, y2 = CY + Math.sin(ang) * r2;
-      if (k % 6 === 0) {
-        /* filamento curvado: el gas se dobla */
-        var dobla = (azar() - 0.5) * largo2 * 0.42;
-        var mx = (x1 + x2) / 2 + Math.cos(ang + Math.PI / 2) * dobla;
-        var my = (y1 + y2) / 2 + Math.sin(ang + Math.PI / 2) * dobla;
-        var curva = document.createElementNS(NS, 'path');
-        curva.setAttribute('d', 'M' + x1.toFixed(1) + ' ' + y1.toFixed(1) +
-          'Q' + mx.toFixed(1) + ' ' + my.toFixed(1) + ' ' + x2.toFixed(1) + ' ' + y2.toFixed(1));
-        curva.setAttribute('fill', 'none');
-        curva.setAttribute('stroke', col + (op2 * 1.25).toFixed(3) + ')');
-        curva.setAttribute('stroke-width', (0.5 + azar() * 1.4).toFixed(2));
-        rayos.appendChild(curva);
-      } else {
-        var luz = document.createElementNS(NS, 'line');
-        luz.setAttribute('x1', x1.toFixed(2));
-        luz.setAttribute('y1', y1.toFixed(2));
-        luz.setAttribute('x2', x2.toFixed(2));
-        luz.setAttribute('y2', y2.toFixed(2));
-        luz.setAttribute('stroke', col + op2.toFixed(3) + ')');
-        luz.setAttribute('stroke-width', (0.3 + azar() * 1.15).toFixed(2));
-        rayos.appendChild(luz);
-      }
-    }
-
-    /* protuberancias: bucles pegados al limbo */
-    var bucles = [[0.35, 10, 4.2], [0.62, 14, 3.4], [1.15, 8, 5.6], [2.6, 12, 3.0],
-                  [3.55, 16, 4.6], [4.9, 9, 3.8], [5.45, 11, 3.2]];
-    for (var b2 = 0; b2 < bucles.length; b2++) {
-      var ab = bucles[b2][0], alt = bucles[b2][1];
-      var xa = CX + Math.cos(ab - 0.035) * (R + 0.4), ya = CY + Math.sin(ab - 0.035) * (R + 0.4);
-      var xb = CX + Math.cos(ab + 0.048) * (R + 0.4), yb = CY + Math.sin(ab + 0.048) * (R + 0.4);
-      var xc = CX + Math.cos(ab) * (R + alt), yc = CY + Math.sin(ab) * (R + alt);
-      var cir = document.createElementNS(NS, 'path');
-      cir.setAttribute('d', 'M' + xa.toFixed(1) + ' ' + ya.toFixed(1) +
-        'Q' + xc.toFixed(1) + ' ' + yc.toFixed(1) + ' ' + xb.toFixed(1) + ' ' + yb.toFixed(1));
-      cir.setAttribute('fill', 'none');
-      cir.setAttribute('stroke', 'rgba(246,242,233,.5)');
-      cir.setAttribute('stroke-width', (bucles[b2][2] / 2).toFixed(2));
-      rayos.appendChild(cir);
-    }
+const SECCIONES = [
+  {
+    id:'linkedin', nombre:'LinkedIn', rasgo:'profesional',
+    url:'https://www.linkedin.com/in/davidantizar/', ext:true,
+    tono:'#0B4A80', rareza:'comun', material:'linkedin',
+    alt:'Cubo de cristal azul cobalto'
+  },
+  {
+    id:'instagram', nombre:'Instagram', rasgo:'vida',
+    url:'https://www.instagram.com/DNtizar/', ext:true,
+    tono:'#8E2B63', rareza:'comun', material:'instagram',
+    alt:'Papel holográfico arrugado en rosa y violeta'
+  },
+  {
+    id:'x', nombre:'X', rasgo:'conversación',
+    url:'https://x.com/DNtizar', ext:true,
+    tono:'#2A2C35', rareza:'comun', material:'x',
+    alt:'Monolito de vidrio negro'
+  },
+  {
+    id:'correo', nombre:'Escríbeme', rasgo:'contacto',
+    url:'mailto:dantizar@gmail.com', ext:false,
+    tono:'#5B4630', rareza:'comun', material:'archivo', glifo:'correo',
+    alt:'Fajo de hojas de papel sepia'
+  },
+  {
+    id:'github', nombre:'GitHub', rasgo:'código',
+    url:'https://github.com/Ntizar?tab=repositories', ext:true,
+    tono:'#333B47', rareza:'rara', material:'github',
+    alt:'Esfera de piedra grafito con un anillo de cromo'
+  },
+  {
+    id:'kit72h', nombre:'Kit72h', rasgo:'producto',
+    url:'https://kit72h.com/', ext:true,
+    tono:'#A8112A', rareza:'rara', material:'kit72h',
+    alt:'Caja roja señal con franja crema'
+  },
+  {
+    id:'libro', nombre:'El poni de Von der Leyen', rasgo:'libro',
+    url:'https://www.amazon.es/dp/B0CP8HS3TZ?tag=ntizar-21', ext:true,
+    tono:'#143A2E', rareza:'holo', material:'libro', obra:'assets/img/libro-poni.jpg',
+    alt:'Portada de El poni de Von der Leyen, de David Antizar'
+  },
+  {
+    id:'agora', nombre:'Una tarde con Agorazein', rasgo:'subasta',
+    url:'agorazein.html', ext:false,
+    tono:'#6B460B', rareza:'legendaria', material:'agora',
+    alt:'Fragmento de resina ámbar dorada', cinta:'subasta abierta'
   }
+];
 
-  /* ---------- reloj ---------- */
-  function dosDigitos(n){ return n < 10 ? '0' + n : '' + n; }
-  var horas = document.querySelectorAll('[data-hora]');
-  var horaGrande = document.querySelector('[data-hora-grande]');
-  var fechaEl = document.querySelector('[data-fecha]');
-  var fmtFecha = null;
-  try { fmtFecha = new Intl.DateTimeFormat('es-ES', { weekday:'long', day:'numeric', month:'long' }); } catch(e) {}
+const RAREZAS = { comun:'común', rara:'rara', holo:'holo rara', legendaria:'legendaria' };
+const rejilla = document.getElementById('rejilla');
+const total = String(SECCIONES.length).padStart(2,'0');
 
-  function pintarReloj(){
-    var ahora = new Date();
-    var hhmm = dosDigitos(ahora.getHours()) + ':' + dosDigitos(ahora.getMinutes());
-    for (var i = 0; i < horas.length; i++) { horas[i].textContent = hhmm; }
-    if (horaGrande) { horaGrande.textContent = hhmm; }
-    if (fechaEl) { fechaEl.textContent = fmtFecha ? fmtFecha.format(ahora) : ahora.toLocaleDateString(); }
+rejilla.innerHTML = SECCIONES.map((s,i) => {
+  const num = String(i+1).padStart(2,'0');
+  const img = s.obra
+    ? `<img class="carta__material carta__material--obra" src="${s.obra}" alt="${s.alt}" width="313" height="500" loading="lazy" decoding="async">`
+    : `<img class="carta__material" src="assets/cartas/${s.material}.webp" alt="${s.alt}" width="720" height="720" loading="lazy" decoding="async">
+       <span class="carta__glifo" aria-hidden="true">${GLIFOS[s.glifo || s.material] || ''}</span>
+       <span class="carta__brillo" aria-hidden="true"></span>`;
+  return `<a class="carta" data-rareza="${s.rareza}" data-id="${s.id}" style="--i:${i};--tono:${s.tono}"
+      href="${s.url}"${s.ext ? ' target="_blank" rel="noopener"' : ''}
+      aria-label="${s.nombre} — ${s.rasgo}">
+    ${s.cinta ? `<span class="carta__cinta"><i aria-hidden="true"></i>${s.cinta}</span>` : ''}
+    <span class="carta__ventana">${img}</span>
+    <span class="carta__pie">
+      <span class="carta__nombre">${s.nombre}</span>
+      <span class="carta__rasgo">${s.rasgo}</span>
+    </span>
+    <span class="carta__meta">
+      <span>No. ${num}/${total}</span>
+      <span class="carta__rareza">${RAREZAS[s.rareza]}</span>
+    </span>
+  </a>`;
+}).join('');
+
+/* ── el sobre ──────────────────────────────────────────── */
+const sobre = document.getElementById('sobre');
+const boton = document.getElementById('abrir');
+const textoBoton = document.getElementById('abrir-texto');
+const cartas = document.getElementById('cartas');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function irACartas(){
+  cartas.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block:'start' });
+}
+function abrirSobre(){
+  if (!sobre.classList.contains('sobre--abierto')){
+    sobre.classList.add('sobre--abierto');
+    sobre.setAttribute('aria-expanded','true');
+    textoBoton.textContent = 'Ver las cartas';
+    setTimeout(() => rejilla.classList.add('reparto'), reduce ? 0 : 380);
+    setTimeout(irACartas, reduce ? 60 : 860);
+  } else {
+    irACartas();
   }
-  pintarReloj();
-  setInterval(pintarReloj, 15000);
-  document.addEventListener('visibilitychange', function(){ if (!document.hidden) { pintarReloj(); } });
+}
+sobre.addEventListener('click', abrirSobre);
+boton.addEventListener('click', abrirSobre);
 
-  /* ---------- lectura de iris ---------- */
-  var abierto = false, escaneando = false;
-  var quieto = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function entrar(){
-    if (abierto) { return; }
-    abierto = true;
-    window.scrollTo(0, 0);
-    raiz.classList.add('abierto');
-    if (bloqueo) { bloqueo.setAttribute('aria-hidden', 'true'); }
-    window.setTimeout(function(){
-      if (bloqueo) { bloqueo.style.visibility = 'hidden'; }
-      var primera = document.querySelector('.inicio a');
-      if (primera) { primera.focus({ preventScroll: true }); }
-    }, 680);
-  }
-
-  function escanear(){
-    if (escaneando || abierto) { return; }
-    escaneando = true;
-    bloqueo.classList.add('escaneando');
-    if (texto) { texto.textContent = 'Leyendo iris'; }
-
-    if (quieto) { entrar(); return; }
-
-    window.setTimeout(function(){
-      bloqueo.classList.remove('escaneando');
-      bloqueo.classList.add('verificado');
-      if (texto) { texto.textContent = 'Identidad confirmada'; }
-      window.setTimeout(function(){ entrar(); }, 620);
-    }, 1750);
-  }
-
-  if (lector) { lector.addEventListener('click', function(e){ e.stopPropagation(); escanear(); }); }
-  if (bloqueo) {
-    bloqueo.addEventListener('click', escanear);
-    var y0 = null;
-    bloqueo.addEventListener('pointerdown', function(e){ y0 = e.clientY; });
-    bloqueo.addEventListener('pointerup', function(e){
-      if (y0 !== null && y0 - e.clientY > 42) { escanear(); }
-      y0 = null;
-    });
-  }
-  document.addEventListener('keydown', function(e){
-    if (abierto) { return; }
-    if (e.key === 'Tab' || e.key === 'Shift' || e.key === 'Control' || e.key === 'Alt' || e.key === 'Meta') { return; }
-    escanear();
+/* ── el sobre se inclina con el ratón: parece un objeto ── */
+if (matchMedia('(hover:hover) and (pointer:fine)').matches && !reduce){
+  const escena = document.querySelector('.escena');
+  escena.addEventListener('pointermove', (e) => {
+    const r = sobre.getBoundingClientRect();
+    sobre.style.setProperty('--ty', (((e.clientX - r.left) / r.width - .5) * 15).toFixed(2) + 'deg');
+    sobre.style.setProperty('--tx', (-((e.clientY - r.top) / r.height - .5) * 11).toFixed(2) + 'deg');
   });
-
-  /* ---------- fichas vivas (giro sutil) ---------- */
-  var fichas = [].slice.call(document.querySelectorAll('.ficha[data-viva]'));
-  fichas.forEach(function(f){
-    f.addEventListener('pointerenter', function(){ f.dataset.pausa = '1'; });
-    f.addEventListener('pointerleave', function(){ delete f.dataset.pausa; });
-    f.addEventListener('focus', function(){ f.dataset.pausa = '1'; });
-    f.addEventListener('blur', function(){ delete f.dataset.pausa; });
+  escena.addEventListener('pointerleave', () => {
+    sobre.style.removeProperty('--tx'); sobre.style.removeProperty('--ty');
   });
-  if (!quieto && fichas.length) {
-    var turno = 0;
-    setInterval(function(){
-      var f = fichas[turno % fichas.length]; turno++;
-      if (f.dataset.pausa) { return; }
-      f.classList.toggle('girada');
-    }, 5200);
-  }
+}
 
-  /* ---------- datos vivos de GitHub ---------- */
-  var num = document.querySelector('[data-gh-num]');
-  var ultimo = document.querySelector('[data-gh-ultimo]');
-  var API = 'https://api.github.com/users/Ntizar';
-  function traer(url){
-    if (!window.fetch) { return null; }
-    return fetch(url, { headers: { 'Accept': 'application/vnd.github+json' } }).then(function(r){
-      if (!r.ok) { throw new Error('http ' + r.status); }
-      return r.json();
+/* ── inclinación 3D con ratón ──────────────────────────── */
+if (matchMedia('(hover:hover) and (pointer:fine)').matches && !reduce){
+  rejilla.addEventListener('pointermove', (e) => {
+    const carta = e.target.closest('.carta');
+    if (!carta) return;
+    const r = carta.getBoundingClientRect();
+    carta.style.setProperty('--ry', (((e.clientX - r.left) / r.width - .5) * 7).toFixed(2) + 'deg');
+    carta.style.setProperty('--rx', (-((e.clientY - r.top) / r.height - .5) * 7).toFixed(2) + 'deg');
+  });
+  rejilla.addEventListener('pointerleave', () => {
+    rejilla.querySelectorAll('.carta').forEach(c => {
+      c.style.removeProperty('--rx'); c.style.removeProperty('--ry');
     });
-  }
-  Promise.all([
-    traer(API).catch(function(){ return null; }),
-    traer(API + '/repos?sort=pushed&per_page=1').catch(function(){ return null; })
-  ]).then(function(res){
-    var usuario = res[0], repos = res[1];
-    if (usuario && typeof usuario.public_repos === 'number' && num) { num.textContent = usuario.public_repos; }
-    if (repos && repos[0] && repos[0].name && ultimo) { ultimo.textContent = repos[0].name; }
-  }).catch(function(){});
+  }, true);
+}
 
-  /* ---------- enlace de Instagram (pendiente de usuario) ---------- */
-  var IG = { usuario: 'DNtizar' };
-  if (IG.usuario) {
-    var meta = document.querySelectorAll('[data-ig-meta]');
-    for (var j = 0; j < meta.length; j++) { meta[j].textContent = '@' + IG.usuario; }
-    var enlace = document.querySelector('[data-instagram]');
-    if (enlace) { enlace.href = 'https://www.instagram.com/' + IG.usuario + '/'; }
-  }
-})();
+/* ── dato vivo: repositorios de GitHub ─────────────────── */
+fetch('https://api.github.com/users/Ntizar')
+  .then(r => r.ok ? r.json() : null)
+  .then(d => {
+    if (!d || !d.public_repos) return;
+    const rasgo = rejilla.querySelector('[data-id="github"] .carta__rasgo');
+    if (rasgo) rasgo.textContent = d.public_repos + ' repos';
+  })
+  .catch(() => {});
 </script>
 </body>
 </html>
