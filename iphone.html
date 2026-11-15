@@ -732,6 +732,12 @@ const el = {
   atenuador: $("#atenuador"), fondoPC: $("#fondo-pc")
 };
 
+/* Lo que empieza oculto empieza fuera del orden de tabulación: `inert` lo saca
+   del árbol de accesibilidad y del foco sin tocar ni un píxel del diseño. */
+el.cara.inert = true;
+el.home.inert = true;
+el.app.inert = true;
+
 /* ════════════════════════════════════════════════════════════════
    3. PINTADO DEL ESCRITORIO
    ════════════════════════════════════════════════════════════════ */
@@ -912,7 +918,9 @@ let progreso = 0;
 function mostrarCara() {
   estado.fase = "cara";
   el.bloqueo.classList.add("oculta");
+  el.bloqueo.inert = true;
   el.cara.classList.remove("oculta");
+  el.cara.inert = false;
   el.islaTxt.textContent = "Face ID";
   el.isla.classList.add("expandida");
   escanear();
@@ -921,7 +929,9 @@ function mostrarCara() {
 function mostrarEscritorio() {
   estado.fase = "escritorio";
   el.cara.classList.add("oculta");
+  el.cara.inert = true;
   el.home.classList.remove("oculta");
+  el.home.inert = false;
   el.isla.classList.remove("expandida");
   el.sb.classList.remove("sb--oculta");
   if (!METEO.datos) cargarTiempo();
@@ -933,9 +943,12 @@ function volverBloqueo() {
   estado.fase = "bloqueo";
   progreso = 0;
   el.home.classList.add("oculta");
+  el.home.inert = true;
   el.cara.classList.add("oculta");
+  el.cara.inert = true;
   el.cara.classList.remove("escaneando", "ok");
   el.bloqueo.classList.remove("oculta");
+  el.bloqueo.inert = false;
   el.bloqueo.style.transform = "";
   el.bloqueo.style.opacity = "";
   el.sb.classList.remove("sb--oculta");
@@ -990,6 +1003,7 @@ function abrirApp(id) {
   el.cuerpo.innerHTML = VISTAS[id] ? VISTAS[id]() : '<p class="vacio">En obras.</p>';
   el.cuerpo.scrollTop = 0;
   el.app.classList.add("abierta");
+  el.app.inert = false;
   el.sb.classList.add("sb--oculta");
   el.isla.classList.remove("expandida");
   if (TRAS[id]) TRAS[id]();
@@ -999,6 +1013,7 @@ function cerrarApp() {
   if (!estado.app) return;
   estado.app = null;
   el.app.classList.remove("abierta");
+  el.app.inert = true;
   el.sb.classList.remove("sb--oculta");
   el.accion.innerHTML = "";
   setTimeout(() => { if (!estado.app) { el.cuerpo.innerHTML = ""; el.cuerpo.className = "cuerpo"; } }, 320);
@@ -1444,6 +1459,18 @@ addEventListener("wheel", e => {
     }
   }
 }, { passive: false });
+
+/* Teclado: el mismo gesto que la rueda. Enter, espacio o flecha arriba
+   desbloquean; si el foco está en un enlace o botón de la pantalla de bloqueo
+   (las notificaciones), manda ese elemento y no se intercepta nada. */
+addEventListener("keydown", e => {
+  if (estado.fase !== "bloqueo") return;
+  if (e.target.closest && e.target.closest("a,button,input,select,textarea")) return;
+  if (e.key === "Enter" || e.key === " " || e.key === "ArrowUp") {
+    e.preventDefault();
+    desbloquear(1.2);
+  }
+});
 
 let t0 = null, arrastrando = false;
 addEventListener("touchstart", e => {
