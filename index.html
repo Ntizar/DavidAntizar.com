@@ -284,6 +284,9 @@ html.js:not(.abierto) .cartas{display:none}
 }
 .carta:focus-visible{outline:2px solid var(--oro);outline-offset:4px}
 .carta:active{transform:translateY(-2px) scale(.993)}
+/* carta que NO se puede abrir: no da pista de clic ni se hunde al pulsarla */
+.carta--quieta{cursor:default}
+.carta--quieta:active{transform:translateY(-8px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
 
 .carta__ventana{
   position:relative;overflow:hidden;border-radius:11px;aspect-ratio:1/1.03;
@@ -350,6 +353,9 @@ html.js:not(.abierto) .cartas{display:none}
   padding:.26rem .48rem;border-radius:999px;backdrop-filter:blur(6px);
 }
 .carta__cinta i{width:.3rem;height:.3rem;border-radius:50%;background:#57C27A;box-shadow:0 0 8px #57C27A;animation:late 2.4s infinite}
+/* cinta de algo cerrado: punto apagado y sin latido, para no anunciar una subasta abierta */
+.carta__cinta--cerrada{color:var(--marfil-2);border-color:rgba(247,243,234,.20)}
+.carta__cinta--cerrada i{background:var(--marfil-3);box-shadow:none;animation:none}
 
 /* entrada en escena */
 /* ── la apertura, por beats: salen, se voltean una a una y la rara hace pausa ── */
@@ -621,8 +627,9 @@ const SECCIONES = [
     url:'https://www.amazon.es/dp/B0CP8HS3TZ?tag=ntizar-21', ext:true,
     tono:'#0E4230', rareza:'holo', material:'libro', alt:'Libro de tela verde con cantos de papel' },
   { id:'agora', nombre:'Una tarde conmigo y mis colegas', rasgo:'subasta',
-    url:'subasta.html', ext:false,
-    tono:'#A8731B', rareza:'legendaria', material:'agora', alt:'Fragmento de resina ámbar', cinta:'subasta abierta' }
+    url:null, ext:false,
+    tono:'#A8731B', rareza:'legendaria', material:'agora', alt:'Fragmento de resina ámbar',
+    cinta:'subasta cerrada', cintaCerrada:true }
 ];
 
 const RAREZAS = { comun:'común', rara:'rara', holo:'holo rara', legendaria:'legendaria' };
@@ -631,9 +638,13 @@ const total = String(SECCIONES.length).padStart(2,'0');
 
 rejilla.innerHTML = SECCIONES.map((s,i) => {
   const num = String(i+1).padStart(2,'0');
-  return `<a class="carta" data-rareza="${s.rareza}" data-id="${s.id}" style="--i:${i};--tono:${s.tono}"
-      href="${s.url}"${s.ext ? ' target="_blank" rel="noopener"' : ''} aria-label="${s.nombre} — ${s.rasgo}">
-    ${s.cinta ? `<span class="carta__cinta"><i aria-hidden="true"></i>${s.cinta}</span>` : ''}
+  /* una sección sin url NO se puede abrir: se queda en el mazo como <div>, nunca como <a> */
+  const etiqueta = `class="carta${s.url ? '' : ' carta--quieta'}" data-rareza="${s.rareza}" data-id="${s.id}" style="--i:${i};--tono:${s.tono}" aria-label="${s.nombre} — ${s.rasgo}"`;
+  const abre = s.url
+    ? `<a ${etiqueta} href="${s.url}"${s.ext ? ' target="_blank" rel="noopener"' : ''}>`
+    : `<div ${etiqueta}>`;
+  return abre + `
+    ${s.cinta ? `<span class="carta__cinta${s.cintaCerrada ? ' carta__cinta--cerrada' : ''}"><i aria-hidden="true"></i>${s.cinta}</span>` : ''}
     <span class="carta__dorso" aria-hidden="true"></span>
     <span class="carta__destello" aria-hidden="true"></span>
     <span class="carta__ventana">
@@ -649,7 +660,7 @@ rejilla.innerHTML = SECCIONES.map((s,i) => {
       <span>No. ${num}/${total}</span>
       <span class="carta__rareza">${RAREZAS[s.rareza]}</span>
     </span>
-  </a>`;
+  ` + (s.url ? '</a>' : '</div>');
 }).join('');
 
 /* ── el sobre: rasgar ─────────────────────────────────── */
