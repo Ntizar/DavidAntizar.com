@@ -104,6 +104,7 @@ body::after{
 /* el sobre: lámina holográfica con portal y pestaña que se tira */
 .pack{
   position:relative;display:block;border:0;padding:0;background:none;cursor:grab;
+  touch-action:none;   /* el sobre se lleva el gesto: en la portada no hay nada que scrollear */
   height:clamp(21.5rem,70svh,32rem);aspect-ratio:.66;
   transform:rotate(-1.4deg) rotateX(calc(3deg + var(--tx,0deg))) rotateY(var(--ty,0deg));
   transform-style:preserve-3d;
@@ -178,17 +179,47 @@ body::after{
              repeating-linear-gradient(90deg,rgba(255,255,255,.55) 0 2px,rgba(120,128,142,.35) 2px 5px);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -1px 0 rgba(70,78,92,.5);
 }
-/* la tira que se rasga, con pestaña */
-.pack__tira{
-  position:absolute;left:0;right:0;top:0;height:13.5%;z-index:6;
+/* la tira que se rasga, con pestaña — y su gemela: la mitad que ya has cortado */
+.pack__tira,.pack__caida{
+  position:absolute;left:0;right:0;top:0;height:13.5%;
   background:linear-gradient(180deg,rgba(248,249,252,.99),rgba(196,201,212,.96));
   clip-path:polygon(0 0,100% 0,100% 74%,93% 96%,86% 74%,79% 96%,72% 74%,65% 96%,58% 74%,51% 96%,44% 74%,37% 96%,30% 74%,23% 96%,16% 74%,9% 96%,2% 74%,0 74%);
+  box-shadow:inset 0 1px 0 #fff;
+  pointer-events:none;
+}
+.pack__tira{
+  z-index:6;
   transform-origin:top center;
   transition:transform .55s var(--muelle),opacity .3s ease;
   touch-action:none;
   display:flex;justify-content:center;
-  box-shadow:inset 0 1px 0 #fff;
 }
+/* cortar con el dedo: la tira se parte por donde va el dedo. La mitad izquierda
+   se levanta separándose (esta capa), la derecha se queda quieta (.pack__tira) */
+.pack__caida{
+  z-index:7;opacity:0;
+  transform-origin:var(--corte,0px) 0;
+  transform:rotate(calc(var(--p,0) * 15deg)) translateY(calc(var(--p,0) * -13px));
+  box-shadow:inset 0 1px 0 #fff,0 10px 24px -6px rgba(0,0,0,.6);
+  -webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(var(--corte,0px) - .5px),transparent var(--corte,0px));
+  mask-image:linear-gradient(90deg,#000 0,#000 calc(var(--corte,0px) - .5px),transparent var(--corte,0px));
+  transition:opacity .12s linear;
+}
+.pack.cortando .pack__caida{opacity:1}
+.pack.cortando .pack__tira{
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,transparent calc(var(--corte,0px) - .5px),#000 var(--corte,0px));
+  mask-image:linear-gradient(90deg,transparent 0,transparent calc(var(--corte,0px) - .5px),#000 var(--corte,0px));
+}
+/* la grieta que va abriendo el dedo */
+.pack__corte{
+  position:absolute;top:0;left:0;width:7px;height:14%;z-index:9;opacity:0;pointer-events:none;
+  transform:translateX(calc(var(--corte,0px) - 3.5px));
+  background:linear-gradient(180deg,#fff,rgba(255,255,255,.72) 55%,rgba(224,178,92,.7));
+  box-shadow:0 0 12px rgba(255,244,220,.95);
+  clip-path:polygon(40% 0,70% 9%,35% 19%,65% 28%,30% 38%,70% 47%,35% 57%,65% 66%,30% 76%,60% 86%,40% 95%,45% 100%,55% 95%,45% 86%,70% 76%,40% 66%,70% 57%,35% 47%,65% 38%,40% 28%,75% 19%,45% 9%,55% 0);
+  transition:opacity .12s linear;
+}
+.pack.cortando .pack__corte{opacity:1}
 .pack__lengueta{
   position:absolute;top:-1.15rem;left:50%;transform:translateX(-50%);z-index:8;
   width:5.6rem;height:1.5rem;border-radius:.7rem .7rem 0 0;
@@ -199,6 +230,15 @@ body::after{
 .pack__lengueta b{display:grid;place-items:center}
 .pack__lengueta b svg{width:1rem;height:1rem;transform:translateY(-1px)}
 html.abierto .pack__lengueta{transform:translate(-50%,-150%) rotate(-8deg);opacity:0;transition:transform .5s var(--muelle),opacity .25s ease}
+/* mientras cortas, la pestaña se aparta */
+.pack.cortando .pack__lengueta{opacity:calc(1 - var(--p,0) * 1.6)}
+/* la flecha invita al gesto: sube y baja sola (solo mueve el icono, para no pisar
+   el transform que el dedo escribe en la pestaña durante el arrastre) */
+@media (prefers-reduced-motion:no-preference){
+  .pack__lengueta b{animation:lenguetaViva 2.4s ease-in-out infinite}
+}
+@keyframes lenguetaViva{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+html.abierto .pack__lengueta b{animation:none}
 /* el borde desgarrado que queda al abrir */
 .pack__desgarro{
   position:absolute;left:0;right:0;top:0;height:12.5%;opacity:0;z-index:5;
@@ -534,7 +574,7 @@ html.abierto .rayo{animation:rayo .8s ease-out both}
 <main>
   <section class="portada" id="portada">
     <div class="escena">
-      <button class="pack" id="pack" type="button" aria-expanded="false" aria-controls="cartas" aria-label="Tirar de la pestaña para abrir el sobre y ver las cartas">
+      <button class="pack" id="pack" type="button" aria-expanded="false" aria-controls="cartas" aria-label="Abrir el sobre y ver las cartas: toca, desliza hacia arriba o corta la tira con el dedo">
         <span class="pack__cuerpo">
           <span class="pack__aro" aria-hidden="true"></span>
           <span class="pack__luz" aria-hidden="true"></span>
@@ -544,12 +584,14 @@ html.abierto .rayo{animation:rayo .8s ease-out both}
           <span class="pack__arte"><img src="assets/cartas/pack-portal.webp" alt="Portal cósmico violeta y azul" width="760" height="760" decoding="async"><img class="pack__arte-giro" src="assets/cartas/pack-portal.webp" alt="" aria-hidden="true" width="760" height="760" decoding="async"></span>
           <span class="pack__pie" aria-hidden="true">
             <span>8 cartas · 1 legendaria</span>
-            <b>tira de la pestaña ↑</b>
+            <b>desliza ↑ o corta la tira</b>
           </span>
           <span class="pack__cremallera" aria-hidden="true"></span>
         </span>
         <span class="pack__desgarro" aria-hidden="true"></span>
         <span class="pack__tira" aria-hidden="true"></span>
+        <span class="pack__caida" aria-hidden="true"></span>
+        <span class="pack__corte" aria-hidden="true"></span>
         <span class="pack__lengueta" aria-hidden="true"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6M6 12l6-6 6 6"/></svg></b></span>
         <span class="fulgor" aria-hidden="true"></span>
         <span class="onda" aria-hidden="true"></span>
@@ -667,9 +709,22 @@ rejilla.innerHTML = SECCIONES.map((s,i) => {
 const pack = document.getElementById('pack');
 const raiz = document.documentElement;
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const tira = document.querySelector('.pack__tira');
+const lengueta = document.querySelector('.pack__lengueta');
+let gestoReciente = -1e9;   /* instante del último gesto: sirve para comerse el clic fantasma */
+
+/* deja el sobre como estaba: tira en su sitio, sin corte ni tirón */
+function limpiarSobre(){
+  if (tira){ tira.style.transition = ''; tira.style.transform = ''; tira.style.opacity = ''; }
+  if (lengueta){ lengueta.style.transition = ''; lengueta.style.transform = ''; lengueta.style.opacity = ''; }
+  pack.classList.remove('cortando', 'tirando');
+  pack.style.removeProperty('--corte');
+  pack.style.removeProperty('--p');
+}
 
 function rasgar(){
   if (raiz.classList.contains('abierto')) return;
+  limpiarSobre();
   raiz.classList.add('abierto');
   pack.setAttribute('aria-expanded','true');
   setTimeout(() => {
@@ -680,7 +735,11 @@ function rasgar(){
      sale del árbol y deja de haber capas y animaciones corriendo de fondo */
   setTimeout(() => raiz.classList.add('cerrado'), reduce ? 700 : 1900);
 }
-pack.addEventListener('click', rasgar);
+pack.addEventListener('click', (e) => {
+  /* después de un gesto el navegador suelta un clic fantasma en el mismo sitio */
+  if (performance.now() - gestoReciente < 700){ e.preventDefault(); return; }
+  rasgar();
+});
 
 /* las ocho láminas se decodifican ANTES de abrir: sin esto llegan en el clic, dentro de
    un contenedor display:none, y las cartas salen vacías y luego "aparecen" */
@@ -693,50 +752,69 @@ else addEventListener('load', calentar, { once:true });
    cálculo por frame en vez de tres escrituras de estilo por evento) */
 const luzPack = document.querySelector('.pack__luz');
 
-/* tirar de la pestaña hacia arriba (además del clic) */
-const tira = document.querySelector('.pack__tira');
-const lengueta = document.querySelector('.pack__lengueta');
+/* ── gestos del sobre: deslizar hacia arriba o cortar la tira con el dedo ──
+   Un solo gesto por puntero, decidido en el primer movimiento real:
+   · vertical en cualquier punto → tirón (la tira sube con el dedo; al soltar
+     por encima del umbral, o con un latigazo, el sobre se abre)
+   · horizontal empezando en la franja de la tira → corte (la tira se parte por
+     donde va el dedo, la mitad cortada se levanta; pasada la mitad del ancho,
+     el sobre revienta y salen las cartas)
+   Sin movimiento (un toque) → lo resuelve el clic. */
 if (tira){
-  let y0 = null, dist = 0, tirando = false;
-  const soltar = () => {
-    if (!tirando) return;
-    tirando = false;
-    tira.style.transition = '';
-    if (dist < -38){ rasgar(); }
-    else { tira.style.transform = ''; tira.style.opacity = ''; }
-  };
+  const FRANJA = .22;   /* alto de la zona donde el dedo corta (22% del sobre) */
+  const ABRIR = 30;     /* px de tirón que abren al soltar */
+  const CORTE = .5;     /* fracción del ancho que hay que cortar para abrir */
+  const SLOP = 6;       /* px de movimiento antes de decidir qué gesto es */
+  let g = null;
+
   const empezar = (e) => {
     if (reduce || raiz.classList.contains('abierto')) return;
-    y0 = e.clientY; dist = 0; tirando = true;
-    tira.style.transition = 'none';
-    (e.currentTarget || tira).setPointerCapture(e.pointerId);
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    const r = pack.getBoundingClientRect();
+    if (!r.width) return;
+    g = { id:e.pointerId, x0:e.clientX, y0:e.clientY, r, w:r.width, t0:performance.now(),
+          modo:null, dy:0, p:0, franja:(e.clientY - r.top) < r.height * FRANJA };
+    try { pack.setPointerCapture(e.pointerId); } catch(_) {}
   };
+
   const mover = (e) => {
-    if (!tirando) return;
-    dist = Math.min(0, e.clientY - y0);
-    const d = Math.max(dist, -70);
-    tira.style.transform = 'translateY(' + d + 'px) rotate(' + (dist / 24) + 'deg)';
-    tira.style.opacity = String(Math.max(.3, 1 + dist / 110));
-    if (lengueta) lengueta.style.transform = 'translate(-50%,' + d + 'px) rotate(' + (dist / 26) + 'deg)';
+    if (!g || e.pointerId !== g.id) return;
+    const dx = e.clientX - g.x0, dy = e.clientY - g.y0;
+    if (!g.modo){
+      if (Math.abs(dx) < SLOP && Math.abs(dy) < SLOP) return;
+      g.modo = (g.franja && Math.abs(dx) > Math.abs(dy) * 1.15) ? 'corte' : 'tiron';
+      pack.classList.add(g.modo === 'corte' ? 'cortando' : 'tirando');
+      tira.style.transition = 'none';
+    }
+    if (g.modo === 'corte'){
+      const p = Math.min(1, Math.max(0, (e.clientX - g.r.left) / g.w));
+      g.p = p;
+      pack.style.setProperty('--corte', (p * g.w).toFixed(1) + 'px');
+      pack.style.setProperty('--p', p.toFixed(3));
+      return;
+    }
+    g.dy = Math.max(-96, Math.min(0, dy));
+    tira.style.transform = 'translateY(' + g.dy + 'px) rotate(' + (g.dy / 22) + 'deg)';
+    tira.style.opacity = String(Math.max(.35, 1 + g.dy / 120));
+    if (lengueta) lengueta.style.transform = 'translate(-50%,' + g.dy + 'px) rotate(' + (g.dy / 26) + 'deg)';
   };
-  [tira, lengueta].filter(Boolean).forEach((el) => {
-    el.addEventListener('pointerdown', empezar);
-    el.addEventListener('pointermove', mover);
-    el.addEventListener('pointerup', soltar);
-    el.addEventListener('pointercancel', soltar);
-  });
-  const soltar2 = () => {
-    if (!tirando) return;
-    tirando = false;
-    tira.style.transition = '';
-    if (lengueta) lengueta.style.transform = '';
-    if (dist < -38){ rasgar(); }
-    else { tira.style.transform = ''; tira.style.opacity = ''; }
+
+  const soltar = (e) => {
+    if (!g || e.pointerId !== g.id) return;
+    const m = g; g = null;
+    try { pack.releasePointerCapture(e.pointerId); } catch(_) {}
+    if (!m.modo){ limpiarSobre(); return; }   /* fue un toque: abre por clic */
+    gestoReciente = performance.now();
+    const v = m.dy / Math.max(1, performance.now() - m.t0);   /* px/ms; negativo = hacia arriba */
+    const abre = m.modo === 'corte' ? (m.p >= CORTE) : (m.dy <= -ABRIR || v <= -.35);
+    if (abre) rasgar();
+    else limpiarSobre();   /* vuelve a su sitio con su muelle */
   };
-  [tira, lengueta].filter(Boolean).forEach((el) => {
-    el.addEventListener('pointerup', soltar2);
-    el.addEventListener('pointercancel', soltar2);
-  });
+
+  pack.addEventListener('pointerdown', empezar);
+  pack.addEventListener('pointermove', mover);
+  pack.addEventListener('pointerup', soltar);
+  pack.addEventListener('pointercancel', soltar);
 }
 
 /* inclinación del sobre con el puntero — 1 cálculo por frame (rAF), sin transición
