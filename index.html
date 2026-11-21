@@ -121,7 +121,7 @@ body::after{
 .pack__cuerpo{
   position:absolute;inset:0;border-radius:12px;overflow:hidden;
   display:flex;flex-direction:column;align-items:center;
-  padding:19.5% 0 9.6%;
+  padding:19.5% 0 13.2%;
   background:
     repeating-linear-gradient(114deg,rgba(255,255,255,.6) 0 1px,rgba(148,154,168,.20) 1px 3px),
     linear-gradient(158deg,#F7F8FB 0%,#C4C9D4 17%,#FDFEFF 33%,#A7AEBC 55%,#EEF0F5 73%,#B2B8C4 100%);
@@ -600,6 +600,28 @@ html.abierto .rayo{animation:rayo .8s ease-out both}
 }
 .pie-sitio b{color:var(--oro);font-weight:600;letter-spacing:.16em}
 .pie-sitio .corazon{width:.72em;height:.72em;color:#E0655F;vertical-align:-.05em;margin:0 .12em}
+
+/* arte dorado de la carta (sin imagen): rayos que giran + núcleo de luz */
+.pack__carta-arte{position:absolute;inset:0;overflow:hidden;border-radius:2px;
+  background:radial-gradient(closest-side at 50% 48%,#fffdf2 0%,#ffeab0 14%,#f6cd76 34%,#c9962f 62%,#6b4a12 88%,#3a2606 100%)}
+.arte-rayos{position:absolute;inset:-40%;display:block;
+  background:repeating-conic-gradient(from 0deg at 50% 50%,
+    rgba(255,250,230,.85) 0deg 3deg, rgba(255,250,230,0) 3deg 9deg,
+    rgba(255,236,175,.55) 9deg 11deg, rgba(255,236,175,0) 11deg 18deg);
+  mix-blend-mode:screen;opacity:.75;animation:girarArte 46s linear infinite;
+  -webkit-mask-image:radial-gradient(closest-side,#000 12%,rgba(0,0,0,.65) 48%,transparent 78%);
+  mask-image:radial-gradient(closest-side,#000 12%,rgba(0,0,0,.65) 48%,transparent 78%);
+}
+.arte-nucleo{position:absolute;left:50%;top:48%;width:46%;aspect-ratio:1;transform:translate(-50%,-50%);
+  border-radius:50%;display:block;
+  background:radial-gradient(closest-side,#fff 0%,#fff6d8 26%,rgba(255,220,140,.85) 46%,rgba(255,196,90,.28) 68%,rgba(255,180,60,0) 100%);
+  filter:blur(.3px);box-shadow:0 0 26px rgba(255,224,150,.75)}
+.arte-brillo{position:absolute;inset:-30%;display:block;
+  background:linear-gradient(112deg,rgba(255,255,255,0) 40%,rgba(255,255,255,.9) 48%,rgba(255,248,220,.6) 53%,rgba(255,255,255,0) 62%);
+  mix-blend-mode:screen;transform:translateX(-80%);animation:barridoArte 5.6s ease-in-out infinite}
+@keyframes girarArte{to{transform:rotate(360deg)}}
+@keyframes barridoArte{0%,62%{transform:translateX(-80%)}82%{transform:translateX(80%)}100%{transform:translateX(80%)}}
+@media (prefers-reduced-motion:reduce){.arte-rayos,.arte-brillo{animation:none}}
 /* la carta que va dentro del sobre (como en los sobres de verdad) */
 .pack__arte{width:88%;aspect-ratio:.82;margin:.1rem 0 .3rem;background:none;box-shadow:none;overflow:visible;display:flex;align-items:center;justify-content:center}
 .pack__arte::after{display:none}
@@ -631,9 +653,9 @@ html.abierto .rayo{animation:rayo .8s ease-out both}
 /* la pestaña de la tira, en oro (era blanca) */
 .pack__lengueta{background:linear-gradient(180deg,#fdf4d8,#d9b26c)!important;box-shadow:0 4px 10px rgba(0,0,0,.4),inset 0 1px 0 #fff8e4!important}
 /* el pie del sobre: más grande y con más contraste */
-.pack__pie{padding:.5rem 8% .35rem;gap:.3rem}
-.pack__pie span{font-size:.66rem;letter-spacing:.18em;color:rgba(38,25,4,.86)}
-.pack__pie b{font-size:.72rem;letter-spacing:.14em;color:rgba(30,20,3,.95)}
+.pack__pie{padding:.45rem 7% .2rem;gap:.28rem}
+.pack__pie span{font-size:.66rem;letter-spacing:.18em;color:#241804;text-shadow:0 1px 0 rgba(255,249,231,.55)}
+.pack__pie b{font-size:.78rem;letter-spacing:.1em;color:#1a1202;text-shadow:0 1px 0 rgba(255,249,231,.55)}
 /* ══════════════════════════════════════════════════════════
    v2 — el sobre pasa a booster de foil dorado: crimp arriba
    y abajo, anillos, ventana de carta con marco de oro
@@ -744,7 +766,7 @@ html.abierto .rayo{animation:rayo .8s ease-out both}
 <div class="ambiente" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
 
 <main>
-  <h1 class="sr-only">David Antizar — siete cartas, un solo sitio</h1>
+  <h1 class="sr-only">Siete cartas, un solo sitio</h1>
   <section class="portada" id="portada">
     <div class="escena">
       <button class="pack" id="pack" type="button" aria-expanded="false" aria-controls="cartas" aria-label="Abrir el sobre y ver las cartas: toca, desliza hacia arriba o corta la tira con el dedo">
@@ -758,7 +780,13 @@ html.abierto .rayo{animation:rayo .8s ease-out both}
           <span class="pack__arte">
             <span class="pack__carta">
               <span class="pack__carta-filo"><i>Portada</i><b>PV 8H</b></span>
-              <span class="pack__carta-ventana"><img src="assets/cartas/pack-portal.webp" alt="Portal cósmico violeta y azul" width="760" height="760" decoding="async"></span>
+              <span class="pack__carta-ventana">
+                <span class="pack__carta-arte" aria-hidden="true">
+                  <i class="arte-rayos"></i>
+                  <i class="arte-nucleo"></i>
+                  <i class="arte-brillo"></i>
+                </span>
+              </span>
               <span class="pack__carta-pie">★ Legendaria · la web</span>
             </span>
           </span>
@@ -786,8 +814,8 @@ html.abierto .rayo{animation:rayo .8s ease-out both}
   </section>
 
   <footer class="pie-sitio">
+    <span>Serie 01 — siete cartas</span>
     <b>davidantizar.com</b>
-    <span>Hecho con <svg class="corazon" viewBox="0 0 24 24" aria-label="amor" role="img"><path d="M12 21s-7.5-4.7-9.3-9A5.4 5.4 0 0 1 12 6.5 5.4 5.4 0 0 1 21.3 12C19.5 16.3 12 21 12 21Z" fill="currentColor"/></svg> por David Antizar</span>
   </footer>
 </main>
 
