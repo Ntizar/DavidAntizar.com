@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>David Antizar — un sobre de cartas</title>
-<meta name="description" content="Un sobre con ocho cartas: LinkedIn, Instagram, X, correo, GitHub, Kit72h, mi libro y una subasta abierta. Rasga el sobre y entra.">
+<meta name="description" content="Un sobre con siete cartas: LinkedIn, Instagram, X, correo, GitHub, Kit72h y mi libro. Rasga el sobre y entra.">
 <meta name="theme-color" content="#05070A">
 <link rel="canonical" href="https://davidantizar.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="David Antizar">
 <meta property="og:locale" content="es_ES">
 <meta property="og:title" content="David Antizar — un sobre de cartas">
-<meta property="og:description" content="Ocho cartas dentro del sobre. Una de ellas, la legendaria, está en subasta.">
+<meta property="og:description" content="Siete cartas dentro del sobre. Rasga el sobre y entra.">
 <meta property="og:url" content="https://davidantizar.com/">
 <meta property="og:image" content="https://davidantizar.com/assets/img/og-cartas.jpg">
 <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
 <meta property="og:image:alt" content="Un sobre de cartas holográfico con un portal cósmico">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="David Antizar — un sobre de cartas">
-<meta name="twitter:description" content="Ocho cartas dentro. Una, legendaria, en subasta.">
+<meta name="twitter:description" content="Siete cartas dentro del sobre.">
 <meta name="twitter:image" content="https://davidantizar.com/assets/img/og-cartas.jpg">
 <meta name="twitter:creator" content="@DNtizar">
 <link rel="manifest" href="manifest.json">
@@ -393,7 +393,7 @@ html.js:not(.abierto) .cartas{display:none}
   padding:.26rem .48rem;border-radius:999px;backdrop-filter:blur(6px);
 }
 .carta__cinta i{width:.3rem;height:.3rem;border-radius:50%;background:#57C27A;box-shadow:0 0 8px #57C27A;animation:late 2.4s infinite}
-/* cinta de algo cerrado: punto apagado y sin latido, para no anunciar una subasta abierta */
+/* cinta de algo cerrado: punto apagado y sin latido */
 .carta__cinta--cerrada{color:var(--marfil-2);border-color:rgba(247,243,234,.20)}
 .carta__cinta--cerrada i{background:var(--marfil-3);box-shadow:none;animation:none}
 
@@ -601,7 +601,7 @@ html.abierto .rayo{animation:rayo .8s ease-out both}
   </section>
 
   <section class="cartas" id="cartas" tabindex="-1">
-    <p class="cartas__ojo"><span>serie 01 — ocho cartas</span><b>una en subasta</b></p>
+    <p class="cartas__ojo"><span>serie 01 — siete cartas</span><b>un solo sitio</b></p>
     <div class="rejilla" id="rejilla"></div>
   </section>
 </main>
@@ -616,7 +616,6 @@ html.abierto .rayo{animation:rayo .8s ease-out both}
       <li><a href="https://github.com/Ntizar?tab=repositories">GitHub</a></li>
       <li><a href="https://kit72h.com/">Kit72h</a></li>
       <li><a href="https://www.amazon.es/dp/B0CP8HS3TZ?tag=ntizar-21">El poni de Von der Leyen</a></li>
-      <li><a href="subasta.html">La subasta del 17N</a></li>
     </ul>
   </div>
 </noscript>
@@ -643,7 +642,6 @@ const GLIFOS = {
   correo:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="2.8" y="5.2" width="18.4" height="13.6" rx="2.4"/><path d="m3.6 6.7 8.4 6.3 8.4-6.3"/></svg>',
   kit72h:'<svg viewBox="0 0 24 24"><text x="12" y="16.2" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="10.2" font-weight="600" letter-spacing="-0.5" fill="currentColor">72h</text></svg>',
   libro:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4.2 5.1A2.1 2.1 0 0 1 6.3 3h13.5v15.9H6.3a2.1 2.1 0 0 0-2.1 2.1V5.1Z"/><path d="M4.2 18.9V21h15.6"/><path d="M8.2 7.2h7"/></svg>',
-  agora:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3.2 8.6V5.4h17.6v3.2a2.4 2.4 0 0 0 0 6v3.4H3.2v-3.4a2.4 2.4 0 0 0 0-6Z"/><path d="M14.4 7.4v1.4M14.4 11.3v1.4M14.4 15.2v1.4" stroke-linecap="round"/></svg>'
 };
 
 const SECCIONES = [
@@ -667,11 +665,7 @@ const SECCIONES = [
     tono:'#C01630', rareza:'rara', material:'kit72h', alt:'Caja roja con franja crema' },
   { id:'libro', nombre:'El poni de Von der Leyen', rasgo:'libro',
     url:'https://www.amazon.es/dp/B0CP8HS3TZ?tag=ntizar-21', ext:true,
-    tono:'#0E4230', rareza:'holo', material:'libro', alt:'Libro de tela verde con cantos de papel' },
-  { id:'agora', nombre:'Una tarde conmigo y mis colegas', rasgo:'subasta',
-    url:null, ext:false,
-    tono:'#A8731B', rareza:'legendaria', material:'agora', alt:'Fragmento de resina ámbar',
-    cinta:'subasta cerrada', cintaCerrada:true }
+    tono:'#0E4230', rareza:'legendaria', material:'libro', alt:'Libro de tela verde con cantos de papel' }
 ];
 
 const RAREZAS = { comun:'común', rara:'rara', holo:'holo rara', legendaria:'legendaria' };
